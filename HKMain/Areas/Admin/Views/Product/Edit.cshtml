@@ -1,0 +1,402 @@
+﻿@using HKMain.Areas.Admin.Models
+@using Microsoft.AspNetCore.Html
+@using Newtonsoft.Json
+@model ProductFormModel
+@{
+    var catList = (List<SelectItemModel>)ViewBag.ItemCats;
+    var collecList = (List<SelectItemModel>)ViewBag.ItemCollecs;
+    var venList = (List<SelectItemModel>)ViewBag.ItemVens;
+    var variantList = (List<SelectItemModel>)ViewBag.ItemVariants;
+    var formTitle = (Model.Id == 0) ? "Thêm mới" : "Chỉnh sửa";
+    var formDes = (Model.Id == 0) ? "Thêm mới sản phẩm" : "Chỉnh sửa sản phẩm";
+
+    string[] previewData = Model.MediaFile.Select(x => x.FileLink).ToArray();
+    object[] previewConfig = Model.MediaFile.Select(x => new { key = x.Id, caption = x.FileName, size = x.FileSize, showDrag = false, width = "120px" }).ToArray();
+    var x1 = new HtmlString(JsonConvert.SerializeObject(previewData));
+    var x2 = new HtmlString(JsonConvert.SerializeObject(previewConfig));
+}
+
+
+}
+@section Styles {
+    <link rel="stylesheet" href="~/plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="~/css/admin/tagify.css">
+    <style>
+        .krajee-default.file-preview-frame .kv-file-content {
+            height: 100px !important;
+        }
+
+        .krajee-default .file-preview-image{
+            height: 100px !important;
+        }
+    </style>
+}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Hồ sơ</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Product" asp-action="Index">Danh sách</a></li>
+                        <li class="breadcrumb-item active">@formTitle</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <form asp-area="Admin" asp-controller="Product" asp-action="Edit" method="post" class="modalForm" autocomplete="off">
+                @* @Html.AntiForgeryToken() *@
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input asp-for="Id" type="hidden" />
+                <input asp-for="IdAlbum" type="hidden" />
+                <input asp-for="IdFile" type="hidden" />
+                <input asp-for="Attrubutes" type="hidden" />
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
+                    <div class="d-flex flex-column justify-content-center">
+                        <h4 class="mb-1 mt-3">@formTitle</h4>
+                        <p class="text-muted">@formDes</p>
+                    </div>
+                    <div class="d-flex align-content-center flex-wrap gap-3">
+                        <div class="d-flex gap-3">
+                            <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="btn btn-danger mr-2">Hủy bỏ</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Xác nhận</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- First column-->
+                    <div class="col-12 col-lg-8">
+                        <!-- Product Information -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Product information</h5>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label asp-for="Name" class="form-label"></label>
+                                    <input asp-for="Name" type="text" class="form-control" placeholder="Tiêu đề" aria-label="Tiêu đề">
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label asp-for="SKU" class="form-label"></label>
+                                        <input asp-for="SKU" type="text" class="form-control" placeholder="SKU" aria-label="Mã SKU">
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="Quantity" class="form-label"></label>
+                                        <input asp-for="Quantity" type="number" min="0" class="form-control" placeholder="Số lượng" aria-label="Số lượng">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Preview"></label>
+                                    <textarea asp-for="Preview" class="form-control" rows="4"></textarea>
+                                </div>
+                                <div>
+                                    <label asp-for="Content" class="form-label"></label>
+                                    <textarea id="summernote" asp-for="Content">
+                                        Place <em>some</em> <u>text</u> <strong>here</strong>
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Product Information -->
+                        <!-- Media -->
+                        <div class="card mb-4 mediaFile">
+                            <div class="card-header">
+                                <h5 class="mb-0 card-title">Ảnh đại diện</h5>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <section role="main" class="content-body">
+                                    <div class="col-md-12">
+                                        <input id="files" name="files" type="file" multiple class="file-loading">
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <!-- /Media -->
+                        <!-- Variants -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Biến thể </h5>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="repeater-default" style="display: block;">
+                                    <div data-repeater-list="Attrubutes" class="drag">
+                                        <div data-repeater-item="">
+                                            <div class="form-group d-flex justify-content-between align-content-center">
+                                                <div class="col-sm-4">
+                                                    <select name="Attrubutes[0][0]" class="form-control">
+                                                        <option value="">-- Lựa chọn --</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <select name="Attrubutes[0][1]" class="form-control ">
+                                                        <option value="">-- Lựa chọn --</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <span data-repeater-delete="" class="btn btn-danger btn-sm">
+                                                        <span class="fas fa-remove"></span> Xóa
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-1 col-sm-11">
+                                            <span data-repeater-create="" class="btn btn-info btn-md">
+                                                <span class="fas fa-plus"></span> Thêm
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="variant-empty" style="display: none;">
+                                    <a asp-controller="Product" asp-action="Category">Khởi tạo biến thể</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Variants -->
+                    </div>
+                    <!-- /Second column -->
+                    <!-- Second column -->
+                    <div class="col-12 col-lg-4">
+                        <!-- Pricing Card -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Giá</h5>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <!-- Base Price -->
+                                <div class="col mb-2">
+                                    <label asp-for="Price" class="form-label"></label>
+                                    <div class="input-group">
+                                        <input asp-for="Price" type="number" min="0" class="form-control">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">.000<i>đ</i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Discounted Price -->
+                                <div class="col mb-2">
+                                    <label asp-for="SalePrice" class="form-label"></label>
+                                    <div class="input-group">
+                                        <input asp-for="SalePrice" type="number" min="0" class="form-control">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">.000<i>đ</i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col mb-2">
+                                    <label asp-for="Tax" class="form-label"></label> <i> (%)</i>
+                                    <input asp-for="Tax" class="form-control" value="8" min="0" type="number">
+                                </div>
+
+                                <!-- Charge tax check box -->
+                                <div class="d-flex justify-content-between align-items-center border-top pt-3">
+                                   @*  <h6 class="mb-0">In stock</h6>
+                                    <div class="w-25 d-flex justify-content-end">
+                                        <div class="custom-control custom-switch">
+
+                                            <input asp-for="Stock" type="checkbox" class="custom-control-input" style="left:9px; z-index: 99; width: 2rem;">
+                                           
+                                            <label class="custom-control-label"></label>
+                                        </div>
+
+                                    </div> *@
+
+                                    <div class="custom-control custom-switch">
+                                        <input id="Stock" name="Stock" type="checkbox" class="custom-control-input" @((Model.Stock) ? "checked" : "")>
+                                        <label asp-for ="Stock" class="custom-control-label"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Pricing Card -->
+                        <!-- Organize Card -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Danh mục</h5>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                                <label class="float-right" for="category-org">
+                                    <a asp-area="Admin" asp-controller="Product" asp-action="Category" class="fw-medium">Thêm mới</a>
+                                </label>
+                            </div>
+                            <div class="card-body">
+                                <!-- Category -->
+                                <div class="mb-3 col form-group">
+                                    <label asp-for="ItemCategory" class="form-label mb-1">
+                                    </label>
+                                    <select id="ItemCategory" name="ItemCategory" class="form-control select2">
+                                        <option value="">-- Lựa chọn --</option>
+                                        @if (catList != null)
+                                        {
+                                            @foreach (var item in catList)
+                                            {
+                                                if (item.Selected)
+                                                {
+                                                    <option value="@item.Id" selected>@item.Text</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Id">@item.Text</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <!-- Collection -->
+                                <div class="mb-3 col form-group">
+                                    <label asp-for="ItemCollection" class="form-label mb-1">
+                                    </label>
+                                    <select id="ItemCollection" name="ItemCollection" class="form-control select2">
+                                        <option value="">-- Lựa chọn --</option>
+                                        @if (collecList != null)
+                                        {
+                                            @foreach (var item in collecList)
+                                            {
+                                                if (item.Selected)
+                                                {
+                                                    <option value="@item.Id" selected>@item.Text</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Id">@item.Text</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <!-- Vendor -->
+                                <div class="mb-3 col form-group">
+                                    <label asp-for="ItemVendor" class="form-label mb-1">
+                                    </label>
+                                    <select id="ItemVendor" name="ItemVendor" class="form-control select2">
+                                        <option value="">-- Lựa chọn --</option>
+                                        @if (venList != null)
+                                        {
+                                            @foreach (var item in venList)
+                                            {
+                                                if (item.Selected)
+                                                {
+                                                    <option value="@item.Id" selected>@item.Text</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Id">@item.Text</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <!-- Status -->
+                                <div class="mb-3 col form-group">
+                                    <label asp-for="Status" class="form-label mb-1">
+                                    </label>
+                                    <select asp-for="Status" asp-items="@Html.GetEnumSelectList(Model.Status.GetType())" class="form-control"></select>
+                                </div>
+                                <!-- Tags -->
+                                <div class="mb-3 col form-group">
+                                    <label asp-for="Tags" class="form-label mb-1">Tags</label>
+                                    <input asp-for="Tags" class="form-control" value="@Model.Tags" placeholder="Nhập tag" aria-label="Product Tags" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Organize Card -->
+                    </div>
+                    <!-- /Second column -->
+                </div>
+
+            </form>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    <script src="~/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="~/js/admin/jquery-repeater.js"></script>
+    <script src="~/js/admin/tagify.js"></script>
+    <script src="~/js/admin/hk.product-edit.js"></script>
+    <script>
+        // $(function () {
+        //     $("#Price").on("keypress keyup blur", function (event) {
+        //         $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+        //         if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+        //             event.preventDefault();
+        //         }
+        //     });
+        // });
+        var selectBtn = '<button type="button" class="kv-file-select btn btn-xs btn-default" title="Chèn link file này vào văn bản" {dataKey} data-href="{data}"><i class="fas fa-paste"></i> Select</button>';
+        $("#files").fileinput({
+            uploadUrl: "/Admin/Media/FileUpload/" + $("#IdAlbum").val(),
+            deleteUrl: "/Admin/Media/FileRemove",
+            initialPreview: @x1,
+            initialPreviewConfig: @x2,
+            initialPreviewAsData: true,
+            overwriteInitial: false,
+            maxFileSize: 2048,
+            resizeImage: true,
+            maxImageWidth: 2048,
+            maxImageHeight: 2048,
+            fileActionSettings: { showZoom: false },
+            otherActionButtons: selectBtn,
+            allowedFileTypes: ['image', 'html', 'text', 'video', 'audio', 'flash'],
+            allowedPreviewTypes: ['image', 'html', 'text', 'video', 'audio', 'flash']
+        }).on('filebeforedelete', function () {
+            var aborted = !window.confirm('Bạn xác nhận muốn xóa file này?');
+            if (!aborted)
+                toastr.success('Xóa thành công!');
+            return aborted;
+        });
+
+        var idFile = $("#IdFile").val();
+        if (idFile != null) {
+            $formControl = $("button.kv-file-select");
+            $.each($formControl, function (key, value) {
+                if ($formControl[key].dataset.key == idFile)
+                    $formControl[key].disabled = true;
+            });
+        }
+
+        $('.kv-file-select').on('click', function () {
+            var $formControl = $(".kv-file-select");
+            $formControl.prop("disabled", false);
+            var idFile = $("#IdFile").val();
+
+            var $btn = $(this), key = $btn.data('key');
+            $('#IdFile').val(key);
+
+            $btn.prop("disabled", true);
+        });
+    </script>
+}

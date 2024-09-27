@@ -1,0 +1,57 @@
+﻿@using HKMain.Areas.Admin.Models
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+@section Styles {
+    <style type="text/css">
+        .validation-summary-errors {
+            color: red;
+        }
+    </style>
+}
+
+<div class="card-body">
+    <form href="Admin/tai-khoan/dang-nhap?returnurl=@ViewBag.ReturnUrl" method="post">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="input-group mb-3">
+            <input asp-for="UserName" type="text" class="form-control" placeholder="Email">
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-envelope"></span>
+                </div>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <input asp-for="Password" type="password" class="form-control" placeholder="Mật khẩu">
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-7">
+                <div class="icheck-primary">
+                    <input asp-for="RememberMe" type="checkbox" id="remember">
+                    <label for="remember">
+                        Ghi nhớ tài khoản
+                    </label>
+                </div>
+            </div>
+            <div class="col-5">
+                <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+            </div>
+        </div>
+    </form>
+
+    @* @await Html.PartialAsync("_LoginEx", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl }) *@
+
+    <p class="mb-1">
+        <a asp-action="ForgotPassword" asp-controller="Account" asp-area="Admin">Quên mật khẩu</a>
+    </p>
+    <p class="mb-0">
+        <a asp-action="Register" asp-controller="Account" asp-area="Admin" class="text-center">Đăng ký tài khoản</a>
+    </p>
+</div>

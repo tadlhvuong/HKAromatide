@@ -1,0 +1,43 @@
+﻿@model int
+@{
+    var statusCode = Model;
+    var statusmessage = "";
+    switch (statusCode)
+    {
+        case 400:
+            statusmessage = "Yêu cầu không hợp lệ: Yêu cầu không thể thực hiện được do cú pháp không hợp lệ";
+            break;
+        case 403:
+            statusmessage = "Cấm";
+            break;
+        case 404:
+            statusmessage = "Không tìm thấy trang";
+            break;
+        case 405:
+            statusmessage = "Trang này không hoạt động! Nếu sự cố vẫn tiếp diễn, hãy liên hệ với chủ sở hữu trang web";
+            break;
+        case 408:
+            statusmessage = "Máy chủ đã hết thời gian chờ yêu cầu";
+            break;
+        case 500:
+            statusmessage = "Lỗi máy chủ nội bộ - máy chủ không thể hoàn tất việc xử lý yêu cầu";
+            break;
+        default:
+            statusmessage = "Thật kỳ lạ... Có điều gì đó chúng ta không ngờ đã xảy ra";
+            break;
+    }
+}
+@* <div class="jumbotron">
+    <h1>Error @Model</h1>
+    <h3>@statusmessage</h3>
+</div> *@
+<div class="site-page__single">
+    <div class="container text--center">
+        <h6 class="page-header__title mgb--40">@statusmessage @Model</h6>
+
+        <p>
+            Đường dẫn này hiện không tồn tại. Nhấn <a href="https://aromatide.com.vn" class="text--primary"><strong>vào đây</strong></a> để về lại trang chủ.
+        </p>
+    </div>
+
+</div>

@@ -1,0 +1,137 @@
+﻿<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="brand-link">
+        <img src="~/images/admin/logo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Admin Aromatide</span>
+    </a>
+    <div class="sidebar">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="~/images/admin/1.jpg" class="img-circle elevation-2" alt="Avatar User @User.Identity.Name">
+            </div>
+            <div class="info">
+                <a asp-area="Admin" asp-controller="Member" asp-action="Edit" asp-route-id="@User.GetUserId()" title="Tài khoản hiện tại" class="d-block">@User.Identity.Name</a>
+            </div>
+        </div>
+        @* <div class="form-inline">
+            <div class="input-group" data-widget="sidebar-search">
+                <input class="form-control form-control-sidebar" type="search" placeholder="@ViewData["SearchMenuSidebar"]" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-sidebar" title="SearchSidebar">
+                        <i class="fas fa-search fa-fw"></i>
+                    </button>
+                </div>
+            </div>
+        </div> *@
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a asp-area="Admin" asp-controller="Home" asp-action="Index" title="Dashboard" class="nav-link @(Html.IsActive("Home") ? "active" : "")">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Dashboard
+                        </p>
+                        @* <span class="badge badge-info right">2</span> *@
+                    </a>
+                </li>
+                <li class="nav-item @(Html.IsActive("Member") ? "menu-open" : "")">
+                    <a href="#" title="Thành viên" class="nav-link @(Html.IsActive("Member") ? "active" : "")">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Thành viên
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Member" asp-action="Index" title="Danh sách thành viên" class="nav-link @(Html.IsActive("Member", "Index") ? "active" : "")">
+                                <i class="far fa-circle nav-icon"></i>
+                                Danh sách
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Member" asp-action="Edit" asp-route-id="@User.GetUserId()" class="nav-link @(Html.IsActive("Member", "Edit") ? "active" : "") @(Html.IsActive("Member", "Details") ? "active" : "")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p><localize>View</localize></p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item @(Html.IsActive("Media") ? "menu-open" : "")">
+                    <a href="#" title="Thư viện" class="nav-link @(Html.IsActive("Media") ? "active" : "")">
+                        <i class="nav-icon far fa-image"></i>
+                        <p>
+                            Thư viện
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Media" asp-action="FileManager" title="Hình ảnh chung website" class="nav-link @(Html.IsActive("Media", "FileManager") ? "active" : "")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Hình ảnh chung</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Media" asp-action="AlbumList" title="Danh sách album hình ảnh" class="nav-link @(Html.IsActive("Media", "AlbumList") ? "active" : "")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Album</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item @(Html.IsActive("Product") ? "menu-open" : "")">
+                    <a href="#" title="Sản phẩm" class="nav-link @(Html.IsActive("Product") ? "active" : "")">
+                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <p>
+                            Sản phẩm
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Product" asp-action="Index" title="Sản phẩm" class="nav-link @(Html.IsActive("Product", "Index") ? "active" : "")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh sách</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Product" asp-action="Edit" title="Thêm mới sản phẩm" class="nav-link @(Html.IsActive("Product", "Edit") ? "active" : "")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Chỉnh sửa</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Product" asp-action="Category" title="Phân loại sản phẩm" class="nav-link @(Html.IsActive("Product", "Category") ? "active" : "")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Phân loại</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item @(Html.IsActive("Order") ? "menu-open" : "")">
+                    <a href="#" title="Đơn hàng" class="nav-link @(Html.IsActive("Order") ? "active" : "")">
+                        <i class="nav-icon fas fa-shopping-bag"></i>
+                        <p>
+                            Đơn hàng
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Order" asp-action="Index" title="Danh sách đơn hàng" class="nav-link @(Html.IsActive("Order", "Index") ? "active" : "")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh sách</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Order" asp-action="Edit" title="Chỉnh sửa đơn hàng" class="nav-link @(Html.IsActive("Order", "Edit") ? "active" : "")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Chỉnh sửa</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

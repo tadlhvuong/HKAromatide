@@ -1,0 +1,777 @@
+﻿@using HKMain.Areas.Admin.Models
+@model UserViewModel
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+    ViewData["Title"] = "Thông tin" + Model.UserName;
+}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Chi tiết tài khoản @Model.UserName</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Member" asp-action="Index">Danh sách</a></li>
+                        <li class="breadcrumb-item active">Thông tin @Model.UserName</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="py-3 mb-4">
+                @* <span class="text-muted fw-light"> User View /</span> Account *@
+                <div class="row">
+                    <!-- User Sidebar -->
+                    <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
+                        <!-- User Card -->
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="user-avatar-section">
+                                    <div class=" d-flex align-items-center flex-column">
+                                        <img class="img-fluid rounded mb-3 pt-1 mt-4" src="@Model.AvatarImg" height="100" width="100" alt="User avatar" />
+                                        <div class="user-info text-center">
+                                            <h4 class="mb-2">@Model.UserName</h4>
+                                            @* @for (var i=0; i< @Model.Roles.Length; i++)
+                                            {
+                                                <span class="badge bg-info mt-1 mr-1">@Model.Roles[i]</span>
+                                            } *@
+                                            @foreach (var item in Model.Roles)
+                                            {
+                                                <span class="badge bg-info mt-1 mr-1">@item</span>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="mt-4 small text-uppercase text-muted">Details</p>
+                                <div class="info-container">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">
+                                            <span  class="fw-medium me-1">Tên tài khoản:</span>
+                                            <span>@Model.UserName</span>
+                                        </li>
+                                        <li class="mb-2 pt-1">
+                                            <span class="fw-medium me-1">Email:</span>
+                                            <span>@Model.Email</span>
+                                        </li>
+                                        <li class="mb-2 pt-1">
+                                            <span class="fw-medium me-1">Trạng thái:</span>
+                                            <span class="badge bg-success">@Model.Status</span>
+                                        </li>
+                                        <li class="mb-2 pt-1">
+                                            <span class="fw-medium me-1">Số điện thoại:</span>
+                                            <span>@Model.PhoneNumber</span>
+                                        </li>
+                                    </ul>
+                                    <div class="d-flex justify-content-center">
+                                        @{
+                                            string idUser = Model.Id;
+                                        }
+                                        <a type="button" class="btn btn-primary me-3" asp-controller="Member" asp-action="Edit" asp-route-id="@Model.Id" title="Chỉnh sửa"><i class="fa fa-pencil-alt"></i><span class="d-none d-md-inline">Chỉnh sửa</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /User Card -->
+                        <!-- Plan Card -->
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <span class="badge bg-label-primary">Standard</span>
+                                    <div class="d-flex justify-content-center">
+                                        <sup class="h6 pricing-currency mt-3 mb-0 me-1 text-primary fw-normal">$</sup>
+                                        <h1 class="mb-0 text-primary">99</h1>
+                                        <sub class="h6 pricing-duration mt-auto mb-2 text-muted fw-normal">/month</sub>
+                                    </div>
+                                </div>
+                                <ul class="ps-3 g-2 my-3">
+                                    <li class="mb-2">10 Users</li>
+                                    <li class="mb-2">Up to 10 GB storage</li>
+                                    <li>Basic Support</li>
+                                </ul>
+                                <div class="d-flex justify-content-between align-items-center mb-1 fw-medium text-heading">
+                                    <span>Days</span>
+                                    <span>65% Completed</span>
+                                </div>
+                                <div class="progress mb-1" style="height: 8px;">
+                                    <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span>4 days remaining</span>
+                                <div class="d-grid w-100 mt-4">
+                                    <button class="btn btn-primary" data-bs-target="#upgradePlanModal" data-bs-toggle="modal">Upgrade Plan</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Plan Card -->
+                    </div>
+                    <!--/ User Sidebar -->
+                    <!-- User Content -->
+                    <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
+                        <div class="card card-primary card-outline card-tabs">
+                            <div class="card-header p-0 pt-1 border-bottom-0">
+                                <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true">Account</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">Security</a>
+                                    </li>
+                                  @*   <li class="nav-item">
+                                        <a class="nav-link" id="custom-tabs-three-messages-tab" data-toggle="pill" href="#custom-tabs-three-messages" role="tab" aria-controls="custom-tabs-three-messages" aria-selected="false">Billing</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="custom-tabs-three-settings-tab" data-toggle="pill" href="#custom-tabs-three-settings" role="tab" aria-controls="custom-tabs-three-settings" aria-selected="false">Settings</a>
+                                    </li> *@
+                                </ul>
+                                <div class="card-body">
+                                    <div class="tab-content" id="custom-tabs-three-tabContent">
+                                        <div class="tab-pane fade show active" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
+                                            <div class="card mb-4">
+                                                <h5 class="card-header">User Activity Timeline</h5>
+                                                <div class="timeline ml-1 mt-1">
+                                                    <div class="time-label">
+                                                        <span class="bg-red">10 Feb. 2014</span>
+                                                    </div>
+                                                    <div>
+                                                        <i class="fas fa-envelope bg-blue"></i>
+                                                        <div class="timeline-item">
+                                                            <span class="time"><i class="fas fa-clock"></i> 12:05</span>
+                                                            <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+
+                                                            <div class="timeline-body">
+                                                                Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                                                                weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                                                                jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                                                                quora plaxo ideeli hulu weebly balihoo...
+                                                            </div>
+                                                            <div class="timeline-footer">
+                                                                <a class="btn btn-primary btn-sm">Read more</a>
+                                                                <a class="btn btn-danger btn-sm">Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END timeline item -->
+                                                    <!-- timeline item -->
+                                                    <div>
+                                                        <i class="fas fa-user bg-green"></i>
+                                                        <div class="timeline-item">
+                                                            <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
+                                                            <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END timeline item -->
+                                                    <!-- timeline item -->
+                                                    <div>
+                                                        <i class="fas fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
+                                                            <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                                                            <div class="timeline-body">
+                                                                Take me to your leader!
+                                                                Switzerland is small and neutral!
+                                                                We are more like Germany, ambitious and misunderstood!
+                                                            </div>
+                                                            <div class="timeline-footer">
+                                                                <a class="btn btn-warning btn-sm">View comment</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END timeline item -->
+                                                    <!-- timeline time label -->
+                                                    <div class="time-label">
+                                                        <span class="bg-green">3 Jan. 2014</span>
+                                                    </div>
+                                                    <!-- /.timeline-label -->
+                                                    <!-- timeline item -->
+                                                    <div>
+                                                        <i class="fa fa-camera bg-purple"></i>
+                                                        <div class="timeline-item">
+                                                            <span class="time"><i class="fas fa-clock"></i> 2 days ago</span>
+                                                            <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+                                                            <div class="timeline-body">
+                                                                <img src="https://placehold.it/150x100" alt="...">
+                                                                <img src="https://placehold.it/150x100" alt="...">
+                                                                <img src="https://placehold.it/150x100" alt="...">
+                                                                <img src="https://placehold.it/150x100" alt="...">
+                                                                <img src="https://placehold.it/150x100" alt="...">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END timeline item -->
+                                                    <!-- timeline item -->
+                                                    <div>
+                                                        <i class="fas fa-video bg-maroon"></i>
+
+                                                        <div class="timeline-item">
+                                                            <span class="time"><i class="fas fa-clock"></i> 5 days ago</span>
+
+                                                            <h3 class="timeline-header"><a href="#">Mr. Doe</a> shared a video</h3>
+
+                                                            <div class="timeline-body">
+                                                                <div class="embed-responsive embed-responsive-16by9">
+                                                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/tMWkeBIohBs" allowfullscreen></iframe>
+                                                                </div>
+                                                            </div>
+                                                            <div class="timeline-footer">
+                                                                <a href="#" class="btn btn-sm bg-maroon">See comments</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END timeline item -->
+                                                    <div>
+                                                        <i class="fas fa-clock bg-gray"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card mb-4">
+                                                <div class="table-responsive mb-3">
+                                                    <table class="table datatable-invoice border-top">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>ID</th>
+                                                                <th><i class='ti ti-trending-up text-secondary'></i></th>
+                                                                <th>Total</th>
+                                                                <th>Issued Date</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <!-- /Invoice table -->
+                                        </div>
+                                        <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
+                                            <div class="card mb-4">
+                                                <h5 class="card-header">Change Password</h5>
+                                                <div class="card-body">
+                                                    <partial name="_PartialDetailsResetPassword" model="Model.ResetPasswordModel" />
+                                                </div>
+                                            </div>
+                                            <div class="card mb-4">
+                                                <h5 class="card-header">Delete Account</h5>
+                                                <div class="card-body">
+                                                    <partial name="_PartialDetailsDeleteAccount" model="Model.ResetPasswordModel" />
+                                                </div>
+                                            </div>
+                                            <div class="card mb-4">
+                                                <h5 class="card-header">Recent Devices</h5>
+                                                <div class="table-responsive">
+                                                    <table class="table border-top">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-truncate">Browser</th>
+                                                                <th class="text-truncate">Device</th>
+                                                                <th class="text-truncate">Location</th>
+                                                                <th class="text-truncate">Recent Activities</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-truncate"><i class='mb-1 ti ti-brand-windows text-info me-3'></i> Chrome on Windows</td>
+                                                                <td class="text-truncate">HP Spectre 360</td>
+                                                                <td class="text-truncate">Switzerland</td>
+                                                                <td class="text-truncate">10, July 2021 20:07</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-truncate"><i class='mb-1 ti ti-device-mobile text-danger me-3'></i> Chrome on iPhone</td>
+                                                                <td class="text-truncate">iPhone 12x</td>
+                                                                <td class="text-truncate">Australia</td>
+                                                                <td class="text-truncate">13, July 2021 10:10</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-truncate"><i class='mb-1 ti ti-brand-android text-success me-3'></i> Chrome on Android</td>
+                                                                <td class="text-truncate">Oneplus 9 Pro</td>
+                                                                <td class="text-truncate">Dubai</td>
+                                                                <td class="text-truncate">14, July 2021 15:15</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-truncate"><i class='mb-1 ti ti-brand-apple me-3'></i>Chrome on MacOS</td>
+                                                                <td class="text-truncate">Apple iMac</td>
+                                                                <td class="text-truncate">India</td>
+                                                                <td class="text-truncate">16, July 2021 16:17</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-truncate"><i class='mb-1 ti ti-brand-windows text-info me-3'></i> Chrome on Windows</td>
+                                                                <td class="text-truncate">HP Spectre 360</td>
+                                                                <td class="text-truncate">Switzerland</td>
+                                                                <td class="text-truncate">20, July 2021 21:01</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-truncate border-bottom-0"><i class='mb-1 ti ti-brand-android text-success me-3'></i> Chrome on Android</td>
+                                                                <td class="text-truncate border-bottom-0">Oneplus 9 Pro</td>
+                                                                <td class="text-truncate border-bottom-0">Dubai</td>
+                                                                <td class="text-truncate border-bottom-0">21, July 2021 12:22</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @* <div class="tab-pane fade" id="custom-tabs-three-messages" role="tabpanel" aria-labelledby="custom-tabs-three-messages-tab">
+                                            <div class="card mb-4">
+                                                <h5 class="card-header">Payment Methods</h5>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <form id="creditCardForm" class="row g-3" onsubmit="return false">
+                                                                <div class="col-12 mb-2">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input name="collapsible-payment" class="form-check-input" type="radio" value="" id="collapsible-payment-cc" checked="" />
+                                                                        <label class="form-check-label" for="collapsible-payment-cc">Credit/Debit/ATM Card</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input name="collapsible-payment" class="form-check-input" type="radio" value="" id="collapsible-payment-cash" />
+                                                                        <label class="form-check-label" for="collapsible-payment-cash">Paypal account</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label class="form-label w-100" for="paymentCard">Card Number</label>
+                                                                    <div class="input-group input-group-merge">
+                                                                        <input id="paymentCard" name="paymentCard" class="form-control credit-card-mask" type="text" placeholder="1356 3215 6548 7898" aria-describedby="paymentCard2" />
+                                                                        <span class="input-group-text cursor-pointer p-1" id="paymentCard2"><span class="card-type"></span></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 col-md-6">
+                                                                    <label class="form-label" for="paymentName">Name</label>
+                                                                    <input type="text" id="paymentName" class="form-control" placeholder="John Doe" />
+                                                                </div>
+                                                                <div class="col-6 col-md-3">
+                                                                    <label class="form-label" for="paymentExpiryDate">Exp. Date</label>
+                                                                    <input type="text" id="paymentExpiryDate" class="form-control expiry-date-mask" placeholder="MM/YY" />
+                                                                </div>
+                                                                <div class="col-6 col-md-3">
+                                                                    <label class="form-label" for="paymentCvv">CVV Code</label>
+                                                                    <div class="input-group input-group-merge">
+                                                                        <input type="text" id="paymentCvv" class="form-control cvv-code-mask" maxlength="3" placeholder="654" />
+                                                                        <span class="input-group-text cursor-pointer" id="paymentCvv2"><i class="ti ti-help text-muted" data-bs-toggle="tooltip" data-bs-placement="top" title="Card Verification Value"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label class="switch">
+                                                                        <input type="checkbox" class="switch-input">
+                                                                        <span class="switch-toggle-slider">
+                                                                            <span class="switch-on"></span>
+                                                                            <span class="switch-off"></span>
+                                                                        </span>
+                                                                        <span class="switch-label">Save card for future billing?</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-12 mt-4">
+                                                                    <button type="submit" class="btn btn-primary me-sm-3 me-1">Save Changes</button>
+                                                                    <button type="reset" class="btn btn-label-secondary">Cancel</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="col-md-6 mt-5 mt-md-0">
+                                                            <h6>My Cards</h6>
+                                                            <div class="added-cards">
+                                                                <div class="cardMaster bg-lighter p-3 rounded mb-3">
+                                                                    <div class="d-flex justify-content-between flex-sm-row flex-column">
+                                                                        <div class="card-information me-2">
+                                                                            <img class="mb-3 img-fluid" src="{% static 'img/icons/payments/mastercard.png' %}" alt="Master Card">
+                                                                            <div class="d-flex align-items-center mb-2 flex-wrap gap-2">
+                                                                                <p class="mb-0 me-2">Tom McBride</p>
+                                                                                <span class="badge bg-label-primary">Primary</span>
+                                                                            </div>
+                                                                            <span class="card-number">&#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727; 9856</span>
+                                                                        </div>
+                                                                        <div class="d-flex flex-column text-start text-lg-end">
+                                                                            <div class="d-flex order-sm-0 order-1 mt-sm-0 mt-3">
+                                                                                <button class="btn btn-label-primary me-2" data-bs-toggle="modal" data-bs-target="#editCCModal">Edit</button>
+                                                                                <button class="btn btn-label-secondary">Delete</button>
+                                                                            </div>
+                                                                            <small class="mt-sm-auto mt-2 order-sm-1 order-0">Card expires at 12/26</small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="cardMaster bg-lighter p-3 rounded">
+                                                                    <div class="d-flex justify-content-between flex-sm-row flex-column">
+                                                                        <div class="card-information me-2">
+                                                                            <img class="mb-3 img-fluid" src="{% static 'img/icons/payments/visa.png' %}" alt="Visa Card">
+                                                                            <p class="mb-2">Mildred Wagner</p>
+                                                                            <span class="card-number">&#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727; 5896</span>
+                                                                        </div>
+                                                                        <div class="d-flex flex-column text-start text-lg-end">
+                                                                            <div class="d-flex order-sm-0 order-1 mt-sm-0 mt-3">
+                                                                                <button class="btn btn-label-primary me-2" data-bs-toggle="modal" data-bs-target="#editCCModal">Edit</button>
+                                                                                <button class="btn btn-label-secondary">Delete</button>
+                                                                            </div>
+                                                                            <small class="mt-sm-auto mt-2 order-sm-1 order-0">Card expires at 10/27</small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card mb-4">
+                                                <!-- Billing Address -->
+                                                <h5 class="card-header">Billing Address</h5>
+                                                <div class="card-body">
+                                                    <form id="formAccountSettings" onsubmit="return false">
+                                                        <div class="row">
+                                                            <div class="mb-3 col-sm-6">
+                                                                <label for="companyName" class="form-label">Company Name</label>
+                                                                <input type="text" id="companyName" name="companyName" class="form-control" placeholder="{% get_theme_variables 'creator_name' %}" />
+                                                            </div>
+                                                            <div class="mb-3 col-sm-6">
+                                                                <label for="billingEmail" class="form-label">Billing Email</label>
+                                                                <input class="form-control" type="text" id="billingEmail" name="billingEmail" placeholder="john.doe@example.com" />
+                                                            </div>
+                                                            <div class="mb-3 col-sm-6">
+                                                                <label for="taxId" class="form-label">Tax ID</label>
+                                                                <input type="text" id="taxId" name="taxId" class="form-control" placeholder="Enter Tax ID" />
+                                                            </div>
+                                                            <div class="mb-3 col-sm-6">
+                                                                <label for="vatNumber" class="form-label">VAT Number</label>
+                                                                <input class="form-control" type="text" id="vatNumber" name="vatNumber" placeholder="Enter VAT Number" />
+                                                            </div>
+                                                            <div class="mb-3 col-sm-6">
+                                                                <label for="mobileNumber" class="form-label">Mobile</label>
+                                                                <div class="input-group input-group-merge">
+                                                                    <span class="input-group-text">US (+1)</span>
+                                                                    <input class="form-control mobile-number" type="text" id="mobileNumber" name="mobileNumber" placeholder="202 555 0111" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="mb-3 col-sm-6">
+                                                                <label for="country" class="form-label">Country</label>
+                                                                <select id="country" class="form-select select2" name="country">
+                                                                    <option selected>USA</option>
+                                                                    <option>Canada</option>
+                                                                    <option>UK</option>
+                                                                    <option>Germany</option>
+                                                                    <option>France</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="mb-3 col-12">
+                                                                <label for="billingAddress" class="form-label">Billing Address</label>
+                                                                <input type="text" class="form-control" id="billingAddress" name="billingAddress" placeholder="Billing Address" />
+                                                            </div>
+                                                            <div class="mb-3 col-sm-6">
+                                                                <label for="state" class="form-label">State</label>
+                                                                <input class="form-control" type="text" id="state" name="state" placeholder="California" />
+                                                            </div>
+                                                            <div class="mb-3 col-sm-6">
+                                                                <label for="zipCode" class="form-label">Zip Code</label>
+                                                                <input type="text" class="form-control zip-code" id="zipCode" name="zipCode" placeholder="231465" maxlength="6" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-2">
+                                                            <button type="submit" class="btn btn-primary me-2">Save changes</button>
+                                                            <button type="reset" class="btn btn-label-secondary">Discard</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <!-- /Billing Address -->
+                                            </div>
+                                            <div class="card">
+                                                <!-- Billing History -->
+                                                <h5 class="card-header">Billing History</h5>
+                                                <div class="card-datatable table-responsive">
+                                                    <table class="invoice-list-table table border-top">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>#ID</th>
+                                                                <th><i class='ti ti-trending-up'></i></th>
+                                                                <th>Client</th>
+                                                                <th>Total</th>
+                                                                <th class="text-truncate">Issued Date</th>
+                                                                <th>Balance</th>
+                                                                <th>Invoice Status</th>
+                                                                <th class="cell-fit">Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                                <!--/ Billing History -->
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="custom-tabs-three-settings" role="tabpanel" aria-labelledby="custom-tabs-three-settings-tab">
+                                            <div class="card mb-4">
+                                                <!-- Notifications -->
+                                                <div class="card-header">
+                                                    <h5 class="card-title mb-1">Recent Devices</h5>
+                                                    <span>Change to notification settings, the user will get the update</span>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="table-responsive border rounded">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-nowrap">Type</th>
+                                                                    <th class="text-nowrap text-center">✉️ Email</th>
+                                                                    <th class="text-nowrap text-center">🖥 Browser</th>
+                                                                    <th class="text-nowrap text-center">👩🏻‍💻 App</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="text-nowrap">Order status</td>
+                                                                    <td>
+                                                                        <div class="form-check d-flex justify-content-center">
+                                                                            <input class="form-check-input" type="checkbox" id="defaultCheck1" checked />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-check d-flex justify-content-center">
+                                                                            <input class="form-check-input" type="checkbox" id="defaultCheck2" checked />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-check d-flex justify-content-center">
+                                                                            <input class="form-check-input" type="checkbox" id="defaultCheck3" checked />
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-nowrap">Upcoming sale</td>
+                                                                    <td>
+                                                                        <div class="form-check d-flex justify-content-center">
+                                                                            <input class="form-check-input" type="checkbox" id="defaultCheck4" checked />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-check d-flex justify-content-center">
+                                                                            <input class="form-check-input" type="checkbox" id="defaultCheck5" checked />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-check d-flex justify-content-center">
+                                                                            <input class="form-check-input" type="checkbox" id="defaultCheck6" checked />
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-nowrap">Special offers</td>
+                                                                    <td>
+                                                                        <div class="form-check d-flex justify-content-center">
+                                                                            <input class="form-check-input" type="checkbox" id="defaultCheck7" checked />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-check d-flex justify-content-center">
+                                                                            <input class="form-check-input" type="checkbox" id="defaultCheck8" checked />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-check d-flex justify-content-center">
+                                                                            <input class="form-check-input" type="checkbox" id="defaultCheck9" />
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="border-transparent">
+                                                                    <td class="text-nowrap">New item arrival</td>
+                                                                    <td>
+                                                                        <div class="form-check d-flex justify-content-center">
+                                                                            <input class="form-check-input" type="checkbox" id="defaultCheck10" checked />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-check d-flex justify-content-center">
+                                                                            <input class="form-check-input" type="checkbox" id="defaultCheck11" />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-check d-flex justify-content-center">
+                                                                            <input class="form-check-input" type="checkbox" id="defaultCheck12" />
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body pt-0">
+                                                    <button type="submit" class="btn btn-primary me-2">Save changes</button>
+                                                    <button type="reset" class="btn btn-label-secondary">Discard</button>
+                                                </div>
+                                                <!-- /Notifications -->
+                                            </div>
+                                            <!-- Connected Accounts -->
+                                            <div class="card mb-4">
+                                                <h5 class="card-header pb-1">Connected Accounts</h5>
+                                                <div class="card-body">
+                                                    <p class="mb-4">Display content from your connected accounts on your site</p>
+                                                    <div class="d-flex mb-3">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="~/img/icons/brands/google.png" alt="google" class="me-3" height="38">
+                                                        </div>
+                                                        <div class="flex-grow-1 row">
+                                                            <div class="col-9 mb-sm-0 mb-2">
+                                                                <h6 class="mb-0">Google</h6>
+                                                                <small class="text-muted">Calendar and contacts</small>
+                                                            </div>
+                                                            <div class="col-3 d-flex align-items-center justify-content-end">
+                                                                <div class="form-check form-switch">
+                                                                    <input class="form-check-input float-end" type="checkbox" checked>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex mb-3">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="~/img/icons/brands/slack.png" alt="slack" class="me-3" height="38">
+                                                        </div>
+                                                        <div class="flex-grow-1 row">
+                                                            <div class="col-9 mb-sm-0 mb-2">
+                                                                <h6 class="mb-0">Slack</h6>
+                                                                <small class="text-muted">Communication</small>
+                                                            </div>
+                                                            <div class="col-3 d-flex align-items-center justify-content-end">
+                                                                <div class="form-check form-switch">
+                                                                    <input class="form-check-input float-end" type="checkbox">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex mb-3">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="~/img/icons/brands/github.png" alt="github" class="me-3" height="38">
+                                                        </div>
+                                                        <div class="flex-grow-1 row">
+                                                            <div class="col-9 mb-sm-0 mb-2">
+                                                                <h6 class="mb-0">Github</h6>
+                                                                <small class="text-muted">Manage your Git repositories</small>
+                                                            </div>
+                                                            <div class="col-3 d-flex align-items-center justify-content-end">
+                                                                <div class="form-check form-switch">
+                                                                    <input class="form-check-input float-end" type="checkbox" checked>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex mb-3">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="~/img/icons/brands/mailchimp.png" alt="mailchimp" class="me-3" height="38">
+                                                        </div>
+                                                        <div class="flex-grow-1 row">
+                                                            <div class="col-9 mb-sm-0 mb-2">
+                                                                <h6 class="mb-0">Mailchimp</h6>
+                                                                <small class="text-muted">Email marketing service</small>
+                                                            </div>
+                                                            <div class="col-3 d-flex align-items-center justify-content-end">
+                                                                <div class="form-check form-switch">
+                                                                    <input class="form-check-input float-end" type="checkbox" checked>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="~/img/icons/brands/asana.png" alt="asana" class="me-3" height="38">
+                                                        </div>
+                                                        <div class="flex-grow-1 row">
+                                                            <div class="col-9 mb-sm-0 mb-2">
+                                                                <h6 class="mb-0">Asana</h6>
+                                                                <small class="text-muted">Communication</small>
+                                                            </div>
+                                                            <div class="col-3 d-flex align-items-center justify-content-end">
+                                                                <div class="form-check form-switch">
+                                                                    <input class="form-check-input float-end" type="checkbox">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /Connected Accounts -->
+                                            <!-- Social Accounts -->
+                                            <div class="card mb-4">
+                                                <h5 class="card-header pb-1">Social Accounts</h5>
+                                                <div class="card-body">
+                                                    <p class="mb-4">Display content from social accounts on your site</p>
+                                                    <div class="d-flex mb-3">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="~/img/icons/brands/facebook.png" alt="facebook" class="me-3" height="38">
+                                                        </div>
+                                                        <div class="flex-grow-1 row">
+                                                            <div class="col-7 mb-sm-0 mb-2">
+                                                                <h6 class="mb-0">Facebook</h6>
+                                                                <small class="text-muted">Not Connected</small>
+                                                            </div>
+                                                            <div class="col-5 text-end">
+                                                                <button class="btn btn-label-secondary btn-icon"><i class="ti ti-link ti-sm"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex mb-3">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="~/img/icons/brands/twitter.png" alt="twitter" class="me-3" height="38">
+                                                        </div>
+                                                        <div class="flex-grow-1 row">
+                                                            <div class="col-7 mb-sm-0 mb-2">
+                                                                <h6 class="mb-0">Twitter</h6>
+                                                                <a href='@TempData.Peek("twitterUrl")' target="_blank">@TempData.Peek("authorName")</a>
+                                                            </div>
+                                                            <div class="col-5 text-end">
+                                                                <button class="btn btn-label-danger btn-icon"><i class="ti ti-trash ti-sm"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex mb-3">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="~/img/icons/brands/instagram.png" alt="instagram" class="me-3" height="38">
+                                                        </div>
+                                                        <div class="flex-grow-1 row">
+                                                            <div class="col-7 mb-sm-0 mb-2">
+                                                                <h6 class="mb-0">instagram</h6>
+                                                                <a href='@TempData.Peek("instagramUrl")' target="_blank">@TempData.Peek("authorName")</a>
+                                                            </div>
+                                                            <div class="col-5 text-end">
+                                                                <button class="btn btn-label-danger btn-icon"><i class="ti ti-trash ti-sm"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex mb-3">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="~/img/icons/brands/dribbble.png" alt="dribbble" class="me-3" height="38">
+                                                        </div>
+                                                        <div class="flex-grow-1 row">
+                                                            <div class="col-7 mb-sm-0 mb-2">
+                                                                <h6 class="mb-0">Dribbble</h6>
+                                                                <small class="text-muted">Not Connected</small>
+                                                            </div>
+                                                            <div class="col-5 text-end">
+                                                                <button class="btn btn-label-secondary btn-icon"><i class="ti ti-link ti-sm"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="~/img/icons/brands/behance.png" alt="behance" class="me-3" height="38">
+                                                        </div>
+                                                        <div class="flex-grow-1 row">
+                                                            <div class="col-7 mb-sm-0 mb-2">
+                                                                <h6 class="mb-0">Behance</h6>
+                                                                <small class="text-muted">Not Connected</small>
+                                                            </div>
+                                                            <div class="col-5 text-end">
+                                                                <button class="btn btn-label-secondary btn-icon"><i class="ti ti-link ti-sm"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> *@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ User Content -->
+                </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+
+    <script src="~/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/js/admin/hk.user-details.js"></script>
+}

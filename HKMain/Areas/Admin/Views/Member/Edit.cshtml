@@ -1,0 +1,94 @@
+﻿@using HKMain.Areas.Admin.Models
+@model EditUserModel
+@{
+    var formTitle = (Model.UserId == "") ? "Thêm mới " : "Chỉnh sửa ";
+    ViewData["Title"] = formTitle + @Model.UserName;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/plugins/toastr/toastr.min.css">
+    <style type="text/css">
+        .validation-summary-errors {
+            color: red;
+        }
+    </style>
+}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>@formTitle  @Model.UserName</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Member" asp-action="Index">Danh sách</a></li>
+                        <li class="breadcrumb-item active">Chỉnh sửa thông tin</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <form asp-area="Admin" asp-controller="Member" asp-action="Update" method="post" class="modalForm" autocomplete="off">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input asp-for="UserId" type="hidden" />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Thông tin</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="UserName"></label>
+                                <input asp-for="UserName" class="form-control" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password"></label>
+                                <input asp-for="Password" class="form-control" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" class="form-control" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PhoneNumber"></label>
+                                <input asp-for="PhoneNumber" type="tel" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Status"></label>
+                                <select asp-for="Status" asp-items="@Html.GetEnumSelectList(Model.Status.GetType())" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <a asp-area="Admin" asp-controller="Member" asp-action="Index" class="btn btn-secondary">Hủy bỏ</a>
+                    <input type="submit" value="Lưu" class="btn btn-success float-right">
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
+
+@section Scripts {
+    <script src="~/plugins/toastr/toastr.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var code = "@Model.modelResult.Code";
+            var message = "@Model.modelResult.Message";
+            if (parseInt(code) == 1) {
+                toastr.success(message)
+            }else if(parseInt(code) == 0){
+                toastr.error(message);
+            }
+        });
+    </script>
+}

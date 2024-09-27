@@ -1,0 +1,14 @@
+﻿@model HKShared.Helpers.PagedModel
+
+<form method="get">
+    <table class="filter-table">
+        <tr>
+            <td><label asp-for="PageSize"></label></td>
+            <td>
+                <select asp-for="PageSize" asp-items="Model.PageSelectList" class="form-control" style="width:120px;" onchange="this.form.submit();"></select>
+            </td>
+            <td><input asp-for="Search" class="form-control" style="width:240px;" placeholder="Search" /></td>
+            <td><button class="btn btn-default" type="submit"><i class="fa fa-search"></i> Search</button></td>
+        </tr>
+    </table>
+</form>

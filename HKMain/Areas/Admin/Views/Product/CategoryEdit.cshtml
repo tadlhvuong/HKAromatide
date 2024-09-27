@@ -1,0 +1,62 @@
+﻿@model Taxonomy
+@{
+    Layout = null;
+    string formTitle = (Model.Id == 0) ? "Thêm mới" : "Chỉnh sửa";
+}
+<style>
+    .select2-container--open {
+        z-index: 9999;
+    }
+</style>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "modalForm", @autocomplete = "off" }))
+{
+    <div class="modal-header">
+        <h4 class="modal-title">@formTitle</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input asp-for="Id" type="hidden" />
+        <input asp-for="Type" type="hidden" class="form-control">
+        <div class="form-group row">
+            <label asp-for="Name" class="col-sm-3 control-label">Tên</label>
+            <div class="col-sm-9">
+                <input asp-for="Name" type="text" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Type" class="col-sm-3 control-label">Type</label>
+            <div class="col-sm-9">
+                <input asp-for="Type" type="text" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 control-label">ParentName</label>
+            <div class="col-sm-9">
+                <select class="form-control select2" asp-for="ParentId" asp-items="@ViewBag.ListParent">
+                    <option>--Selection--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer justify-content-between">
+        <span id="progress" class="text-center" style="display: none;"><img style="width: 15%;" src="~/images/wait.gif" alt="waiting..." />Saving...</span>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+    </div>
+}
+
+<script>
+    $('.select2').select2();
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+        width: '100%',
+        theme: 'bootstrap4',
+    });
+
+</script>        

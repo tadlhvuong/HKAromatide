@@ -1,0 +1,19 @@
+﻿@using HKMain.Areas.Admin.Models
+@model ResetPasswordViewModel
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "memberDeleteAccount", @autocomplete = "off" }))
+{
+    <div asp-validation-summary="All"></div>
+    <input class="form-control" type="hidden" asp-for="UserId" />
+    <div class="mb-3 col-12 mb-0">
+        <div class="alert alert-warning">
+            <h5 class="alert-heading mb-1">Are you sure you want to delete your account?</h5>
+            <p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
+        </div>
+    </div>
+    <div class="form-check mb-4">
+        <input class="form-check-input" type="checkbox" name="accountActivation" id="accountActivation" />
+        <label class="form-check-label" for="accountActivation">I confirm my account deactivation</label>
+    </div>
+    <button type="submit" class="btn btn-danger deactivate-account">Deactivate Account</button>
+}

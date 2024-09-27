@@ -1,0 +1,59 @@
+﻿@using HKMain.Areas.Admin.Models
+@model LoginViewModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Khóa màn hình";
+}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="~/css/admin/adminlte.min.css" asp-append-version="true">
+<style type="text/css">
+    .validation-summary-errors {
+        color: red;
+    }
+    .validation-summary-errors ul {
+        list-style-type: none;
+    }
+    .lockscreen {
+        height: 100%;
+    }
+</style>
+<div class="hold-transition lockscreen">
+    <div class="lockscreen-wrapper" style="margin-top: auto; padding-top: 10%;">
+        <div class="lockscreen-logo">
+            <a asp-area="Admin" asp-controller="Account" asp-action="Login"><b>Admin</b>LTE</a>
+        </div>
+        <div class="lockscreen-name">@Model.UserName</div>
+        <div class="lockscreen-item">
+            <div class="lockscreen-image">
+                <img src="~/images/admin/1.jpg" alt="User Image">
+            </div>
+            <form asp-area="Admin" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="lockscreen-credentials">
+                 @Html.AntiForgeryToken()
+                <input asp-for="UserName" value="@Model.UserName" type="hidden"/>
+                <div class="input-group">
+                    <input asp-for="Password" type="password" class="form-control" placeholder="password">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn">
+                            <i class="fas fa-arrow-right text-muted"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="help-block text-center">
+                <div asp-validation-summary="All"></div>
+        </div>
+        <div class="text-center">
+            <a asp-area="Admin" asp-controller="Account" asp-action="Login">Đăng nhập tài khoản khác</a>
+        </div>
+        <div class="lockscreen-footer text-center">
+            Copyright &copy; 2022 <b><a mail="tadlhvuong@gmail.com" class="text-black">tadlhvuong@gmail.com</a></b><br>
+            All rights reserved
+        </div>
+    </div>
+</div>
+
+<script src="~/plugins/jquery/jquery.min.js"></script>
+<script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -1,0 +1,213 @@
+﻿@model Order
+@{
+
+}
+<div class="content-wrapper protected">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Hồ sơ</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Order" asp-action="Index">Danh sách</a></li>
+                        <li class="breadcrumb-item active">Thông tin </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-7">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Order details</h3>
+
+                            <div class="card-tools">
+                                <div class="input-group input-group-sm" >
+                                   @*  <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-warning btn-sm" data-modal="" onclick="formEdit(\'/Admin/Order/OrderItemEdit/'+ + ' );" title=""><i class="fa fa-pencil"></i> <span class="d-none d-md-inline"> Edit</span></button>
+                                    </div> *@
+                                    <button type="button" class="btn btn-warning btn-sm" data-modal="" onclick="formEdit('/Admin/Order/OrderItemEdit/1');" title=""><i class="fa fa-pencil"></i> <span class="d-none d-md-inline"> Edit</span></button>
+                                    @* <a type="button" class="btn btn-warning btn-sm float-right" data-modal="" onclick="formEdit(\'/Admin/Order/OrderItemEdit/'+ + ' );" title=""><i class="fa fa-pencil"></i> <span class="d-none d-md-inline"> Edit</span></a> *@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body card-datatable table-responsive">
+                            <table id="table_orderItems" class="datatables-orderItem table table-head-fixed text-nowrap projects">
+                                <thead class="border-top">
+                                    <tr>
+                                        <th></th>
+                                        <th>#</th>
+                                        <th localize-content>Product</th>
+                                        <th localize-content>Price</th>
+                                        <th localize-content>Quantity</th>
+                                        <th localize-content >Total</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div class="d-flex justify-content-end align-items-center m-6 mb-2 mt-2">
+                                <div class="order-calculations">
+                                    <div class="d-flex justify-content-start mb-2">
+                                        <span class="w-px-100 text-heading">Subtotal:</span>
+                                        <h6 class="mb-0">$2093</h6>
+                                    </div>
+                                    <div class="d-flex justify-content-start mb-2">
+                                        <span class="w-px-100 text-heading">Discount:</span>
+                                        <h6 class="mb-0">$2</h6>
+                                    </div>
+                                    <div class="d-flex justify-content-start mb-2">
+                                        <span class="w-px-100 text-heading">Tax:</span>
+                                        <h6 class="mb-0">$28</h6>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <h6 class="w-px-100 mb-0">Total:</h6>
+                                        <h6 class="mb-0">$2113</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Shipping activity</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="timeline">
+                                <!-- timeline time label -->
+                                <div class="time-label">
+                                    <span class="bg-red">10 Feb. 2014</span>
+                                </div>
+                                <!-- /.timeline-label -->
+                                <!-- timeline item -->
+                                <div>
+                                    <i class="fas fa-envelope bg-blue"></i>
+                                    <div class="timeline-item">
+                                        <span class="time"><i class="fas fa-clock"></i> 12:05</span>
+                                        <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+
+                                        <div class="timeline-body">
+                                            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                                            quora plaxo ideeli hulu weebly balihoo...
+                                        </div>
+                                        <div class="timeline-footer">
+                                            <a class="btn btn-primary btn-sm">Read more</a>
+                                            <a class="btn btn-danger btn-sm">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END timeline item -->
+                                <!-- timeline item -->
+                                <div>
+                                    <i class="fas fa-user bg-green"></i>
+                                    <div class="timeline-item">
+                                        <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
+                                        <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
+                                    </div>
+                                </div>
+                                <!-- END timeline item -->
+                                <!-- timeline item -->
+                                <div>
+                                    <i class="fas fa-comments bg-yellow"></i>
+                                    <div class="timeline-item">
+                                        <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
+                                        <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                                        <div class="timeline-body">
+                                            Take me to your leader!
+                                            Switzerland is small and neutral!
+                                            We are more like Germany, ambitious and misunderstood!
+                                        </div>
+                                        <div class="timeline-footer">
+                                            <a class="btn btn-warning btn-sm">View comment</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END timeline item -->
+                                <!-- timeline time label -->
+                                <div class="time-label">
+                                    <span class="bg-green">3 Jan. 2014</span>
+                                </div>
+                                <!-- /.timeline-label -->
+                                <!-- timeline item -->
+                                <div>
+                                    <i class="fa fa-camera bg-purple"></i>
+                                    <div class="timeline-item">
+                                        <span class="time"><i class="fas fa-clock"></i> 2 days ago</span>
+                                        <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+                                        <div class="timeline-body">
+                                            <img src="https://placehold.it/150x100" alt="...">
+                                            <img src="https://placehold.it/150x100" alt="...">
+                                            <img src="https://placehold.it/150x100" alt="...">
+                                            <img src="https://placehold.it/150x100" alt="...">
+                                            <img src="https://placehold.it/150x100" alt="...">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END timeline item -->
+                                <!-- timeline item -->
+                                <div>
+                                    <i class="fas fa-video bg-maroon"></i>
+
+                                    <div class="timeline-item">
+                                        <span class="time"><i class="fas fa-clock"></i> 5 days ago</span>
+
+                                        <h3 class="timeline-header"><a href="#">Mr. Doe</a> shared a video</h3>
+
+                                        <div class="timeline-body">
+                                            <div class="embed-responsive embed-responsive-16by9">
+                                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/tMWkeBIohBs" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                        <div class="timeline-footer">
+                                            <a href="#" class="btn btn-sm bg-maroon">See comments</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END timeline item -->
+                                <div>
+                                    <i class="fas fa-clock bg-gray"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Customer details</h3>
+                        </div>
+                        <div class="card-body">
+                           
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Shipping address</h3>
+                        </div>
+                        <div class="card-body">
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Billing address</h3>
+                        </div>
+                        <div class="card-body ">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@section Scripts {
+    <script src="~/js/admin/hk.order-details.js"></script>
+}

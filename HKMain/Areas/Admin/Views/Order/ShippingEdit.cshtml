@@ -1,0 +1,92 @@
+﻿@using HKMain.Areas.Admin.Models
+@model ShippingEditModel
+@{
+    Layout = null;
+    string formTitle = (Model.Id == 0) ? "Thêm mới" : "Chỉnh sửa";
+    var provinces = ViewBag.Provinces as List<SelectListItem>;
+}
+<style>
+    .select2-container--open {
+        z-index: 9999;
+    }
+</style>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "modalForm", @autocomplete = "off" }))
+{
+    <div class="modal-header">
+        <h4 class="modal-title">@formTitle</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input asp-for="Id" type="hidden" />
+        <div class="form-group row">
+            <label class="col-sm-3 control-label">UserName</label>
+            <div class="col-sm-9">
+                <select class="form-control select2" asp-for="UserId" asp-items="@ViewBag.ListUser">
+                    <option value="">--Selection choose--</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Address" class="col-sm-3 control-label">Address</label>
+            <div class="col-sm-9">
+                <input asp-for="Address" type="text" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-3 control-label">Province</label>
+            <div class="col-sm-9">
+                @* <select id="country_region" name="ProvinceId" class="form-control select2" data-placeholder="-- Select choose --">
+                    <option value="">-- Select choose --</option>
+                    @foreach (var item in provinces)
+                    {
+                        if (item.Selected)
+                        {
+                            <option value="@item.Value" selected>@item.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    }
+
+                </select> *@
+
+                <select class="form-control select2" asp-for="ProvinceId" data-placeholder="-- Select choose --">
+                    <option value="">--Selection choose--</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-3 control-label">District</label>
+            <div class="col-sm-9">
+                <select asp-for="DistrictId" class="form-control select2" data-placeholder="-- Select choose --">
+                    <option value="">-- Select choose --</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 control-label">Ward</label>
+            <div class="col-sm-9">
+                <select asp-for="WardId" class="form-control select2" data-placeholder="-- Select choose --">
+                    <option value="">-- Select choose --</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer justify-content-between">
+        <span id="progress" class="text-center" style="display: none;"><img style="width: 15%;" src="~/images/wait.gif" alt="waiting..." />Saving...</span>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+    </div>
+}
+<input type="hidden" id="idP" value="@Model.ProvinceId" />
+<input type="hidden" id="idD" value="@Model.DistrictId" />
+<input type="hidden" id="idW" value="@Model.WardId" />
+<script src="~/js/hk.setting-location.js"></script> 

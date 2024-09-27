@@ -1,0 +1,50 @@
+﻿
+@{
+}
+<div class="content-wrapper protected">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Danh sách đơn hàng</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Dashboard</a></li>
+                        <li class="breadcrumb-item">Danh sách</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header card-datatable table-responsive">
+                            <table id="table_orders" class="datatables-order table table-bordered table-striped dataTable dtr-inline projects">
+                                <thead class="border-top">
+                                    <tr>
+                                        <th></th>
+                                        <th>#</th>
+                                        <th localize-content>Date</th>
+                                        <th localize-content>Customers</th>
+                                        <th localize-content>Payment</th>
+                                        <th localize-content>Status</th>
+                                        <th localize-content>Method</th>
+                                        <th localize-content>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    <script src="~/js/admin/hk.order-list.js"></script>
+}

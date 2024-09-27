@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Hồ sơ</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Member" asp-action="Index">Danh sách</a></li>
+                        <li class="breadcrumb-item active">Thông tin </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header card-datatable table-responsive">
+                            <table id="table_products" class="datatables-product table table-bordered table-striped dataTable dtr-inline projects">
+                                <thead class="border-top">
+                                    <tr>
+                                        <th></th>
+                                        <th>SKU</th>
+                                        <th localize-content>Name</th>
+                                        <th localize-content>Category</th>
+                                        <th localize-content>Price</th>
+                                        <th localize-content>SalePrice</th>
+                                        <th localize-content>Stock</th>
+                                        <th localize-content>Quantity</th>
+                                        <th localize-content>Status</th>
+                                        <th localize-content>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    <script src="~/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="~/js/admin/hk.product-list.js"></script>
+}

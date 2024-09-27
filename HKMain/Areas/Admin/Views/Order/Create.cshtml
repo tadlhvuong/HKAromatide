@@ -1,0 +1,73 @@
+﻿@model Order
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+    ViewData["Title"] = "Thành viên";
+}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="/Admin/@culture" class="brand-link">
+        <img src="~/images/admin/logo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Admin Aromatide</span>
+    </a>
+    <div class="sidebar">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="~/images/admin/1.jpg" class="img-circle elevation-2" alt="Avatar User @User.Identity.Name">
+            </div>
+            <div class="info">
+                <a localize-att-title="DetailsUserSideBar" href="" class="d-block">@User.Identity.Name</a>
+            </div>
+            <div class="info pull-right">
+                <a title="vi-VN" href="/Admin/Base/SetCultureCookie?cltr=vi&returnUrl=@Context.Request.Path"><span class="flag-icon flag-icon-vn" alt="icon flag vi-VN"></span></a>
+                <a title="en-US" href="/Admin/Base/SetCultureCookie?cltr=en&returnUrl=@Context.Request.Path"><span class="flag-icon flag-icon-us" alt="icon flag en-US"></span></a>
+            </div>
+        </div>
+        <nav class="mt-2">
+            <a href="~/Admin/@culture/@ViewData["OrderUrl"]" localize-att-title="Return" class="nav-link @(Html.IsActive("Order", "Index") ? "active" : "")">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <localize>ReturnText</localize>
+            </a>
+            <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item @(Html.IsActive("Order") ? "menu-open" : "")">
+                    <a href="#" class="nav-link @(Html.IsActive("Order", "Create") ? "active" : "")">
+                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <p>
+                            <localize>ActionText</localize>
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a id="neworder" href="/Admin/@culture/@ViewData["OrderUrl"]/@ViewData["EditUrl"]" class="nav-link @(Html.IsActive("Order", "Edit") ? "active" : "")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p><localize>EditText</localize></p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>
+<div class="content-wrapper iframe-mode" data-widget="iframe" data-loading-screen="750">
+    <div class="nav navbar navbar-expand-lg navbar-white navbar-light border-bottom p-0">
+        <a class="nav-link bg-danger" href="#" data-widget="iframe-close">Close</a>
+        <a class="nav-link bg-light" href="#" data-widget="iframe-scrollleft"><i class="fas fa-angle-double-left"></i></a>
+        <ul class="navbar-nav" role="tablist"></ul>
+        <a class="nav-link bg-light" href="#" data-widget="iframe-scrollright"><i class="fas fa-angle-double-right"></i></a>
+        <a class="nav-link bg-light" href="#" data-widget="iframe-fullscreen"><i class="fas fa-expand"></i></a>
+    </div>
+    <div class="tab-content">
+        <div class="tab-empty">
+            <h2 class="display-4">No tab selected!</h2>
+        </div>
+        <div class="tab-loading">
+            <div>
+                <h2 class="display-4">Tab is loading <i class="fa fa-sync fa-spin"></i></h2>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/admin/hk.order.js">
+    </script>
+}

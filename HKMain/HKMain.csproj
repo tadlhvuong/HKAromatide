@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>1ba90f23-b77c-4b1f-b45e-8095048c603d</UserSecretsId>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="wwwroot\Onepage\**" />
+	  <Content Remove="wwwroot\Onepage\**" />
+	  <EmbeddedResource Remove="wwwroot\Onepage\**" />
+	  <None Remove="wwwroot\Onepage\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+		<PackageReference Include="DocumentFormat.OpenXml" Version="3.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="6.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.8" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.27" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.27">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.27" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\HKShared\HKShared.csproj" />
+	</ItemGroup>
+	
+</Project>
