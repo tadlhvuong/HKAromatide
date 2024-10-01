@@ -80,7 +80,12 @@ services.AddSession(options =>
 services.AddAntiforgery(options => options.HeaderName = "XSRF-TOKEN");
 
 services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
-
+builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
+{
+var env = hostingContext.HostingEnvironment;
+config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+.AddJsonFile($"appsettings.{ env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+});
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
