@@ -23,7 +23,8 @@ namespace HKMain.Controllers
         [Route("san-pham")]
         public IActionResult Index()
         {
-            return View();
+
+            return RedirectToAction("Index", "Home");
         }
         //[Route("san-pham/sale/")]
         //public IActionResult Sale(int id)
@@ -75,19 +76,6 @@ namespace HKMain.Controllers
             //ViewBag.ItemVariants = itemVariants;
 
             return View(model);
-        }
-
-        public JsonResult LoadCart()
-        {
-            _logger.LogInformation("Load list cart");
-            var cart = HttpContext.Session.GetObjectFromJson<Cart>("Cart");
-            if (cart == null)
-            {
-                cart = new Cart();
-                cart.Items = new List<CartItem>();
-            }
-
-            return Json(new ModalFormResult() { Code = 1, Message = "Load data", data = JsonConvert.SerializeObject(cart) });
         }
 
         public JsonResult LoadProduct(int id)
@@ -176,7 +164,6 @@ namespace HKMain.Controllers
                 order.IsAgree = model.isAgressPrivacy;
                 order.CreateTime = DateTime.Now;
                 _dbContext.Orders.Add(order);
-                _dbContext.SaveChanges();
                 if(model.Items != null)
                 {
                     var orderItem = JsonConvert.DeserializeObject<ICollection<CheckoutItem>>(model.Items);
@@ -195,9 +182,9 @@ namespace HKMain.Controllers
                             };
                             _dbContext.OrderItems.Add(temp);
                         }
-                        _dbContext.SaveChangesAsync();
                     }
                 }
+                _dbContext.SaveChangesAsync();
                 return View(new Checkout());
             }
             catch (Exception e)

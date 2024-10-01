@@ -220,8 +220,9 @@
                     </div>
 
                     <div class="product-single__info">
-                        <div class="product-single__prices" data-value="@Model.CurrentPrice">
+                        <div class="product-single__prices" data-currentprice="@Model.CurrentPrice" data-regularprice="@Model.Price">
                             <ins>@Model.FormatedCurrentPrice</ins>
+                            <del>@Model.FormatedRegularPrice</del>
                         </div>
                     </div>
                     @if (Model.NewProduct)

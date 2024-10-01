@@ -3434,8 +3434,8 @@ body.open-popup:after {
 }
 
     .site-header .header-logo a {
-        background: url(/images/home/logo.png);
-        filter: drop-shadow(1px 1px 5px #66883f);
+        background: url(/images/home/logo-white.png);
+        /*filter: drop-shadow(1px 1px 5px #66883f);*/
         /*background-position: 0 -82px;*/
         background-size: 100% 100%;
         background-repeat: no-repeat;
@@ -3628,7 +3628,7 @@ body.open-popup:after {
 .site-header .header-custom_item__icon.icon-member-active .drop-menu:before {
     color: #fff;
     content: "\f0d8";
-    font-family: Font Awesome\5 Free;
+    font-family: "Font Awesome 5 Free";
     font-size: 20px;
     font-weight: 900;
     padding-right: 25px;
@@ -3678,6 +3678,10 @@ body.open-popup:after {
 .site-header .header-cart {
     position: relative;
     z-index: 99999;
+}
+
+#headerMiniCart a:hover i {
+    color: #ff2323;
 }
 
 .site-header .header-cart__count {
@@ -3946,9 +3950,10 @@ body.open-popup:after {
     display: block;
 }
 
-.header-menu__item:hover .megaMenu {
-    display: flex;
-}
+    .header-menu__item:hover .megaMenu {
+        display: flex;
+        border-radius: 0 0 15px 15px;
+    }
 
 .header-menu__mega {
     background-color: #fff;
@@ -5287,7 +5292,7 @@ figure.image>div {
 .contentCategory_icon:after {
     content: "\f107";
     cursor: pointer;
-    font-family: Font Awesome\5 Free;
+    font-family: "Font Awesome 5 Free";
     font-weight: 900;
     margin-left: 0.5rem;
     margin-top: 3px;
@@ -5312,7 +5317,7 @@ figure.image>div {
 
 .tocContent_title_icon:before {
     content: "\f0ca";
-    font-family: Font Awesome\5 Free;
+    font-family: "Font Awesome 5 Free";
     font-weight: 900;
     margin-right: 1rem;
 }
@@ -5350,7 +5355,7 @@ figure.image>div {
 
 .tocContent_close:before {
     content: "\f077";
-    font-family: Font Awesome\5 Free;
+    font-family: "Font Awesome 5 Free";
     font-size: 1.3rem;
     font-weight: 900;
 }
@@ -5361,7 +5366,7 @@ figure.image>div {
 
 .tocContent_close.hidden:before {
     content: "\f054";
-    font-family: Font Awesome\5 Free;
+    font-family: "Font Awesome 5 Free";
     font-size: 1.3rem;
     font-weight: 900;
 }
@@ -5382,7 +5387,7 @@ figure.image>div {
 
 .tocContent.tocFixed .tocContent_close:before {
     content: "\f057" !important;
-    font-family: Font Awesome\5 Free;
+    font-family: "Font Awesome 5 Free";
     font-size: 1.3rem;
     font-weight: 900;
 }
@@ -5415,7 +5420,7 @@ figure.image>div {
 
 .tocFixedIcon>div:before {
     content: "\f0ca";
-    font-family: Font Awesome\5 Free;
+    font-family: "Font Awesome 5 Free";
     font-weight: 900;
 }
 
@@ -5859,7 +5864,7 @@ figure.image>div {
 
 .kolPreviews_arrow__next:before,
 .kolPreviews_arrow__previous:before {
-    font-family: Font Awesome\5 Free;
+    font-family: "Font Awesome 5 Free";
     font-weight: 900;
 }
 
@@ -5995,7 +6000,7 @@ figure.image>div {
 .notifyCustom_box_content__options>div:before {
     color: rgba(62, 104, 7, 0.9);
     content: "\f00c";
-    font-family: Font Awesome\5 Free;
+    font-family: "Font Awesome 5 Free";
     font-weight: 900;
     margin-right: 7px;
 }
@@ -6172,7 +6177,7 @@ figure.image>div {
 .shippingBox_footer:before {
     color: #e67e22;
     content: "\f058";
-    font-family: Font Awesome\5 Free;
+    font-family: "Font Awesome 5 Free";
     font-weight: 900;
 }
 
@@ -6193,7 +6198,7 @@ figure.image>div {
 .infomations-collapse:before,
 .infomations-loadmore:after {
     color: #e67e22;
-    font-family: Font Awesome\5 Free;
+    font-family: "Font Awesome 5 Free";
     font-weight: 900;
     vertical-align: middle;
 }
@@ -6328,7 +6333,7 @@ figure.image>div {
 .contactResultSearchBox_main_item:before {
     color: #3e6807;
     content: "\f3c5";
-    font-family: Font Awesome\5 Free;
+    font-family: "Font Awesome 5 Free";
     font-weight: 900;
     margin-right: 0.6rem;
 }
@@ -6507,7 +6512,7 @@ figure.image>div {
 
 .homeProductBg_title__viewMore:after {
     content: "\f105";
-    font-family: Font Awesome\5 Free;
+    font-family: "Font Awesome 5 Free";
     font-weight: 900;
     margin-left: 5px;
     vertical-align: middle;
@@ -6999,10 +7004,9 @@ figure.image>div {
     }
 
     .header-mobile-top_logo {
-        background: url(/images/background-comem.webp);
-        background-position: 0 -55px;
+        background: url(/images/home/logo-white.png);
         background-repeat: no-repeat;
-        background-size: 533.33px;
+        background-size: contain;
         height: 40px;
         width: 109px;
     }
@@ -13995,7 +13999,7 @@ textarea.form__control {
 
 .msgOrder_item:before {
     content: "\f06a";
-    font-family: Font Awesome\5 Free;
+    font-family: "Font Awesome 5 Free";
     font-weight: 900;
     margin-right: 6px;
 }
@@ -15167,7 +15171,7 @@ textarea.form__control {
     border-radius: 3px;
     color: #de8d1e;
     content: "\f00c";
-    font-family: Font Awesome\6 Free;
+    font-family: "Font Awesome 5 Free";
     font-size: 15px;
     font-weight: 900;
     height: 24px;

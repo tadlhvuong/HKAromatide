@@ -158,14 +158,47 @@
     <!-- ===== Product (MOBILE) ===== -->
     <section class="home-product enable-max-577">
         <div class="container">
-            <img loading="lazy" src="/images/banners/home-banner-cham-soc-da-mb.webp" title="Chăm sóc da"
-                 alt="Chăm sóc da" width="390" height="163" />
-            <a href="/cm/cham-soc-da" class="h3 section-heading text--center">
+            <img loading="lazy" src="/images/banners/home-banner-cham-soc-da-mb.webp" title="sản phẩm"
+                 alt="sản phẩm" width="390" height="163" />
+            <a href="" class="h3 section-heading text--center">
                 <h2>
                     Sản phẩm của chúng tôi
                 </h2>
             </a>
-            <div class="product-boxSpecial wrap homeProductBg_main">
+            <div class="home-product__slide">
+                <div class="product-box home-product--slider">
+                    @if (Model != null)
+                    {
+                        foreach (var product in Model)
+                        {
+                            <div class="product-box_item five-cols">
+                                <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id" class="product-box_item__image">
+                                    <img class="ls-is-cached" loading="lazy" src="@product.LinkImage"
+                                         alt="@product.Preview"
+                                         title="@product.Name"
+                                         width=200 height=200 />
+                                    <div class="product-box_item__image__tags">
+                                        <div class="tag-sale">@product.DiscountPercent</div>
+                                    </div>
+                                </a>
+                                <div class="product-box_item__content">
+                                    <h3>
+                                        <a asp-controller="Product" asp-action="Details"
+                                           class="product-box_item__content__title maxLine_2">
+                                            @product.Name
+                                        </a>
+                                    </h3>
+                                    <div class="product-box_item__content__price">
+                                        <div class="price-now">@product.FormatedCurrentPrice</div>
+                                        <div class="price-old">@product.FormatedRegularPrice</div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            @* <div class="product-boxSpecial wrap homeProductBg_main">
                 @if (Model != null)
                 {
                     foreach (var product in Model)
@@ -196,36 +229,7 @@
                         </div>
                     }
                 }
-                @* @for(var i=0; i<11; i++)
-                {
-                    <div class="product-boxSpecial_item two-cols">
-                        <a asp-controller="Product" asp-action="Detail" class="product-boxSpecial_item__image">
-                            <img class="ls-is-cached lazyload"
-                                 src="~/media/2024/02/sua-rua-mat-to-tam-co-mem_sp.webp" width="155"
-                                 height="155" alt="Sữa rửa mặt tạo bọt Tơ Tằm" title="Sữa rửa mặt tạo bọt Tơ Tằm" />
-                            <div class="product-boxSpecial_item__image__tags">
-                                <div class="tag-sale">-1%</div>
-                                <div style="background:#3e6807;">Giá ưu đãi</div>
-                            </div>
-                        </a>
-                        <div class="product-boxSpecial_item__content">
-                            <h3>
-                                <a asp-controller="Product" asp-action="Detail"
-                                   class="product-boxSpecial_item__content__title maxLine_2">
-                                    Sữa rửa mặt tạo bọt Tơ
-                                    Tằm
-                                </a>
-                            </h3>
-                            <div class="product-boxSpecial_item__content__price">
-                                <div class="price-now">95.000<sup>đ</sup></div>
-                                <div class="price-old">96.000<sup>đ</sup></div>
-                            </div>
-
-                        </div>
-                    </div>
-                } *@
-
-            </div>
+            </div> *@
         </div>
     </section>
     <!-- ===== End Product (MOBILE) ===== -->
@@ -233,14 +237,14 @@
     <section class="home-product disable-max-577">
         <div class="container">
             <div class="home-product__banner disable-max-767">
-                <img loading="lazy" src="/images/banners/home-banner-cham-soc-da-pc.webp" title="Chăm sóc da"
-                     alt="Chăm sóc da" />
+                <img loading="lazy" src="/images/banners/home-banner-cham-soc-da-pc.webp" title="sản phẩm"
+                     alt="san-pham" />
             </div>
             <div class="home-product__banner enable-max-767">
-                <img loading="lazy" src="/images/banners/home-banner-cham-soc-da-mb.webp" title="Chăm sóc da"
-                     alt="Chăm sóc da" />
+                <img loading="lazy" src="/images/banners/home-banner-cham-soc-da-mb.webp" title="sản phẩm"
+                     alt="sản phẩm" />
             </div>
-            <a href="/cm/cham-soc-da">
+            <a href="">
                 <h2 class="h3 section-heading text--center">
                     <span class="section-heading_icon icon-da"></span>Sản phẩm của chúng tôi
                 </h2>
@@ -291,7 +295,7 @@
         <div class="container-full homeProductBg">
             <div class="home-resources__inner">
                 <div class="home-resources__header">
-                    <h2>Sản phẩm Aromatide</h2>
+                    <h2 class="mt-2">Sản phẩm Aromatide</h2>
                     <p>Chất lượng - An toàn - Đa dạng</p>
                     <div class="home-resources__action">
                         <!-- <a href="https://aromatide.com.vn/minh-bach-nguyen-lieu?itm_source=homepage&amp;itm_campaign=minh_bach_nguyen_lieu"

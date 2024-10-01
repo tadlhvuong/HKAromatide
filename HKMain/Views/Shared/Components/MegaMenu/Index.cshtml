@@ -1,0 +1,590 @@
+﻿@model List<MegaMenuModel>
+@{
+    var LK = Model.Where(x => x.Taxo.Length > 0).SingleOrDefault(x => x.Taxo[0].Equals("Nước lau kinh"));
+    var urlLK = (LK != null) ? LK.RedirectUrl : "";
+    var T = Model.Where(x => x.Taxo.Length > 0).SingleOrDefault(x => x.Taxo[0].Equals("Tẩy bồn cầu"));
+    var urlT = (T != null) ? T.RedirectUrl : "";
+}
+<div class="enable-max-767">
+    <div class="header-mobile-top">
+        @* <div class="header-mobile-top_left">
+            <div class="icon-hambuger-mb" style="margin-right:15px;"
+                 onclick="openCloseElemt('nav-mobile', this);">
+                <img src="/images/menu.svg" alt="Danh mục Aromatide" title="Danh mục Aromatide"
+                     style="width:21px;height:21px;" />
+            </div>
+
+            <div class="icon-close-mb d-none"
+                 style="margin-right:15px;display: flex;align-items: center;"
+                 onclick="openCloseElemt('nav-mobile', this);">
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                     xmlns="http://www.w3.org/2000/svg" style="width: 21px;height: 15px;">
+                    <path d="M8.97879 9.99506C8.71423 10.0035 8.46582 9.87225 8.24762 9.65036C7.21022 8.59465 6.16658 7.54579 5.13127 6.4885C5.01879 6.3736 4.96254 6.3678 4.84641 6.48692C3.80225 7.55422 2.74767 8.61046 1.70351 9.67776C1.40458 9.98346 1.04941 10.0536 0.66299 9.96396C0.0130576 9.81427 -0.216085 8.99153 0.234389 8.46393C0.319276 8.36432 0.41562 8.27472 0.507798 8.18143C1.50613 7.17052 2.5029 6.15803 3.50644 5.15186C3.6231 5.03485 3.63924 4.97529 3.51165 4.84827C2.44718 3.78307 1.39 2.7105 0.333337 1.63739C0.00576665 1.30481 -0.0442281 0.825186 0.198455 0.44201C0.438534 0.06305 0.911401 -0.0966506 1.32907 0.0604147C1.47853 0.116811 1.59883 0.213791 1.71132 0.327109C2.75808 1.38229 3.80902 2.43326 4.8511 3.49371C4.97712 3.62179 5.03545 3.60703 5.15158 3.48844C6.19158 2.42641 7.2373 1.37017 8.28355 0.31446C8.56165 0.0335344 8.89807 -0.0550125 9.26991 0.0735914C9.64122 0.202195 9.8563 0.481012 9.90421 0.87473C9.94223 1.18833 9.83131 1.45187 9.60893 1.67587C8.56685 2.72631 7.52998 3.78202 6.48478 4.83035C6.36708 4.94841 6.35198 5.00744 6.48009 5.13499C7.54821 6.1965 8.60591 7.26855 9.66986 8.33428C9.91775 8.58252 10.0443 8.87294 9.98598 9.22502C9.90526 9.70728 9.51363 10.0172 8.97879 9.99506Z"
+                          fill="white" />
+                </svg>
+            </div>
+            <!-- SEARCH BOX -->
+            <div class="icon-search-mb"
+                 onclick="showHideSearchBox('searchBox-mobile');">
+                <img src="/images/search.svg" alt="Tìm kiếm trên trang Aromatide"
+                     title="Tìm kiếm trên trang Aromatide" style="width:22px;height:22px;" />
+            </div>
+            <!-- END SEARCH BOX -->
+        </div> *@
+
+        <div class="search-result-mb">
+            <div class="search-result-mb__form">
+                <svg width="9" height="15" viewBox="0 0 9 15" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.71255 0L0 1.7625L5.56275 7.5L0 13.2375L1.71255 15L9 7.5L1.71255 0Z"
+                          fill="#86888D" />
+                </svg>
+
+                <input class="search-result-mb__input" type="text" name="keyword"
+                       placeholder="Tìm kiếm sản phẩm ..." autocomplete="off">
+            </div>
+
+            <div class="search-result-mb__content">
+            </div>
+
+        </div>
+
+        <a href="/" class="header-mobile-top_logo" title="Aromatide HomeLab"></a>
+        <div class="header-mobile-top_right" style="margin-right: -10px;">
+            <div class="header-cart header-mobile-top_right__item" id="headerMiniCart"
+                 style="margin-right:20px;">
+                <a asp-controller="Product" asp-action="Checkout" class="icon-cart">
+                    <img src="/images/cart-mobile.png" alt="Giỏ hàng Aromatide"
+                         title="Giỏ hàng Aromatide" style="width:28px;height:28px;margin-top:1px;" />
+                    <span class="header-cart__count">0</span>
+                </a>
+                <div class="header-cart__mini-cart" id="miniCart"></div>
+            </div>
+        </div>
+    </div>
+    <div class="header-mobile_menuSide">
+        <div id="nav-mobile">
+            <div class="nav-mobile">
+                <div class="nav-mobile_bg"
+                     onclick="openCloseElemt('nav-mobile', this);"></div>
+                <div class="nav-mobile_main custom-scrollBar_y">
+
+                    <div class="nav-mobile_main__exit"
+                         onclick="openCloseElemt('nav-mobile', this);">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <ul>
+                        <li class="menu-item">
+                            <div class="menu-item__target-link bg-hot menu-item__has-sub has-sub">
+                                <div class="d-flex align-items-center">
+                                    <div class="menu-item__icon">
+                                        <svg width="36" height="36" viewBox="0 0 36 36" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_2460_3117)">
+                                                <path d="M29.902 29.1084C26.7897 34.3613 20.7836 36.9794 15.0142 35.6638C9.18478 34.335 4.87233 29.4693 4.10198 23.333C4.0255 22.7278 4.02185 22.1151 4 21.7411C4.02003 18.5856 4.7922 15.9 6.38569 13.483C7.16696 12.3009 8.01015 11.162 8.7987 9.98358C9.04455 9.6171 9.19935 9.56448 9.5053 9.91405C9.97698 10.4534 10.5033 10.9421 10.9932 11.4664C11.5304 12.0415 12.1514 12.3178 12.8981 11.9908C13.6393 11.6657 13.8888 11.021 13.8888 10.2241C13.8851 6.23605 15.5934 3.20645 18.7603 1.00003C19.2921 0.629785 19.8749 0.370427 20.4503 0.0885165C20.7253 -0.0449212 20.8856 -0.0637152 20.9839 0.302769C22.2332 4.97497 24.9212 8.77325 27.9461 12.346C29.5979 14.2987 31.0275 16.3754 31.6376 18.9202C32.5081 22.5606 31.7651 25.9623 29.902 29.1084Z"
+                                                      fill="white"></path>
+                                                <path d="M14.7625 22.397C14.2307 22.397 13.7609 22.2485 13.3511 21.9515C12.9414 21.6546 12.6209 21.2543 12.3877 20.7525C12.1546 20.2507 12.0381 19.6887 12.0381 19.0723C12.0381 18.4446 12.1546 17.8789 12.3877 17.3752C12.6209 16.8734 12.9414 16.4731 13.3511 16.1761C13.7609 15.8792 14.2307 15.7307 14.7625 15.7307C15.3052 15.7307 15.7787 15.8792 16.183 16.1761C16.5873 16.4731 16.9023 16.8734 17.13 17.3752C17.3576 17.8789 17.4705 18.4446 17.4705 19.0723C17.4705 19.6887 17.3485 20.2488 17.1045 20.7525C16.8605 21.2562 16.5363 21.6546 16.132 21.9515C15.7277 22.2485 15.2706 22.397 14.7625 22.397ZM14.7625 20.8728C15.094 20.8728 15.3526 20.7017 15.5347 20.3578C15.7168 20.0158 15.8097 19.5873 15.8097 19.0723C15.8097 18.5573 15.7204 18.1288 15.5438 17.7868C15.3671 17.4447 15.1067 17.2718 14.7625 17.2718C14.4311 17.2718 14.1706 17.4429 13.9812 17.7868C13.7937 18.1288 13.699 18.5573 13.699 19.0723C13.699 19.5873 13.79 20.0158 13.9721 20.3578C14.1542 20.6999 14.4183 20.8728 14.7625 20.8728ZM14.961 27.9168C14.7844 27.9168 14.595 27.8397 14.3965 27.6856C14.198 27.5315 14.0978 27.3285 14.0978 27.0767C14.0978 26.9282 14.1524 26.7572 14.2635 26.5617L20.8742 16.2588C21.0728 15.9844 21.3004 15.8472 21.5554 15.8472C21.7429 15.8472 21.9342 15.9224 22.129 16.0709C22.3221 16.2194 22.4204 16.4261 22.4204 16.6873C22.4204 16.8358 22.3639 17.0068 22.2547 17.2023L15.6439 27.5052C15.4436 27.7815 15.216 27.9168 14.961 27.9168ZM21.8886 28.054C21.3787 28.054 20.9198 27.9055 20.51 27.6086C20.1003 27.3116 19.7743 26.9113 19.5302 26.4095C19.2862 25.9058 19.1642 25.3457 19.1642 24.7293C19.1642 24.1016 19.2808 23.5359 19.5139 23.0322C19.747 22.5304 20.0675 22.1301 20.4772 21.8331C20.887 21.5362 21.3569 21.3877 21.8886 21.3877C22.4313 21.3877 22.9048 21.5362 23.3091 21.8331C23.7134 22.1301 24.0285 22.5304 24.2561 23.0322C24.4837 23.5359 24.5967 24.1016 24.5967 24.7293C24.5967 25.3457 24.4746 25.9058 24.2306 26.4095C23.9866 26.9132 23.6624 27.3116 23.2581 27.6086C22.8538 27.9055 22.3967 28.054 21.8886 28.054ZM21.8886 26.5298C22.2201 26.5298 22.4787 26.3587 22.6608 26.0148C22.8429 25.6728 22.934 25.2443 22.934 24.7293C22.934 24.2143 22.8447 23.7858 22.6681 23.4438C22.4914 23.1017 22.231 22.9288 21.8868 22.9288C21.5554 22.9288 21.2949 23.0999 21.1055 23.4438C20.918 23.7858 20.8233 24.2143 20.8233 24.7293C20.8233 25.2443 20.9143 25.6728 21.0964 26.0148C21.2822 26.3569 21.5444 26.5298 21.8886 26.5298Z"
+                                                      fill="#F06500"></path>
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_2460_3117">
+                                                    <rect width="36" height="36" fill="white"></rect>
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </div>
+
+                                    <span>HOT SALE</span>
+                                </div>
+
+                                <svg class="menu-item__icon-arrow" width="12" height="10"
+                                     viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_2460_3122)">
+                                        <path d="M9.20999 4.17307C9.05437 4.17307 8.89875 4.17307 8.74314 4.17307C6.18202 4.17307 3.62153 4.17307 1.06041 4.17368C0.936045 4.17368 0.808551 4.16821 0.686682 4.19069C0.272954 4.26601 -0.0214062 4.6414 0.00109291 5.04776C0.0229664 5.43894 0.3517 5.78031 0.757928 5.82466C0.881672 5.83802 1.00729 5.83802 1.13228 5.83802C3.74027 5.83863 6.34764 5.83863 8.95563 5.83863C9.04 5.83863 9.12437 5.83863 9.22061 5.83863C8.14067 6.63131 7.30071 7.63963 6.33576 8.52161C6.11952 8.71902 5.99703 8.95896 6.0189 9.24991C6.04265 9.56152 6.19702 9.79538 6.49825 9.92415C6.79449 10.0511 7.07822 10.0183 7.34134 9.84154C7.42383 9.78627 7.49633 9.71398 7.56757 9.64474C8.92063 8.33088 10.2737 7.01581 11.6255 5.70135C12.1255 5.2148 12.1248 4.77442 11.6236 4.28666C10.2599 2.96127 8.895 1.63708 7.53383 0.309865C7.31759 0.0990896 7.07135 -0.0315063 6.76137 0.00676133C6.09765 0.0893708 5.78954 0.817671 6.19515 1.33823C6.25577 1.41659 6.33014 1.48523 6.40201 1.55508C6.99198 2.1297 7.5807 2.70615 8.17504 3.27652C8.50003 3.58873 8.78814 3.94468 9.20999 4.17307Z"
+                                              fill="#3C3D41" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_2460_3122">
+                                            <rect width="12" height="10" fill="white"
+                                                  transform="matrix(-1 0 0 1 12 0)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+
+                            <ul class="sub-menu">
+                                <li>
+                                    <div class="sub-menu__item menu-item__has-sub has-sub">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span>Nước rửa tay</span>
+                                            <svg class="menu-item__icon-arrow" width="12" height="10"
+                                                 viewBox="0 0 12 10" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_2460_3122)">
+                                                    <path d="M9.20999 4.17307C9.05437 4.17307 8.89875 4.17307 8.74314 4.17307C6.18202 4.17307 3.62153 4.17307 1.06041 4.17368C0.936045 4.17368 0.808551 4.16821 0.686682 4.19069C0.272954 4.26601 -0.0214062 4.6414 0.00109291 5.04776C0.0229664 5.43894 0.3517 5.78031 0.757928 5.82466C0.881672 5.83802 1.00729 5.83802 1.13228 5.83802C3.74027 5.83863 6.34764 5.83863 8.95563 5.83863C9.04 5.83863 9.12437 5.83863 9.22061 5.83863C8.14067 6.63131 7.30071 7.63963 6.33576 8.52161C6.11952 8.71902 5.99703 8.95896 6.0189 9.24991C6.04265 9.56152 6.19702 9.79538 6.49825 9.92415C6.79449 10.0511 7.07822 10.0183 7.34134 9.84154C7.42383 9.78627 7.49633 9.71398 7.56757 9.64474C8.92063 8.33088 10.2737 7.01581 11.6255 5.70135C12.1255 5.2148 12.1248 4.77442 11.6236 4.28666C10.2599 2.96127 8.895 1.63708 7.53383 0.309865C7.31759 0.0990896 7.07135 -0.0315063 6.76137 0.00676133C6.09765 0.0893708 5.78954 0.817671 6.19515 1.33823C6.25577 1.41659 6.33014 1.48523 6.40201 1.55508C6.99198 2.1297 7.5807 2.70615 8.17504 3.27652C8.50003 3.58873 8.78814 3.94468 9.20999 4.17307Z"
+                                                          fill="#3C3D41" />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_2460_3122">
+                                                        <rect width="12" height="10" fill="white"
+                                                              transform="matrix(-1 0 0 1 12 0)" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="" class="sub-menu__item">
+                                                <div>Hương gạo</div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="sub-menu__item">
+                                                <div>Hương sen</div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="sub-menu__item">
+                                                <div>Hương táo kiwi</div>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </li>
+                                <li>
+                                    <div class="sub-menu__item menu-item__has-sub has-sub">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span>Nước rửa chén</span>
+                                            <svg class="menu-item__icon-arrow" width="12" height="10"
+                                                 viewBox="0 0 12 10" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_2460_3122)">
+                                                    <path d="M9.20999 4.17307C9.05437 4.17307 8.89875 4.17307 8.74314 4.17307C6.18202 4.17307 3.62153 4.17307 1.06041 4.17368C0.936045 4.17368 0.808551 4.16821 0.686682 4.19069C0.272954 4.26601 -0.0214062 4.6414 0.00109291 5.04776C0.0229664 5.43894 0.3517 5.78031 0.757928 5.82466C0.881672 5.83802 1.00729 5.83802 1.13228 5.83802C3.74027 5.83863 6.34764 5.83863 8.95563 5.83863C9.04 5.83863 9.12437 5.83863 9.22061 5.83863C8.14067 6.63131 7.30071 7.63963 6.33576 8.52161C6.11952 8.71902 5.99703 8.95896 6.0189 9.24991C6.04265 9.56152 6.19702 9.79538 6.49825 9.92415C6.79449 10.0511 7.07822 10.0183 7.34134 9.84154C7.42383 9.78627 7.49633 9.71398 7.56757 9.64474C8.92063 8.33088 10.2737 7.01581 11.6255 5.70135C12.1255 5.2148 12.1248 4.77442 11.6236 4.28666C10.2599 2.96127 8.895 1.63708 7.53383 0.309865C7.31759 0.0990896 7.07135 -0.0315063 6.76137 0.00676133C6.09765 0.0893708 5.78954 0.817671 6.19515 1.33823C6.25577 1.41659 6.33014 1.48523 6.40201 1.55508C6.99198 2.1297 7.5807 2.70615 8.17504 3.27652C8.50003 3.58873 8.78814 3.94468 9.20999 4.17307Z"
+                                                          fill="#3C3D41" />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_2460_3122">
+                                                        <rect width="12" height="10" fill="white"
+                                                              transform="matrix(-1 0 0 1 12 0)" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="" class="sub-menu__item">
+                                                <div>Hương gạo</div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="sub-menu__item">
+                                                <div>Hương sả chanh</div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="sub-menu__item">
+                                                <div>Hương cam quế</div>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu-item">
+                            <div class="menu-item__target-link  menu-item__has-sub has-sub">
+                                <div class="d-flex align-items-center">
+                                    <div class="menu-item__icon">
+                                    </div>
+
+                                    <span>Nước lau sàn</span>
+                                </div>
+
+                                <svg class="menu-item__icon-arrow" width="12" height="10"
+                                     viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_2460_3122)">
+                                        <path d="M9.20999 4.17307C9.05437 4.17307 8.89875 4.17307 8.74314 4.17307C6.18202 4.17307 3.62153 4.17307 1.06041 4.17368C0.936045 4.17368 0.808551 4.16821 0.686682 4.19069C0.272954 4.26601 -0.0214062 4.6414 0.00109291 5.04776C0.0229664 5.43894 0.3517 5.78031 0.757928 5.82466C0.881672 5.83802 1.00729 5.83802 1.13228 5.83802C3.74027 5.83863 6.34764 5.83863 8.95563 5.83863C9.04 5.83863 9.12437 5.83863 9.22061 5.83863C8.14067 6.63131 7.30071 7.63963 6.33576 8.52161C6.11952 8.71902 5.99703 8.95896 6.0189 9.24991C6.04265 9.56152 6.19702 9.79538 6.49825 9.92415C6.79449 10.0511 7.07822 10.0183 7.34134 9.84154C7.42383 9.78627 7.49633 9.71398 7.56757 9.64474C8.92063 8.33088 10.2737 7.01581 11.6255 5.70135C12.1255 5.2148 12.1248 4.77442 11.6236 4.28666C10.2599 2.96127 8.895 1.63708 7.53383 0.309865C7.31759 0.0990896 7.07135 -0.0315063 6.76137 0.00676133C6.09765 0.0893708 5.78954 0.817671 6.19515 1.33823C6.25577 1.41659 6.33014 1.48523 6.40201 1.55508C6.99198 2.1297 7.5807 2.70615 8.17504 3.27652C8.50003 3.58873 8.78814 3.94468 9.20999 4.17307Z"
+                                              fill="#3C3D41" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_2460_3122">
+                                            <rect width="12" height="10" fill="white"
+                                                  transform="matrix(-1 0 0 1 12 0)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="/cm/rua-mat" class="sub-menu__item">
+                                        <div>Hương lavender</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/cm/toner-xit-khoang" class="sub-menu__item">
+                                        <div>Hương hoa hạ</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/cm/duong-da" class="sub-menu__item">
+                                        <div>Hương ylang</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu-item">
+                            <div class="menu-item__target-link  menu-item__has-sub has-sub">
+                                <div class="d-flex align-items-center">
+                                    <div class="menu-item__icon">
+                                    </div>
+
+                                    <span>Nước lau kính</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="menu-item">
+                            <div class="menu-item__target-link  menu-item__has-sub has-sub">
+                                <div class="d-flex align-items-center">
+                                    <div class="menu-item__icon">
+                                    </div>
+
+                                    <span>Nước tẩy toilet</span>
+                                </div>
+
+                            </div>
+
+                        </li>
+                        <li class="menu-item">
+                            <div class="menu-item__target-link bg-white menu-item__has-sub has-sub">
+                                <div class="d-flex align-items-center">
+                                    <div class="menu-item__icon">
+                                    </div>
+
+                                    <span>Giới thiệu</span>
+                                </div>
+
+                                <svg class="menu-item__icon-arrow" width="12" height="10"
+                                     viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_2460_3122)">
+                                        <path d="M9.20999 4.17307C9.05437 4.17307 8.89875 4.17307 8.74314 4.17307C6.18202 4.17307 3.62153 4.17307 1.06041 4.17368C0.936045 4.17368 0.808551 4.16821 0.686682 4.19069C0.272954 4.26601 -0.0214062 4.6414 0.00109291 5.04776C0.0229664 5.43894 0.3517 5.78031 0.757928 5.82466C0.881672 5.83802 1.00729 5.83802 1.13228 5.83802C3.74027 5.83863 6.34764 5.83863 8.95563 5.83863C9.04 5.83863 9.12437 5.83863 9.22061 5.83863C8.14067 6.63131 7.30071 7.63963 6.33576 8.52161C6.11952 8.71902 5.99703 8.95896 6.0189 9.24991C6.04265 9.56152 6.19702 9.79538 6.49825 9.92415C6.79449 10.0511 7.07822 10.0183 7.34134 9.84154C7.42383 9.78627 7.49633 9.71398 7.56757 9.64474C8.92063 8.33088 10.2737 7.01581 11.6255 5.70135C12.1255 5.2148 12.1248 4.77442 11.6236 4.28666C10.2599 2.96127 8.895 1.63708 7.53383 0.309865C7.31759 0.0990896 7.07135 -0.0315063 6.76137 0.00676133C6.09765 0.0893708 5.78954 0.817671 6.19515 1.33823C6.25577 1.41659 6.33014 1.48523 6.40201 1.55508C6.99198 2.1297 7.5807 2.70615 8.17504 3.27652C8.50003 3.58873 8.78814 3.94468 9.20999 4.17307Z"
+                                              fill="#3C3D41" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_2460_3122">
+                                            <rect width="12" height="10" fill="white"
+                                                  transform="matrix(-1 0 0 1 12 0)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="/cm/ve-nha-may" class="sub-menu__item">
+                                        <div>Về Aromatide</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/cm/minh-bach-nguyen-lieu" class="sub-menu__item">
+                                        <div>Chuyên gia</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/cm/chuyen-gia" class="sub-menu__item">
+                                        <div>Nhà máy</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- <li class="menu-item">
+                            <div class="menu-item__target-link bg-white menu-item__has-sub has-sub">
+                                <div class="d-flex align-items-center">
+                                    <div class="menu-item__icon">
+                                    </div>
+
+                                    <span>Blog làm đẹp</span>
+                                </div>
+
+                                <svg class="menu-item__icon-arrow" width="12" height="10"
+                                    viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_2460_3122)">
+                                        <path
+                                            d="M9.20999 4.17307C9.05437 4.17307 8.89875 4.17307 8.74314 4.17307C6.18202 4.17307 3.62153 4.17307 1.06041 4.17368C0.936045 4.17368 0.808551 4.16821 0.686682 4.19069C0.272954 4.26601 -0.0214062 4.6414 0.00109291 5.04776C0.0229664 5.43894 0.3517 5.78031 0.757928 5.82466C0.881672 5.83802 1.00729 5.83802 1.13228 5.83802C3.74027 5.83863 6.34764 5.83863 8.95563 5.83863C9.04 5.83863 9.12437 5.83863 9.22061 5.83863C8.14067 6.63131 7.30071 7.63963 6.33576 8.52161C6.11952 8.71902 5.99703 8.95896 6.0189 9.24991C6.04265 9.56152 6.19702 9.79538 6.49825 9.92415C6.79449 10.0511 7.07822 10.0183 7.34134 9.84154C7.42383 9.78627 7.49633 9.71398 7.56757 9.64474C8.92063 8.33088 10.2737 7.01581 11.6255 5.70135C12.1255 5.2148 12.1248 4.77442 11.6236 4.28666C10.2599 2.96127 8.895 1.63708 7.53383 0.309865C7.31759 0.0990896 7.07135 -0.0315063 6.76137 0.00676133C6.09765 0.0893708 5.78954 0.817671 6.19515 1.33823C6.25577 1.41659 6.33014 1.48523 6.40201 1.55508C6.99198 2.1297 7.5807 2.70615 8.17504 3.27652C8.50003 3.58873 8.78814 3.94468 9.20999 4.17307Z"
+                                            fill="#3C3D41" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_2460_3122">
+                                            <rect width="12" height="10" fill="white"
+                                                transform="matrix(-1 0 0 1 12 0)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="/blog-meo-lam-dep/cham-soc-moi" class="sub-menu__item">
+                                        <div>Chăm sóc môi</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/blog-meo-lam-dep/cham-soc-da" class="sub-menu__item">
+                                        <div>Chăm sóc da</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/blog-meo-lam-dep/cham-soc-toc" class="sub-menu__item">
+                                        <div>Chăm sóc tóc</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/blog-meo-lam-dep/cham-soc-co-the" class="sub-menu__item">
+                                        <div>Chăm sóc cơ thể</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/blog-meo-lam-dep/cham-soc-me-va-be"
+                                        class="sub-menu__item">
+                                        <div>Chăm sóc mẹ &amp; bé</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/blog-meo-lam-dep/cam-nang-suc-khoe"
+                                        class="sub-menu__item">
+                                        <div>Cẩm nang sức khoẻ</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/blog-meo-lam-dep/tin-huu-ich" class="sub-menu__item">
+                                        <div>Tin hữu ích</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li> -->
+                    </ul>
+                    @*  <a href="/account/login">
+                    <div class="box-stores">
+                    <div class="box-stores_icon"
+                    style="background-color: #3E6931; border-color:#3E6931 ">
+                    <svg viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    width="30px" height="30px">
+                    <path d="M11.9897 8.81323C13.1101 9.25162 14.0777 9.84636 14.8926 10.6529C16.4855 12.2303 17.3097 14.1194 17.3117 16.3272C17.3127 17.7938 16.1114 18.9833 14.5902 18.9892C10.8632 19.0041 7.13518 19.0031 3.40816 18.9892C1.87164 18.9833 0.642625 17.7799 0.687726 16.2946C0.791255 12.8686 2.48768 10.4292 5.68168 8.95078C5.77291 8.90823 5.86517 8.86667 6.00252 8.80333C4.46907 7.59603 3.75872 6.06315 4.01088 4.176C4.17899 2.92119 4.80938 1.89202 5.82211 1.09045C7.90088 -0.554258 10.936 -0.30785 12.7544 1.62285C14.5021 3.47932 14.6405 6.78258 11.9897 8.81323ZM8.98639 17.5266C9.42203 17.5266 9.85664 17.5266 10.2923 17.5266C11.6874 17.5266 13.0834 17.5335 14.4785 17.5236C15.3375 17.5167 15.848 16.9665 15.7967 16.1362C15.7895 16.0254 15.7803 15.9145 15.7742 15.8037C15.5845 12.447 12.3926 9.62766 8.91156 9.74048C5.22965 9.85923 2.45591 12.452 2.20785 16.0066C2.1361 17.0318 2.61479 17.5266 3.68697 17.5276C5.4531 17.5276 7.22026 17.5266 8.98639 17.5266ZM9.00792 1.46847C7.06548 1.46253 5.48078 2.97067 5.4654 4.83902C5.45003 6.71925 7.03268 8.26499 8.98536 8.27687C10.9094 8.28874 12.5125 6.75982 12.5279 4.89741C12.5443 3.01322 10.9637 1.47441 9.00792 1.46847Z"
+                    fill="white"></path>
+                    </svg>
+                    </div>
+                    <div class="box-stores_text">Đăng nhập</div>
+                    </div>
+                    </a> *@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END:: MENU MOBILE (P) -->
+<!-- START:: MENU DESKTOP (P) -->
+<div>
+    <div class="site-header__main">
+        <div id="scroll-menu" class="container-full scroll-menu">
+            <div class="site-header__inner scroll-menu_child">
+                <div class="header-menu">
+                    <ul class="header-menu__nav">
+                        <li class="header-menu__item">
+                            <a href="javascript:;" class="item" data-write="nuoc-rua-tay">
+                                Nước rửa tay
+                            </a>
+                            <div class="megaMenu">
+                                <div id="nuoc-rua-tay" class="megaMenu_content">
+                                    <div class="spinner-box loading-megaMenu" style="display:none;">
+                                        <div class="circle-border">
+                                            <div class="circle-core"></div>
+                                        </div>
+                                    </div>
+                                    <div id="huong-gao-rt"
+                                         style="display:flex;height:100%;flex-direction:column;justify-content:flex-end;">
+                                        <div class="product-box">
+                                            @foreach (var item in Model)
+                                            {
+                                                var name = (item.Taxo.Length >0) ? item.Taxo[0].ToString() : "";
+                                                if (name.Equals("Nước rửa tay"))
+                                                {
+                                                            <div class="product-box_item five-cols">
+                                                        <a href="~/@item.RedirectUrl"
+                                                               class="product-box_item__image">
+                                                                <img loading="lazy"
+                                                                     src="@item.Image"
+                                                                         alt="@item.Name"
+                                                                         title="@item.Name" />
+                                                            @*  <div class="product-box_item__image__tags">
+                                                            <div class="tag-sale">-12%</div>
+                                                        </div> *@
+                                                            </a>
+                                                            <div class="product-box_item__content">
+                                                                <a href=""
+                                                                   class="product-box_item__content__title maxLine_2">
+                                                                @item.Name
+                                                                </a>
+                                                                <div class="product-box_item__content__price">
+                                                                        <div class="price-now">@item.SalePrice</div>
+                                                                        <div class="price-old">@item.Price</div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </li>
+                        <li class="header-menu__item">
+                            <a href="javascript:;" class="item" data-write="nuoc-rua-chen">
+                                Nước rửa chén
+                            </a>
+                            <div class="megaMenu">
+                                <div id="nuoc-rua-chen" class="megaMenu_content">
+                                    <div id="huong-gao-rc"
+                                         style="display:flex;height:100%;flex-direction:column;justify-content:flex-end;">
+                                        <div class="product-box">
+                                            @foreach (var item in Model)
+                                            {
+                                                var name = (item.Taxo.Length > 0) ? item.Taxo[0].ToString() : "";
+                                                if (name.Equals("Nước rửa chén"))
+                                                {
+                                                    <div class="product-box_item five-cols">
+                                                        <a href="~/@item.RedirectUrl"
+                                                           class="product-box_item__image">
+                                                            <img loading="lazy"
+                                                                 src="@item.Image"
+                                                                 alt="@item.Name"
+                                                                 title="@item.Name" />
+                                                            @*  <div class="product-box_item__image__tags">
+                                                    <div class="tag-sale">-12%</div>
+                                                    </div> *@
+                                                        </a>
+                                                        <div class="product-box_item__content">
+                                                            <a href=""
+                                                               class="product-box_item__content__title maxLine_2">
+                                                                @item.Name
+                                                            </a>
+                                                            <div class="product-box_item__content__price">
+                                                                <div class="price-now">@item.SalePrice</div>
+                                                                <div class="price-old">@item.Price</div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="header-menu__item">
+                            <a href="javascript:;" class="item" data-write="nuoc-lau-san">
+                                    Nước lau sàn
+                                </a>
+                            
+                            <div class="megaMenu">
+                                <div id="nuoc-lau-san" class="megaMenu_content">
+                                    <div class="spinner-box loading-megaMenu" style="display:none;">
+                                        <div class="circle-border">
+                                            <div class="circle-core"></div>
+                                        </div>
+                                    </div>
+                                    <div id="huong-lavender-ls"
+                                         style="display:flex;height:100%;flex-direction:column;justify-content:flex-end;">
+                                        <div class="product-box">
+                                            @foreach (var item in Model)
+                                            {
+                                                var name = (item.Taxo.Length > 0) ? item.Taxo[0].ToString() : "";
+                                                if (name.Equals("Nước lau sàn"))
+                                                {
+                                                    <div class="product-box_item five-cols">
+                                                        <a href="~/@item.RedirectUrl"
+                                                           class="product-box_item__image">
+                                                            <img loading="lazy"
+                                                                 src="@item.Image"
+                                                                 alt="@item.Name"
+                                                                 title="@item.Name" />
+                                                            @*  <div class="product-box_item__image__tags">
+                                                    <div class="tag-sale">-12%</div>
+                                                    </div> *@
+                                                        </a>
+                                                        <div class="product-box_item__content">
+                                                            <a href=""
+                                                               class="product-box_item__content__title maxLine_2">
+                                                                @item.Name
+                                                            </a>
+                                                            <div class="product-box_item__content__price">
+                                                                <div class="price-now">@item.SalePrice</div>
+                                                                <div class="price-old">@item.Price</div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="header-menu__item">
+                            <a href="@urlLK" class="item">
+                                Nước lau kính
+                            </a>
+                        </li>
+                        <li class="header-menu__item">
+                            <a href="@urlT" class="item">
+                                Nước tẩy toilet
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="header-right">
+                    <ul class="header-menu__nav">
+                        <li class="header-menu__item" style="position:relative;">
+                            <a asp-controller="Home" asp-action="AboutUs" class="item">
+                                Giới thiệu
+                            </a>
+                            <!-- DROP MENU -->
+                            <div class="drop-menu right" style="width: 240px;">
+                                <ul>
+                                    <li>
+                                        <a asp-controller="Home" asp-action="AboutUs" class="max-line_1">
+                                            Về Aromatide
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Home" asp-action="Terminal" class="max-line_1">Chuyên gia</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <!-- ==== START: ICON scroll -->
+        <!-- <div class="scrollIcon enable-max-1023">
+            <div class="scrollIcon__box"
+                onClick="scrollHeaderMenu('scroll-menu');" >
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div> -->
+        <!-- ==== START: ICON scroll -->
+    </div>
+    <!-- END:: MENU DESKTOP (P) -->
+</div>
+<!-- END:: MENU DESKTOP (P) -->

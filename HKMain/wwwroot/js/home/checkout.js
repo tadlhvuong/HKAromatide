@@ -1,44 +1,43 @@
-﻿function changeQuantity() {
-    $(document).on('click', '.product-quantity-change .plus', function (e) {
-        e.preventDefault();
+﻿function checkoutLoading(status) {
+    let checkout_wrapper = $('body');
+    if (status === true) {
+        checkout_wrapper.addClass('loading');
+    } else {
+        checkout_wrapper.removeClass('loading');
+    }
+}
+function changeQuantity(type, el) {
+    //if (!type) $(el).parents(".form-update-quantity").submit();
 
-        const input = $(this).siblings('input[type="number"]');
-        const max = input.attr('max');
-        let oldValue = parseFloat(input.val());
+    let quantityEl;
+    if (type === "down") quantityEl = $(el).next();
+    else quantityEl = $(el).prev();
 
-        if (oldValue >= max) {
-            var newVal = max;
-        } else {
-            var newVal = oldValue + 1;
-        }
-        1
-        input.val(newVal);
-        input.trigger("change");
+    let quantity = $(quantityEl).val();
+    if (type === "up") quantity++;
+    else quantity--;
 
-    });
-
-    $(document).on('click', '.product-quantity-change .minus', function (e) {
-        e.preventDefault();
-        const input = $(this).siblings('input[type="number"]');
-        const min = input.attr('min');
-        let oldValue = parseFloat(input.val());
-
-        if (oldValue <= min) {
-            var newVal = min;
-        } else {
-            var newVal = oldValue - 1;
-        }
-
-        input.val(newVal);
-        input.trigger("change");
-    });
+    if (quantity > 0) {
+        checkoutLoading(true);
+        $(quantityEl).val(quantity);
+        $(el).parents(".form-update-quantity").submit();
+    }
+}
+function cancelChangeVariant(el) {
+    $(el).parents(".info").children("form").hide();
+    $(el).parents(".info").children("#current-option").show();
 }
 
-function loadCart() {
-    var model = JSON.parse((sessionStorage.getItem("Cart") == null) ? [] : sessionStorage.getItem("Cart"));
-    $("#Items").val(JSON.stringify(model));
-    console.log(model);
+function changeOption(el) {
+    $(el).parents(".options").hide();
+    $(el).parents(".info").children("form").show();
 }
+
+function confirmChangeVariant(el) {
+    checkoutLoading(true);
+    $(el).parents("form").submit();
+}
+
 //function checkout() {
 //    var model = {
 //        id: $("#Id").val(),
@@ -54,5 +53,7 @@ function loadCart() {
 //    console.log(model);
 //}
 jQuery(document).ready(function (e) {
-    loadCart();
+    loadCartPayment();
+    updateCountCart();
+    updatePriceCart();
 });

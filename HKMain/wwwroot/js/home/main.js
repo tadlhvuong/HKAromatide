@@ -77,55 +77,55 @@ function openCloseElemt(idElemt, target) {
     toggleIconHambuger()
 }
 
-function loadMegaMenuProduct(thisD) {
-    var idD = $(thisD).data('menu');
-    console.log(idD);
-    var idWrite = $(thisD).data('write');
-    console.log(idWrite);
-    // bật selected
-    var parentD = $(thisD).parent();
-    parentD.children().each(function () {
-        $(this).removeClass('selected');
-    });
-    $(thisD).addClass('selected');
-    if ($('#' + idD).length) {
-        // === trường hợp đã load rồi => không load nữa
-        // ẩn tất cả
-        $('#' + idWrite).children().each(function () {
-            $(this).css('display', 'none');
-        });
-        // hiển thị lại 1
-        $('#' + idD).css({
-            'display': 'flex',
-            'height': '100%',
-            'flex-direction': 'column',
-            'justify-content': 'flex-end'
-        });
-    } else {
-        // bật loading
-        $('#' + idWrite + ' .loading-megaMenu').css('display', 'flex');
-        // cố định height
-        let heightWrite = $('#' + idWrite).height();
-        $('#' + idWrite).css('height', heightWrite);
-        // trường hợp chưa load => bắt đầu tải
-        var url = '/collection/customProducts/' + idD;
-        $.ajax({
-            url: url,
-            type: 'GET'
-        }).done(function (dataJson) {
-            setTimeout(function () {
-                // ẩn tất cả
-                $('#' + idWrite).children().each(function () {
-                    $(this).css('display', 'none');
-                });
-                // append thông tin vào
-                $('#' + idWrite).append('<div id="' + idD +
-                    '" style="display:flex;height:100%;flex-direction:column;justify-content:flex-end;">' +
-                    dataJson.data + '</div>');
-            }, 1);
-        });
-    }
-}
+//function loadMegaMenuProduct(thisD) {
+//    var idD = $(thisD).data('menu');
+//    console.log(idD);
+//    var idWrite = $(thisD).data('write');
+//    console.log(idWrite);
+//    // bật selected
+//    var parentD = $(thisD).parent();
+//    parentD.children().each(function () {
+//        $(this).removeClass('selected');
+//    });
+//    $(thisD).addClass('selected');
+//    if ($('#' + idD).length) {
+//        // === trường hợp đã load rồi => không load nữa
+//        // ẩn tất cả
+//        $('#' + idWrite).children().each(function () {
+//            $(this).css('display', 'none');
+//        });
+//        // hiển thị lại 1
+//        $('#' + idD).css({
+//            'display': 'flex',
+//            'height': '100%',
+//            'flex-direction': 'column',
+//            'justify-content': 'flex-end'
+//        });
+//    } else {
+//        // bật loading
+//        $('#' + idWrite + ' .loading-megaMenu').css('display', 'flex');
+//        // cố định height
+//        let heightWrite = $('#' + idWrite).height();
+//        $('#' + idWrite).css('height', heightWrite);
+//        // trường hợp chưa load => bắt đầu tải
+//        var url = '/collection/customProducts/' + idD;
+//        $.ajax({
+//            url: url,
+//            type: 'GET'
+//        }).done(function (dataJson) {
+//            setTimeout(function () {
+//                // ẩn tất cả
+//                $('#' + idWrite).children().each(function () {
+//                    $(this).css('display', 'none');
+//                });
+//                // append thông tin vào
+//                $('#' + idWrite).append('<div id="' + idD +
+//                    '" style="display:flex;height:100%;flex-direction:column;justify-content:flex-end;">' +
+//                    dataJson.data + '</div>');
+//            }, 1);
+//        });
+//    }
+//}
 
 function menuActionEnd(menu) {
     $(document).on('click', function (e) {
@@ -263,13 +263,16 @@ function searchSpotlight() {
     })
 }
 
+function formatCurrency(price) {
+    return price.toLocaleString('vi', { style: 'currency', currency: 'VND' })
+}
+
 function showMiniCart() {
     let timeOut;
 
     $("#headerMiniCart").mouseenter(function (e) {
         $("#miniCart").show();
         var miniCart = sessionStorage.getItem("Cart");
-        console.log(miniCart);
         if (miniCart == null || miniCart == "[]") {
             let urlBuy = "/san-pham";
             $("#miniCart").html('<div class="cart-list"><p>Giỏ hàng của bạn đang trống</p> \n <a href="' + urlBuy +'"> Mua thêm </a></div>');
@@ -280,21 +283,23 @@ function showMiniCart() {
                 footer = "\n<div class=\"cart-list__remove\">\n <a onclick='removeAllCart();'>\n <svg width=\"12\" height=\"12\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\">\n                <path d=\"M10.666 3.083v7.584A1.166 1.166 0 019.5 11.833h-7a1.167 1.167 0 01-1.167-1.166V3.083H.167V1.917h11.666v1.166h-1.167zm-8.166 0v7.584h7V3.083h-7zM5.417 4.25h1.166v1.167H5.416V4.25zm0 1.75h1.166v1.167H5.416V6zm0 1.75h1.166v1.167H5.416V7.75zM3.083.167h5.833v1.166H3.083V.167z\" fill=\"currentColor\" \/>\n<\/svg>\nXóa tất cả\n <\/a>\n<\/div>\n<\/div>",
                 body = ""
             arrItem.forEach(function (e, i) {
-                //body += "<div class=\"cart-item\">\n <div class=\"thumbnail\">\n<img src=\"" + e.product_image + "\" alt=\"" + e.product_name + " >\n<\/div>\n <div class=\"content\">\n<div class=\"top\">\n<div class=\"info\">\n<span class=\"title\"><a href=\"" + e.urlReturn + ">\n " + e.product_name + "<\/a>\n<\/span>\n<\/div>\n <form action=\"\" method=\"get\" id=\"form-delete-item\">\n<div id=\"cart-remove-item\" style=\"cursor: pointer\">\n<button type=\"submit\" class=\"remove\">\n<svg width=\"12\" height=\"12\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\">\n<path\n d=\"M10.666 3.083v7.584A1.166 1.166 0 019.5 11.833h-7a1.167 1.167 0 01-1.167-1.166V3.083H.167V1.917h11.666v1.166h-1.167zm-8.166 0v7.584h7V3.083h-7zM5.417 4.25h1.166v1.167H5.416V4.25zm0 1.75h1.166v1.167H5.416V6zm0 1.75h1.166v1.167H5.416V7.75zM3.083.167h5.833v1.166H3.083V.167z\"\n fill=\"currentColor\" \/>\n <\/svg>\n                                <span>X\u00f3a<\/span>\n                            <\/button>\n                        <\/div>\n                    <\/form>\n                <\/div>\n                <div class=\"bottom\">\n                    <div class=\"prices\">\n                        <del>185.000\u0111<\/del>\n                        <ins>175.750\u0111<\/ins>\n                    <\/div>\n                <\/div>\n            <\/div>\n        <\/div> \n"
                 let urlProduct = "/san-pham/chi-tiet-san-pham?id=" + e.product_id;
+                let textPriceCurrent = formatCurrency(e.product_pricecurrent);
+                let textPriceRegular = formatCurrency(e.product_priceregular);
                 body += "<div class='cart-item'>" +
                     "<div class='thumbnail'><img src='" + e.product_image + "' alt='Ảnh đại diện'></div>" +
                     "<div class='content''>" +
-                        " <div class='top'>" +
+                    " <div class='top'>" +
                     "<div class='info'><span class='title'><a href='" + urlProduct + "'" + "> " + e.product_name + "\tx" + e.product_quantity + " </a></span></div>" +
                     "<div id='cart-remove-item' style='cursor: pointer'><a onclick='removeItemCart(" + i
-                    + ");'> <span>Xóa</span></a>  </div> </div>" +
-                    "<div class='bottom'><div class='prices'><ins>" +
-                    + e.product_price + "</ins> <del>" + e.product_price + "</del></div></div></div></div>"
+                    + ");'> <i class='fas fa-trash'></i></a>  </div> </div>" +
+                    "<span>" + e.nameParent + ":</span> <span>" + e.nameChild + "</span>" +
+                    "<div class='bottom'><div class='prices'><span><ins>" + textPriceCurrent + "</ins></span> <span><del>" + textPriceRegular + "</del></span></div></div></div></div>";
+                
             })
+            var html = header + body + footer;
             //var html = "<div class=\"cart-list\">\n            <div class=\"cart-item\">\n            <div class=\"thumbnail\">\n                <img src=\"https:\/\/media.comem.vn\/uploads\/2024\/09\/Frame_1063.webp\" alt=\"\u1ea2nh \u0111\u1ea1i di\u1ec7n\">\n            <\/div>\n            <div class=\"content\">\n                <div class=\"top\">\n                    <div class=\"info\">\n                        <span class=\"title\"><a href=\"\/sp\/son-kem-bong-thuy-tinh-moi-cang-mong-mem-min\">\n                            Son Kem B\u00f3ng Thu\u1ef7 Tinh M\u00f4i C\u0103ng M\u1ecdng M\u1ec1m M\u1ecbn<\/a>\n                        <\/span>\n                    <\/div>\n                    <form action=\"https:\/\/comem.vn\/product\/viewed\/delete\/66ebc347eba1a0f9da09adec\" method=\"get\" id=\"form-delete-item\">\n                        <div id=\"cart-remove-item\" style=\"cursor: pointer\">\n                            <button type=\"submit\" class=\"remove\">\n                                <svg width=\"12\" height=\"12\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\">\n                                    <path\n                                        d=\"M10.666 3.083v7.584A1.166 1.166 0 019.5 11.833h-7a1.167 1.167 0 01-1.167-1.166V3.083H.167V1.917h11.666v1.166h-1.167zm-8.166 0v7.584h7V3.083h-7zM5.417 4.25h1.166v1.167H5.416V4.25zm0 1.75h1.166v1.167H5.416V6zm0 1.75h1.166v1.167H5.416V7.75zM3.083.167h5.833v1.166H3.083V.167z\"\n                                        fill=\"currentColor\" \/>\n                                <\/svg>\n                                <span>X\u00f3a<\/span>\n                            <\/button>\n                        <\/div>\n                    <\/form>\n                <\/div>\n                <div class=\"bottom\">\n                    <div class=\"prices\">\n                        <del>185.000\u0111<\/del>\n                        <ins>175.750\u0111<\/ins>\n                    <\/div>\n                <\/div>\n            <\/div>\n        <\/div>\n        <div class=\"cart-list__remove\">\n        <a href=\"https:\/\/comem.vn\/product\/viewed\/delete\/all\">\n            <svg width=\"12\" height=\"12\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\">\n                <path d=\"M10.666 3.083v7.584A1.166 1.166 0 019.5 11.833h-7a1.167 1.167 0 01-1.167-1.166V3.083H.167V1.917h11.666v1.166h-1.167zm-8.166 0v7.584h7V3.083h-7zM5.417 4.25h1.166v1.167H5.416V4.25zm0 1.75h1.166v1.167H5.416V6zm0 1.75h1.166v1.167H5.416V7.75zM3.083.167h5.833v1.166H3.083V.167z\" fill=\"currentColor\" \/>\n            <\/svg>\n            Xo\u00e1 t\u1ea5t c\u1ea3\n        <\/a>\n    <\/div>\n<\/div>"
             
-            var html = header + body + footer;
             $("#miniCart").html(html);
         }
     });
@@ -313,24 +318,82 @@ function updateCountCart() {
     return count;
 }
 
+function updatePriceCart() {
+    var myStorage = sessionStorage.getItem("Cart")
+    var price = 0;
+    var totalPrice = 0;
+    var arrItem = (myStorage != null) ? JSON.parse(myStorage) : [];
+    console.log(arrItem);
+    if (arrItem.length > 0) {
+        arrItem.forEach(e => {
+            price += e.product_pricecurrent;
+            totalPrice = price + 20000;
+        })
+    }
+    console.log(price);
+    console.log($(".checkout-prices .cart__price"));
+    console.log(totalPrice);
+    $("#cart .cart__price")[0].innerText = formatCurrency(price);
+    $("#cart .cart__total")[0].innerText = formatCurrency(totalPrice); 
+}
+
+function loadCartPayment() {
+    var cart = sessionStorage.getItem("Cart");
+
+    console.log("loadCartPayment");
+    if (cart == null || cart == "[]") {
+        console.log('s');
+        $("#payment").css("display", "none");
+        $("#buynow").css("display", "block");
+    }
+    else {
+        $("#payment").css("display", "flex");
+        $("#buynow").css("display", "none");
+        var arrItem = JSON.parse(cart);
+        var footer = "\n<div class=\"cart-list__remove\">\n <a onclick='removeAllCart();'>\n <svg width=\"12\" height=\"12\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\">\n                <path d=\"M10.666 3.083v7.584A1.166 1.166 0 019.5 11.833h-7a1.167 1.167 0 01-1.167-1.166V3.083H.167V1.917h11.666v1.166h-1.167zm-8.166 0v7.584h7V3.083h-7zM5.417 4.25h1.166v1.167H5.416V4.25zm0 1.75h1.166v1.167H5.416V6zm0 1.75h1.166v1.167H5.416V7.75zM3.083.167h5.833v1.166H3.083V.167z\" fill=\"currentColor\" \/>\n<\/svg>\nXóa tất cả\n <\/a>\n<\/div>",
+            body = "";
+        arrItem.forEach(function (e, i) {
+            let urlProduct = "/san-pham/chi-tiet-san-pham?id=" + e.product_id;
+            let textPriceCurrent = formatCurrency(e.product_pricecurrent);
+            let textPriceRegular = formatCurrency(e.product_priceregular);
+            body += "<div class='cart-item'>" +
+                "<div class='thumbnail'><img src='" + e.product_image + "' alt='Ảnh đại diện'></div>" +
+                "<div class='content''>" +
+                " <div class='top'>" +
+                "<div class='info'><span class='title'><a href='" + urlProduct + "'" + "> " + e.product_name + "\tx" + e.product_quantity + " </a></span></div>" +
+                "<div id='cart-remove-item' style='cursor: pointer'><a onclick='removeItemCart(" + i
+                + ");'> <i class='fas fa-trash'></i></a>  </div> </div>" +
+                "<span>" + e.nameParent + ":</span> <span>" + e.nameChild + "</span>" +
+                "<div class='bottom'><div class='prices'><span><ins>" + textPriceCurrent + "</ins></span> <span><del>" + textPriceRegular + "</del></span></div></div></div></div>";
+        })
+        //var html = "<div class=\"cart-list\">\n            <div class=\"cart-item\">\n            <div class=\"thumbnail\">\n                <img src=\"https:\/\/media.comem.vn\/uploads\/2024\/09\/Frame_1063.webp\" alt=\"\u1ea2nh \u0111\u1ea1i di\u1ec7n\">\n            <\/div>\n            <div class=\"content\">\n                <div class=\"top\">\n                    <div class=\"info\">\n                        <span class=\"title\"><a href=\"\/sp\/son-kem-bong-thuy-tinh-moi-cang-mong-mem-min\">\n                            Son Kem B\u00f3ng Thu\u1ef7 Tinh M\u00f4i C\u0103ng M\u1ecdng M\u1ec1m M\u1ecbn<\/a>\n                        <\/span>\n                    <\/div>\n                    <form action=\"https:\/\/comem.vn\/product\/viewed\/delete\/66ebc347eba1a0f9da09adec\" method=\"get\" id=\"form-delete-item\">\n                        <div id=\"cart-remove-item\" style=\"cursor: pointer\">\n                            <button type=\"submit\" class=\"remove\">\n                                <svg width=\"12\" height=\"12\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\">\n                                    <path\n                                        d=\"M10.666 3.083v7.584A1.166 1.166 0 019.5 11.833h-7a1.167 1.167 0 01-1.167-1.166V3.083H.167V1.917h11.666v1.166h-1.167zm-8.166 0v7.584h7V3.083h-7zM5.417 4.25h1.166v1.167H5.416V4.25zm0 1.75h1.166v1.167H5.416V6zm0 1.75h1.166v1.167H5.416V7.75zM3.083.167h5.833v1.166H3.083V.167z\"\n                                        fill=\"currentColor\" \/>\n                                <\/svg>\n                                <span>X\u00f3a<\/span>\n                            <\/button>\n                        <\/div>\n                    <\/form>\n                <\/div>\n                <div class=\"bottom\">\n                    <div class=\"prices\">\n                        <del>185.000\u0111<\/del>\n                        <ins>175.750\u0111<\/ins>\n                    <\/div>\n                <\/div>\n            <\/div>\n        <\/div>\n        <div class=\"cart-list__remove\">\n        <a href=\"https:\/\/comem.vn\/product\/viewed\/delete\/all\">\n            <svg width=\"12\" height=\"12\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\">\n                <path d=\"M10.666 3.083v7.584A1.166 1.166 0 019.5 11.833h-7a1.167 1.167 0 01-1.167-1.166V3.083H.167V1.917h11.666v1.166h-1.167zm-8.166 0v7.584h7V3.083h-7zM5.417 4.25h1.166v1.167H5.416V4.25zm0 1.75h1.166v1.167H5.416V6zm0 1.75h1.166v1.167H5.416V7.75zM3.083.167h5.833v1.166H3.083V.167z\" fill=\"currentColor\" \/>\n            <\/svg>\n            Xo\u00e1 t\u1ea5t c\u1ea3\n        <\/a>\n    <\/div>\n<\/div>"
+
+        var html = body + footer;
+        $(".cart-list").html(html);
+    }
+}
+
 function removeItemCart(index) {
-    console.log('remove');
     var myStorage = sessionStorage.getItem("Cart")
     var arrItem = (myStorage != null) ? JSON.parse(myStorage) : [];
     if (arrItem.length > 0)
         arrItem.splice(index, 1)
-    console.log(arrItem);
     sessionStorage.setItem("Cart", JSON.stringify(arrItem));
     updateCountCart();
+    updatePriceCart();
+    loadCartPayment();
     $("#miniCart").hide();
 }
 
 function removeAllCart() {
     var myStorage = sessionStorage.getItem("Cart")
     if (myStorage == null) return;
+    sessionStorage.clear();
     $("#miniCart").html('<div class="cart-list">Giỏ hàng của bạn đang trống</div>');
-    updateCountCart();
-    return sessionStorage.clear();
+    $("#headerMiniCart .header-cart__count")[0].innerText = 0;
+    $("#headerMiniCart .header-cart__count")[1].innerText = 0;
+    loadCartPayment();
+    return;
 }
 function mobileSearchActive() {
     if (!theme.isMobile()) return;
@@ -390,9 +453,9 @@ jQuery(document).ready(function (e) {
     showMiniCart();
     //addToCart();
     // active menu
-    menuToggle();
-    searchSpotlight();
-    mobileSearchActive();
+    //menuToggle();
+    //searchSpotlight();
+    //mobileSearchActive();
     updateCountCart();
 
     const iconSeachMb = $('.icon-search-mb')
@@ -508,45 +571,31 @@ jQuery(document).ready(function (e) {
 
 });
 
-$(document).ready(function () {
-    const jsonData = $('#popup').data("json");
-    if (!jsonData) { return }
+//$(document).ready(function () {
+//    const jsonData = $('#popup').data("json");
+//    if (!jsonData) { return }
 
-    let hasSeenPopupSession = sessionStorage.getItem('popup');
-    if (!hasSeenPopupSession) {
-        setTimeout(function () {
-            $('.popup-content').removeClass('d-none');
-            $('#popup').removeClass('d-none');
+//    let hasSeenPopupSession = sessionStorage.getItem('popup');
+//    if (!hasSeenPopupSession) {
+//        setTimeout(function () {
+//            $('.popup-content').removeClass('d-none');
+//            $('#popup').removeClass('d-none');
 
-            sessionStorage.setItem('popup', true);
-        }, jsonData * 1000);
+//            sessionStorage.setItem('popup', true);
+//        }, jsonData * 1000);
 
-    }
-    $('.popup-content').on('click', function () {
-        const overlayBody = $(this)
-        if (!overlayBody.hasClass('d-none')) {
-            overlayBody.addClass('d-none')
-        }
-        $('#popup').fadeOut();
-    });
-    $(".popup-close").on("click", function () {
-        if (!$('.popup-content').hasClass('d-none')) {
-            $('.popup-content').addClass('d-none')
-        }
-        $('#popup').fadeOut();
-    });
-});
-
-var urlApi = "";
-function popupProduct(alias) {
-    var popup = document.getElementById('popup-addcart');
-    $.ajax({
-        url: urlApi + "/popup-sp/" + alias,
-        type: "GET"
-    }).done(function (res) {
-        $('.popup-addcart-content').removeClass('d-none');
-        popup.style.display = 'block';
-        $('#popup-addcart').html(res.html)
-
-    });
-}
+//    }
+//    $('.popup-content').on('click', function () {
+//        const overlayBody = $(this)
+//        if (!overlayBody.hasClass('d-none')) {
+//            overlayBody.addClass('d-none')
+//        }
+//        $('#popup').fadeOut();
+//    });
+//    $(".popup-close").on("click", function () {
+//        if (!$('.popup-content').hasClass('d-none')) {
+//            $('.popup-content').addClass('d-none')
+//        }
+//        $('#popup').fadeOut();
+//    });
+//});

@@ -13,13 +13,16 @@ namespace HKMain.Models
     {
         public string? emailsend { get; set; }
     }
-    public class ChatBox
+    
+    public class MegaMenuModel
     {
-        [StringLength(128)]
-        public string Id { get; set; }
-        public string Content { get; set; }
-        public DateTime? DateTime { get; set; }
-        public EntityStatus Status { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Image { get; set; }
+        public string Price { get; set; }
+        public string SalePrice { get; set; }
+        public string RedirectUrl { get; set; }
+        public string[] Taxo{ get; set; }
     }
     public class ShopCat
     {

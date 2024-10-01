@@ -1,8 +1,12 @@
-﻿using HKMain.Models;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using HKMain.Areas.Admin.Models;
+using HKMain.Models;
 using HKShared.Data;
 using HKShared.Helpers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace HKMain.Controllers
@@ -31,6 +35,7 @@ namespace HKMain.Controllers
         public IActionResult Index()
         {
 
+            var taxo = _dbContext.ProductTaxos.ToList();
             var model = _dbContext.Products.ToList();
             foreach (var product in model)
             {
@@ -39,7 +44,6 @@ namespace HKMain.Controllers
             }
             var sale = model.Where(x => x.SalePrice > 0).ToList();
             ViewBag.SaleProducts = sale;
-
             return View(model);
             //Admin
             //return RedirectToAction(nameof(HomeController.Index), "Home", new { area = "Admin" });
