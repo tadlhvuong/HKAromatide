@@ -82,9 +82,9 @@ services.AddAntiforgery(options => options.HeaderName = "XSRF-TOKEN");
 services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
 {
-var env = hostingContext.HostingEnvironment;
-config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-.AddJsonFile($"appsettings.{ env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+    var env = hostingContext.HostingEnvironment;
+    config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{ env.EnvironmentName}.json", optional: true, reloadOnChange: true).AddEnvironmentVariables(); ;
 });
 var app = builder.Build();
 
@@ -92,13 +92,13 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
+    app.UseHttpsRedirection();
 }
 
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 });
-app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseSession();
 
