@@ -790,8 +790,6 @@ $(document).ready(function () {
                 if (result.code === 1) {
                     $("#modalContainer").modal("hide");
                     $("#progress").hide();
-                    console.log(result.data);
-
                     if (idItem == 0) {
                         if (typeCate == 2)
                             dt_category.row.add(JSON.parse(result.data)).draw();
@@ -802,7 +800,6 @@ $(document).ready(function () {
                         else if (typeCate == 6)
                             dt_variant.row.add(JSON.parse(result.data)).draw();
                     } else {
-                        console.log(result.data);
                         if (typeCate == 2)
                             dt_category.row('#' + idItem).data(JSON.parse(result.data)).draw();
                         else if (typeCate == 3)

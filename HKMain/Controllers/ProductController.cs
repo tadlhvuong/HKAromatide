@@ -12,6 +12,8 @@ namespace HKMain.Controllers
     {
         private readonly ILogger _logger;
         private readonly AppDBContext _dbContext;
+        private readonly string mediaUrl;
+        private readonly string mediaPath;
 
         public ProductController(
             ILogger<ProductController> logger,
@@ -19,6 +21,8 @@ namespace HKMain.Controllers
         {
             _logger = logger;
             _dbContext = dbContext;
+            mediaUrl = AppSettings.Strings["MediaUrl"] ?? "/media";
+            mediaPath = AppSettings.Strings["MediaPath"] ?? "./wwwroot/media";
         }
         [Route("san-pham")]
         public IActionResult Index()
@@ -36,10 +40,10 @@ namespace HKMain.Controllers
         public IActionResult Details(int id)
         {
             var model = _dbContext.Products.Find(id);
-            var FullPath = Path.Combine("/media", model.Image);
-            model.LinkImage = FullPath;
             if (model == null) { return NotFound(); }
 
+            var FullPath = Path.Combine(mediaUrl, model.Image);
+            model.LinkImage = FullPath;
             var variants = _dbContext.ProductAttribs.Where(x => x.ItemId == id).ToList();
             var variantsKey = variants.GroupBy(
             p => p.AttrId,

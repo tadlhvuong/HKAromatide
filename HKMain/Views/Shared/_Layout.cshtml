@@ -45,17 +45,17 @@
         </div>
 
         <header class="site-header">
-            <div class="site-header__top-sale">
+           @*  <div class="site-header__top-sale">
                 <div class="container-full">
                     <div class="content">
                         <div class="text">
-                            <p><strong>Loa loa loa... Xem ngay CTKM mới - MUA 2 TẶNG 1 TỪ 1/9/2024</strong></p>
+                            <p><strong>Loa loa loa... </strong></p>
                         </div>
                         <div class="image">
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> *@
 
             <div class="bg-header">
                 <!-- START:: HEADER TOP DESKTOP (P) -->
@@ -92,7 +92,7 @@
                             <div class="header-actions mobile--hidden header-custom">
                                 <div class="header-cart header-custom_item" id="headerMiniCart"
                                      style="margin-right:20px;">
-                                    <a asp-controller="Product" asp-action="Checkout" class="header-custom_item__icon icon-cart">
+                                    <a asp-controller="Product" asp-action="Checkout" class="header-custom_item__icon">
                                         <span class="header-cart__count">0</span>
                                     </a>
                                     <div class="header-cart__mini-cart" id="miniCart"></div>
@@ -119,8 +119,6 @@
                         </div>
                     </a>
                     <div class="footer-infomation">
-                        <a class="footer-logo disable-max-421" href=""
-                           rel="noopener noreferrer nofollow" aria-label="Sản phẩm dịu nhẹ và an toàn cho da"></a>
                         <div class="footer-title"
                              onClick="openCloseFooterMenu(this);">
                             <div>Giới thiệu</div>
@@ -140,35 +138,9 @@
                                 </a>
                             </li>
                         </ul>
+                        <a class="footer-logo disable-max-421" href=""
+                           rel="noopener noreferrer nofollow" aria-label="Sản phẩm dịu nhẹ và an toàn cho da"></a>
                     </div>
-
-                    @* <div class="footer-menu">
-                    <div class="footer-title"
-                    onClick="openCloseFooterMenu(this);">
-                    <div>Hoạt động cộng đồng</div>
-                    <div class="footer-title_icon enable-max-421">
-                    <i class="fas fa-chevron-down"></i>
-                    </div>
-                    </div>
-                    <ul class="footer-menu__nav">
-                    <li class="footer-menu__item">
-                    <a href="/khanh-thanh-ngoi-truong-uoc-mo-so-9-diem-truong-hua-dan-tinh-son-la">
-                    <div class="title">Xây trường cho trẻ em</div>
-                    </a>
-                    </li>
-                    <li class="footer-menu__item">
-                    <a href="/co-mem-trong-2ha-rung-dau-nguon-gop-phan-giam-thieu-tac-dong-cua-bien-doi-khi-hau-tai-son-la">
-                    <div class="title">Trồng rừng</div>
-                    </a>
-                    </li>
-                    <li class="footer-menu__item">
-                    <a href="/cach-hang-my-pham-co-mem-vuot-qua-dich-covid-19-chia-se-tai-facebook-summit-2020-cafef-34962"
-                    class="title">
-                    Chung tay phòng chống COVID
-                    </a>
-                    </li>
-                    </ul>
-                    </div> *@
                     <div class="footer-menu">
                         <div class="footer-title"
                              onClick="openCloseFooterMenu(this);">
@@ -183,16 +155,6 @@
                                     Chính sách mua hàng và thanh toán
                                 </a>
                             </li>
-                            @*  <li class="footer-menu__item">
-                            <a asp-controller="Home" asp-action="Privacy">
-                            Chính sách bảo hành
-                            </a>
-                            </li> *@
-                            <li class="footer-menu__item">
-                                <a asp-controller="Home" asp-action="Refund">
-                                    Chính sách đổi trả và hoàn tiền
-                                </a>
-                            </li>
                             <li class="footer-menu__item">
                                 <a asp-controller="Home" asp-action="Security">
                                     Chính sách bảo mật thông tin
@@ -200,8 +162,6 @@
                             </li>
                         </ul>
                     </div>
-
-
                     <div class="footer-menu">
                         <div class="footer-title"
                              onClick="openCloseFooterMenu(this);">
@@ -213,29 +173,29 @@
                         <ul class="footer-menu__nav">
                             <li class="footer-menu__item">
                                 <div>
-                                    <a href="mailto:anphapharma@gmail.com">
-                                        <span>anphapharma@gmail.com</span>
+                                    <a href="mailto:anphapharm@gmail.com">
+                                        <span>anphapharm@gmail.com</span>
                                     </a>
                                 </div>
                             </li>
                             <li class="footer-menu__item">
                                 <div>
                                     <a href="tel:0968622511">
-                                        096.862.2511
+                                        0931.424.207
                                     </a>
                                 </div>
                             </li>
-                            <li>
+                            <li class ="footer-menu__item">
                                 <div class="footer-social">
                                     <a class="footer-social_item icon-facebook" title="facebook"
-                                       href="" target="_blank"
+                                       href="https://www.facebook.com/aromatide/" target="_blank"
                                        rel="noopener noreferrer nofollow"></a>
-                                    <a class="footer-social_item icon-instagram" title="instagram"
+                                   @*  <a class="footer-social_item icon-instagram" title="instagram"
                                        href="" target="_blank"
                                        rel="noopener noreferrer nofollow"></a>
                                     <a class="footer-social_item icon-youtube" title="youtube"
                                        href="" target="_blank"
-                                       rel="noopener noreferrer nofollow"></a>
+                                       rel="noopener noreferrer nofollow"></a> *@
                                 </div>
                             </li>
                         </ul>
@@ -246,10 +206,10 @@
         <div class="site-footer__bottom">
             <div class="container site-footer__custom">
                 <div class="site-footer__custom__item">
-                    <div class="site-footer__custom__item__title">Công ty Cổ phần Hóa dược Thiên nhiên Aromatide</div>
-                    <div>GPĐKKD số  do Sở KHĐT Tp.Hà Nội cấp 09/04/2020</div>
-                    <div>Sản xuất tại Công ty Cổ phần Hóa dược Thiên nhiên Aromatide</div>
-                    <div>99 Trung đông 7, hoocmon, TP. Hồ Chí Minh</div>
+                    <div class="site-footer__custom__item__title"> Công Ty Cổ Phần Hóa Dược Anpha</div>
+                    <div>GPĐKKD Số do Sở KHĐT Tp.HCM cấp ngày 07/03/2022</div>
+                    <div>Sản xuất tại Địa Điểm Kinh Doanh Công Ty Cổ Phần Hóa Dược Anpha</div>
+                    <div> 99 Đường Trung Đông 7, Thới Tam Thôn, Hóc Môn, TP.HCM</div>
                 </div>
                 <div class="site-footer__custom__item add-notes">
                     <div class="footer-notify">
@@ -259,15 +219,6 @@
                         </span>
                     </div>
                 </div>
-                @* <div class="site-footer__custom__item">
-                <a class="add-bct" href="" rel="nofollow"
-                style="margin-right: 5px;" title="Đã thông báo Bộ Công Thương" target="_blank"></a>
-                <a href="//www.dmca.com/Protection/Status.aspx?ID=eaa3d3f6-1751-4d32-9118-ca59176adb02"
-                title="DMCA.com Protection Status" class="dmca-badge" rel="nofollow">
-                <img src="~/media/dmca_protected_sml_120n.png" width="121" height="24"
-                alt="DMCA.com Protection Status" />
-                </a>
-                </div> *@
             </div>
         </div>
     </div>
@@ -276,20 +227,20 @@
     <div id="modal-popup__sale" class="modal modal-popup__sale" style="z-index: 1000">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2 style="text-align: center;"><strong>KHUYẾN MÃII MỚI - MUA 2 TẶNG 1 TỪ 1/9/2024</strong></h2>
+            <h2 style="text-align: center;"><strong>KHUYẾN MÃI MỚI</strong></h2>
             <p class="anim-color-text" style="text-align: center;">
-                Loa loa loa... Từ ngày 1/9/2024, khách hàng nhà Aromatide sẽ được tận hưởng ưu đãi mới ngập tràn quà tặng khi mua 2 sản phẩm trong chương trình được tặng ngay 1 sản phẩm liên quan
+                Loa loa loa... 
             </p>
             <p style="text-align: center;">
                 Chi tiết chương trình:  <span style="color: #0000ff;">
                     <a style="color: #0000ff;"
-                       href="https://aromatide.com.vn/co-mem-thong-bao-ctkm-mua-2-tang-1">https://aromatide.com.vn/co-mem-thong-bao-ctkm-mua-2-tang-1</a>
+                       href="">https://aromatide.com.vn</a>
                 </span>
             </p>
             <p style="text-align: center;">
                 Mua ngay tại:<span style="color: #0000ff;">
                     <a style="color: #0000ff;"
-                       href="https://dev.comem.vn/cm/khuyen-mai-va-combo">https://aromatide.com.vn/cm/khuyen-mai-va-combo</a>
+                       href="/"></a>
                 </span>
             </p>
         </div>
@@ -300,24 +251,8 @@
         <label class='vka' for='vkaCheckbox'></label>
 
         <div class='vka-wheel'>
-            <a class='vka-action vka-action-1' href='https://aromatide.com.vn/dia-chi-cua-hang' title='Địa chỉ'>
+            <a class='vka-action vka-action-3' href='tel:0931424207' rel='nofollow' title='Gọi trực tiếp'>
                 <div class='vka-button vka-button-1'>
-                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="22" cy="22" r="22" fill=""></circle>
-                        <path d="M22 10C17.0374 10 13 13.7367 13 18.3297C13 24.0297 21.0541 32.3978 21.397 32.7512C21.7191 33.0832 22.2815 33.0826 22.603 32.7512C22.9459 32.3978 31 24.0297 31 18.3297C30.9999 13.7367 26.9626 10 22 10ZM22 22.5206C19.5032 22.5206 17.4719 20.6406 17.4719 18.3297C17.4719 16.0188 19.5032 14.1388 22 14.1388C24.4968 14.1388 26.528 16.0189 26.528 18.3297C26.528 20.6406 24.4968 22.5206 22 22.5206Z"
-                              fill="white"></path>
-                        <defs>
-                            <linearGradient id="paint5_linear" x1="22" y1="0" x2="22" y2="44"
-                                            gradientUnits="userSpaceOnUse">
-                                <stop offset="50%" stop-color="#fecf72"></stop>
-                                <stop offset="100%" stop-color="#ef9f00"></stop>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </div>
-            </a>
-            <a class='vka-action vka-action-2' href='tel:0968622511' rel='nofollow' title='Gọi trực tiếp'>
-                <div class='vka-button vka-button-2'>
                     <svg width="44px" height="44px" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="22" cy="22" r="22" fill="none"></circle>
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -333,7 +268,7 @@
                     </svg>
                 </div>
             </a>
-            <a class='vka-action vka-action-3' href='https://m.me/comemhomelab' rel='nofollow' target='_blank'
+            <a class='vka-action vka-action-4' href='https://www.facebook.com/aromatide/' rel='nofollow' target='_blank'
                title='Chat Facebook'>
                 <div class='vka-button vka-button-3'>
                     <svg width="60px" height="60px" viewBox="0 0 60 60" cursor="pointer">
@@ -357,7 +292,7 @@
                     </svg>
                 </div>
             </a>
-            <a class='vka-action vka-action-4' href='https://zalo.me/4344788840694346371' rel='nofollow' target='_blank'
+           @*  <a class='vka-action vka-action-4' href='' rel='nofollow' target='_blank'
                title='Chat Zalo'>
                 <div class='vka-button vka-button-4'>
                     <svg width="44px" height="44px" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -385,7 +320,7 @@
                         </defs>
                     </svg>
                 </div>
-            </a>
+            </a> *@
         </div>
     </div>
     <div id="gotoTop" class="gotoTop" onclick="gotoTop();">

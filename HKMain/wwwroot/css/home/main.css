@@ -3434,7 +3434,7 @@ body.open-popup:after {
 }
 
     .site-header .header-logo a {
-        background: url(/images/home/logo-white.png);
+        background: url(/images/logo-white.png);
         /*filter: drop-shadow(1px 1px 5px #66883f);*/
         /*background-position: 0 -82px;*/
         background-size: 100% 100%;
@@ -3595,13 +3595,19 @@ body.open-popup:after {
 }
 
 .site-header .header-custom_item__icon {
-    background: url(/images/background-comem.webp);
+    background: url(/images/cart-mobile.webp);
     background-repeat: no-repeat;
-    background-size: 448px;
+    background-size: contain;
     display: block;
     height: 28px;
     width: 28px;
 }
+
+    .site-header .header-custom_item__icon.icon-cart {
+        background: url(/images/cart-mobile-full.webp) !important;
+        background-size: contain !important;
+    }
+
 
 .site-header .header-custom_item__icon.icon-member {
     background-position: -58px -79.5px;
@@ -3658,9 +3664,9 @@ body.open-popup:after {
     width: 29px;
 }
 
-.site-header .header-custom_item__icon.icon-cart {
+/*.site-header .header-custom_item__icon.icon-cart {
     background-position: 0 -79.5px;
-}
+}*/
 
 .site-header .header-custom_item__text {
     color: #fff;
@@ -4442,17 +4448,34 @@ body.open-popup:after {
 }
 
 .sub-banner_item__icon {
-    background-image: url(/images/background-comem.webp);
+    background-image: url(/images/ico-shipping.webp);
     background-repeat: no-repeat;
-    background-size: 500px;
+    background-size: contain;
     height: 50px;
     width: 50px;
 }
 
-.sub-banner_item__text {
-    color: #fff;
-    width: calc(100% - 70px);
-}
+    .sub-banner_item__icon.icon-shipper {
+        background-image: url(/images/ico-shipping.webp) !important;
+    }
+
+    .sub-banner_item__icon.icon-refund {
+        background-image: url(/images/ico-return.webp) !important;
+    }
+
+    .sub-banner_item__icon.icon-member {
+        background-image: url(/images/ico-member.webp) !important;
+    }
+
+    .sub-banner_item__icon.icon-combo {
+        background-image: url(/images/ico-save.webp) !important;
+    }
+
+
+    .sub-banner_item__text {
+        color: #fff;
+        width: calc(100% - 70px);
+    }
 
 .sub-banner_item__text__title {
     color: #ffcc48;
@@ -4463,26 +4486,6 @@ body.open-popup:after {
 
 .sub-banner_item__text__desc {
     font-size: 14.5px;
-}
-
-.sub-banner_item .icon-product {
-    background-position: -154px 0 !important;
-}
-
-.sub-banner_item .icon-member {
-    background-position: -103px 0 !important;
-}
-
-.sub-banner_item .icon-shipper {
-    background-position: 0 0 !important;
-}
-
-.sub-banner_item .icon-refund {
-    background-position: -52px 0 !important;
-}
-
-.sub-banner_item .icon-combo {
-    background-position: -204px 0 !important;
 }
 
 .site-footer {
@@ -4534,7 +4537,7 @@ body.open-popup:after {
 
 .site-footer__custom__item .add-bct {
     align-self: end;
-    background: url(/images/background-comem.webp);
+    background: url(/images/logo-white.png);
     background-position: 0 -277px;
     background-repeat: no-repeat;
     background-size: 666.64px;
@@ -4568,7 +4571,7 @@ body.open-popup:after {
 }
 
 .site-footer .footer-logo {
-    background: url(/images/home/logo-white.png);
+    background: url(/images/logo-white.png);
     background-repeat: no-repeat;
     background-size: cover;
     display: block;
@@ -4696,7 +4699,7 @@ body.open-popup:after {
 }
 
 .site-footer .footer-social_item {
-    background: url(/images/background-comem.webp);
+    background: url(/images/ico-fb.webp);
     background-repeat: no-repeat;
     background-size: 560px;
     height: 42px;
@@ -5569,7 +5572,7 @@ figure.image>div {
 }
 
 .nav-mobile_main__logo {
-    background: url(/images/background-comem.webp);
+    background: url(/images/logo-white.png);
     background-position: -168px -82px;
     background-repeat: no-repeat;
     height: 60px;
@@ -6814,21 +6817,9 @@ figure.image>div {
     }
 
     .sub-banner_item__icon {
-        background-size: 250px;
+        background-size: contain;
         height: 25px;
         width: 25px;
-    }
-
-    .sub-banner_item__icon.icon-refund {
-        background-position: -26px 0 !important;
-    }
-
-    .sub-banner_item__icon.icon-member {
-        background-position: -51.4px 0 !important;
-    }
-
-    .sub-banner_item__icon.icon-combo {
-        background-position: -102px 0 !important;
     }
 
     .home-product .section-heading i,
@@ -7004,7 +6995,7 @@ figure.image>div {
     }
 
     .header-mobile-top_logo {
-        background: url(/images/home/logo-white.png);
+        background: url(/images/logo-white.png);
         background-repeat: no-repeat;
         background-size: contain;
         height: 40px;
@@ -7020,7 +7011,7 @@ figure.image>div {
     }
 
     .header-mobile-top_right__item__icon {
-        background: url(/images/background-comem.webp);
+        background: url(/images/logo-white.png);
         background-position: -153px -68px;
         background-repeat: no-repeat;
         background-size: 400px;
@@ -7622,21 +7613,8 @@ figure.image>div {
     }
 
     .sub-banner_item__icon {
-        background-size: 400px !important;
         height: 40px !important;
         width: 40px !important;
-    }
-
-    .sub-banner_item__icon.icon-refund {
-        background-position: -41.5px 0 !important;
-    }
-
-    .sub-banner_item__icon.icon-member {
-        background-position: -82px 0 !important;
-    }
-
-    .sub-banner_item__icon.icon-combo {
-        background-position: -163px 0 !important;
     }
 
     .sub-banner_item__text {
@@ -8303,7 +8281,7 @@ figure.image>div {
 }
 
 .home-product .section-heading_icon {
-    background: url(/images/background-comem.webp);
+    background: url(/images/logo-white.png);
     background-repeat: no-repeat;
     background-size: 240px;
     display: inline-block;
@@ -8585,7 +8563,7 @@ figure.image>div {
 .home-resources {
     overflow: hidden;
     padding-bottom: 20px;
-    padding-top: 60px;
+    padding-top: 30px;
 }
 
 .home-resources__inner {
@@ -12984,7 +12962,7 @@ a {
 }
 
 .home-resources__list.slick-slider .slick-list {
-    padding-top: 25px;
+    padding-top: 60px;
 }
 
 .detail-slproduct {

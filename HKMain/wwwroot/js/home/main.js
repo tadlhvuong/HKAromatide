@@ -298,8 +298,7 @@ function showMiniCart() {
                 
             })
             var html = header + body + footer;
-            //var html = "<div class=\"cart-list\">\n            <div class=\"cart-item\">\n            <div class=\"thumbnail\">\n                <img src=\"https:\/\/media.comem.vn\/uploads\/2024\/09\/Frame_1063.webp\" alt=\"\u1ea2nh \u0111\u1ea1i di\u1ec7n\">\n            <\/div>\n            <div class=\"content\">\n                <div class=\"top\">\n                    <div class=\"info\">\n                        <span class=\"title\"><a href=\"\/sp\/son-kem-bong-thuy-tinh-moi-cang-mong-mem-min\">\n                            Son Kem B\u00f3ng Thu\u1ef7 Tinh M\u00f4i C\u0103ng M\u1ecdng M\u1ec1m M\u1ecbn<\/a>\n                        <\/span>\n                    <\/div>\n                    <form action=\"https:\/\/comem.vn\/product\/viewed\/delete\/66ebc347eba1a0f9da09adec\" method=\"get\" id=\"form-delete-item\">\n                        <div id=\"cart-remove-item\" style=\"cursor: pointer\">\n                            <button type=\"submit\" class=\"remove\">\n                                <svg width=\"12\" height=\"12\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\">\n                                    <path\n                                        d=\"M10.666 3.083v7.584A1.166 1.166 0 019.5 11.833h-7a1.167 1.167 0 01-1.167-1.166V3.083H.167V1.917h11.666v1.166h-1.167zm-8.166 0v7.584h7V3.083h-7zM5.417 4.25h1.166v1.167H5.416V4.25zm0 1.75h1.166v1.167H5.416V6zm0 1.75h1.166v1.167H5.416V7.75zM3.083.167h5.833v1.166H3.083V.167z\"\n                                        fill=\"currentColor\" \/>\n                                <\/svg>\n                                <span>X\u00f3a<\/span>\n                            <\/button>\n                        <\/div>\n                    <\/form>\n                <\/div>\n                <div class=\"bottom\">\n                    <div class=\"prices\">\n                        <del>185.000\u0111<\/del>\n                        <ins>175.750\u0111<\/ins>\n                    <\/div>\n                <\/div>\n            <\/div>\n        <\/div>\n        <div class=\"cart-list__remove\">\n        <a href=\"https:\/\/comem.vn\/product\/viewed\/delete\/all\">\n            <svg width=\"12\" height=\"12\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\">\n                <path d=\"M10.666 3.083v7.584A1.166 1.166 0 019.5 11.833h-7a1.167 1.167 0 01-1.167-1.166V3.083H.167V1.917h11.666v1.166h-1.167zm-8.166 0v7.584h7V3.083h-7zM5.417 4.25h1.166v1.167H5.416V4.25zm0 1.75h1.166v1.167H5.416V6zm0 1.75h1.166v1.167H5.416V7.75zM3.083.167h5.833v1.166H3.083V.167z\" fill=\"currentColor\" \/>\n            <\/svg>\n            Xo\u00e1 t\u1ea5t c\u1ea3\n        <\/a>\n    <\/div>\n<\/div>"
-            
+             
             $("#miniCart").html(html);
         }
     });
@@ -312,9 +311,13 @@ function updateCountCart() {
         arrItem.forEach(e => {
             count += e.product_quantity;
         })
+        $(".header-custom_item__icon").addClass("icon-cart")
+    } else {
+        $(".header-custom_item__icon").removeClass("icon-cart")
     }
     $("#headerMiniCart .header-cart__count")[0].innerText = count; //pc
     $("#headerMiniCart .header-cart__count")[1].innerText = count; //mobile
+    
     return count;
 }
 
@@ -323,26 +326,20 @@ function updatePriceCart() {
     var price = 0;
     var totalPrice = 0;
     var arrItem = (myStorage != null) ? JSON.parse(myStorage) : [];
-    console.log(arrItem);
     if (arrItem.length > 0) {
         arrItem.forEach(e => {
             price += e.product_pricecurrent;
-            totalPrice = price + 20000;
+            totalPrice = price + 0;// phi ship
         })
+        $("#cart .cart__price")[0].innerText = formatCurrency(price);
+        $("#cart .cart__total")[0].innerText = formatCurrency(totalPrice); 
     }
-    console.log(price);
-    console.log($(".checkout-prices .cart__price"));
-    console.log(totalPrice);
-    $("#cart .cart__price")[0].innerText = formatCurrency(price);
-    $("#cart .cart__total")[0].innerText = formatCurrency(totalPrice); 
 }
 
 function loadCartPayment() {
     var cart = sessionStorage.getItem("Cart");
 
-    console.log("loadCartPayment");
     if (cart == null || cart == "[]") {
-        console.log('s');
         $("#payment").css("display", "none");
         $("#buynow").css("display", "block");
     }
@@ -366,8 +363,7 @@ function loadCartPayment() {
                 "<span>" + e.nameParent + ":</span> <span>" + e.nameChild + "</span>" +
                 "<div class='bottom'><div class='prices'><span><ins>" + textPriceCurrent + "</ins></span> <span><del>" + textPriceRegular + "</del></span></div></div></div></div>";
         })
-        //var html = "<div class=\"cart-list\">\n            <div class=\"cart-item\">\n            <div class=\"thumbnail\">\n                <img src=\"https:\/\/media.comem.vn\/uploads\/2024\/09\/Frame_1063.webp\" alt=\"\u1ea2nh \u0111\u1ea1i di\u1ec7n\">\n            <\/div>\n            <div class=\"content\">\n                <div class=\"top\">\n                    <div class=\"info\">\n                        <span class=\"title\"><a href=\"\/sp\/son-kem-bong-thuy-tinh-moi-cang-mong-mem-min\">\n                            Son Kem B\u00f3ng Thu\u1ef7 Tinh M\u00f4i C\u0103ng M\u1ecdng M\u1ec1m M\u1ecbn<\/a>\n                        <\/span>\n                    <\/div>\n                    <form action=\"https:\/\/comem.vn\/product\/viewed\/delete\/66ebc347eba1a0f9da09adec\" method=\"get\" id=\"form-delete-item\">\n                        <div id=\"cart-remove-item\" style=\"cursor: pointer\">\n                            <button type=\"submit\" class=\"remove\">\n                                <svg width=\"12\" height=\"12\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\">\n                                    <path\n                                        d=\"M10.666 3.083v7.584A1.166 1.166 0 019.5 11.833h-7a1.167 1.167 0 01-1.167-1.166V3.083H.167V1.917h11.666v1.166h-1.167zm-8.166 0v7.584h7V3.083h-7zM5.417 4.25h1.166v1.167H5.416V4.25zm0 1.75h1.166v1.167H5.416V6zm0 1.75h1.166v1.167H5.416V7.75zM3.083.167h5.833v1.166H3.083V.167z\"\n                                        fill=\"currentColor\" \/>\n                                <\/svg>\n                                <span>X\u00f3a<\/span>\n                            <\/button>\n                        <\/div>\n                    <\/form>\n                <\/div>\n                <div class=\"bottom\">\n                    <div class=\"prices\">\n                        <del>185.000\u0111<\/del>\n                        <ins>175.750\u0111<\/ins>\n                    <\/div>\n                <\/div>\n            <\/div>\n        <\/div>\n        <div class=\"cart-list__remove\">\n        <a href=\"https:\/\/comem.vn\/product\/viewed\/delete\/all\">\n            <svg width=\"12\" height=\"12\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\">\n                <path d=\"M10.666 3.083v7.584A1.166 1.166 0 019.5 11.833h-7a1.167 1.167 0 01-1.167-1.166V3.083H.167V1.917h11.666v1.166h-1.167zm-8.166 0v7.584h7V3.083h-7zM5.417 4.25h1.166v1.167H5.416V4.25zm0 1.75h1.166v1.167H5.416V6zm0 1.75h1.166v1.167H5.416V7.75zM3.083.167h5.833v1.166H3.083V.167z\" fill=\"currentColor\" \/>\n            <\/svg>\n            Xo\u00e1 t\u1ea5t c\u1ea3\n        <\/a>\n    <\/div>\n<\/div>"
-
+        
         var html = body + footer;
         $(".cart-list").html(html);
     }
@@ -390,8 +386,7 @@ function removeAllCart() {
     if (myStorage == null) return;
     sessionStorage.clear();
     $("#miniCart").html('<div class="cart-list">Giỏ hàng của bạn đang trống</div>');
-    $("#headerMiniCart .header-cart__count")[0].innerText = 0;
-    $("#headerMiniCart .header-cart__count")[1].innerText = 0;
+    updateCountCart();
     loadCartPayment();
     return;
 }
@@ -493,7 +488,6 @@ jQuery(document).ready(function (e) {
     menuItemTargetLinkHasSub.on('click', function (e) {
         if ($(this).hasClass('has-sub')) {
             const ulSubMenu = e.target.closest('li').querySelector('.sub-menu')
-            console.log(ulSubMenu);
             ulSubMenu && ulSubMenu.classList.toggle('d-block')
 
             const iconArrow = e.target.closest('li').querySelector('.menu-item__icon-arrow')

@@ -10,12 +10,12 @@
         <div class="home-banner__slide home-banner--slide">
             <div class="banner-slide">
                 <div class="">
-                    <a href="https://aromatide.com.vn/sp/combo-sang-da-mo-nam-chiet-xuat-so-ri-vitamin-c" target="_self"
+                    <a href="" target="_self"
                        class="">
                         <picture style="display: block; height: 100%; width: 100%;">
-                            <source media="(min-width:1025px)" srcset="~/media/Default/n8l6ja.webp">
-                            <source media="(max-width:1024px)" srcset="~/media/Default/qwafhp.webp">
-                            <img style="height: 100%" src="~/media/Default/qwafhp.webp"
+                            <source media="(min-width:1025px)" srcset="~/images/home/banner1-pc.webp">
+                            <source media="(max-width:1024px)" srcset="~/images/home/banner1-mb.webp">
+                            <img style="height: 100%" src="~/images/home/banner1-pc.webp"
                                  fetchpriority="low" decoding="async" alt="Banner Aromatide" width="1429"
                                  height="645" />
                         </picture>
@@ -24,13 +24,12 @@
             </div>
             <div class="banner-slide">
                 <div class="">
-                    <a href="https://aromatide.com.vn/co-mem-gat-trai-ngot-tai-dien-dan-kinh-te-asean-2024"
-                       target="_self" class="">
+                    <a href="" target="_self"
+                       class="">
                         <picture style="display: block; height: 100%; width: 100%;">
-                            <source media="(min-width:1025px)"
-                                    srcset="~/media/2024/05/Artboard_1_copy_3-100.webp">
-                            <source media="(max-width:1024px)" srcset="~/media/2024/05/Artboard_1-100.webp">
-                            <img style="height: 100%" src="~/media/2024/05/Artboard_1-100.webp"
+                            <source media="(min-width:1025px)" srcset="~/images/home/banner1-pc.webp">
+                            <source media="(max-width:1024px)" srcset="~/images/home/banner1-mb.webp">
+                            <img style="height: 100%" src="~/images/home/banner1-pc.webp"
                                  fetchpriority="low" decoding="async" alt="Banner Aromatide" width="1429"
                                  height="645" />
                         </picture>
@@ -39,14 +38,12 @@
             </div>
             <div class="banner-slide">
                 <div class="">
-                    <a href="https://aromatide.com.vn/my-pham-co-mem-gianh-giai-thuong-hieu-ban-sac-viet-nam-dinh-vi-gia-tri-toan-cau"
-                       target="_self" class="">
+                    <a href="" target="_self"
+                       class="">
                         <picture style="display: block; height: 100%; width: 100%;">
-                            <source media="(min-width:1025px)"
-                                    srcset="~/media/August2023/banner-web-desktop.webp">
-                            <source media="(max-width:1024px)"
-                                    srcset="~/media/August2023/banner-web-mobile.webp">
-                            <img style="height: 100%" src="~/media/August2023/banner-web-mobile.webp"
+                            <source media="(min-width:1025px)" srcset="~/images/home/banner1-pc.webp">
+                            <source media="(max-width:1024px)" srcset="~/images/home/banner1-mb.webp">
+                            <img style="height: 100%" src="~/images/home/banner1-pc.webp"
                                  fetchpriority="low" decoding="async" alt="Banner Aromatide" width="1429"
                                  height="645" />
                         </picture>
@@ -114,7 +111,7 @@
         <div class="container">
             <a href="/cm/khuyen-mai-va-combo">
                 <h2 class="h3 section-heading text--center">
-                    <span class="section-heading_icon icon-sale"></span>Khuyến mãi và Combo
+                    Khuyến mãi và Combo
                 </h2>
             </a>
 
@@ -158,7 +155,7 @@
     <!-- ===== Product (MOBILE) ===== -->
     <section class="home-product enable-max-577">
         <div class="container">
-            <img loading="lazy" src="/images/banners/home-banner-cham-soc-da-mb.webp" title="sản phẩm"
+            <img loading="lazy" src="/images/home/banner-product-mb.webp title="sản phẩm"
                  alt="sản phẩm" width="390" height="163" />
             <a href="" class="h3 section-heading text--center">
                 <h2>
@@ -199,36 +196,36 @@
                 </div>
             </div>
             @* <div class="product-boxSpecial wrap homeProductBg_main">
-                @if (Model != null)
-                {
-                    foreach (var product in Model)
-                    {
-                        <div class="product-boxSpecial_item two-cols">
-                            <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id" class="product-boxSpecial_item__image">
-                                <img class="ls-is-cached lazyload"
-                                     src="@product.LinkImage" width="155"
-                                     height="155" alt="@product.Name" title="@product.Name" />
-                                <div class="product-boxSpecial_item__image__tags">
-                                    <div class="tag-sale">@product.DiscountPercent</div>
-                                    <div style="background:#3e6807;">Giá ưu đãi</div>
-                                </div>
-                            </a>
-                            <div class="product-boxSpecial_item__content">
-                                <h3>
-                                    <a asp-controller="Product" asp-action="Details"
-                                       class="product-boxSpecial_item__content__title maxLine_2">
-                                        @product.Name
-                                    </a>
-                                </h3>
-                                <div class="product-boxSpecial_item__content__price">
-                                    <div class="price-now">@product.FormatedCurrentPrice</div>
-                                    <div class="price-old">@product.FormatedRegularPrice</div>
-                                </div>
+            @if (Model != null)
+            {
+            foreach (var product in Model)
+            {
+            <div class="product-boxSpecial_item two-cols">
+            <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id" class="product-boxSpecial_item__image">
+            <img class="ls-is-cached lazyload"
+            src="@product.LinkImage" width="155"
+            height="155" alt="@product.Name" title="@product.Name" />
+            <div class="product-boxSpecial_item__image__tags">
+            <div class="tag-sale">@product.DiscountPercent</div>
+            <div style="background:#3e6807;">Giá ưu đãi</div>
+            </div>
+            </a>
+            <div class="product-boxSpecial_item__content">
+            <h3>
+            <a asp-controller="Product" asp-action="Details"
+            class="product-boxSpecial_item__content__title maxLine_2">
+            @product.Name
+            </a>
+            </h3>
+            <div class="product-boxSpecial_item__content__price">
+            <div class="price-now">@product.FormatedCurrentPrice</div>
+            <div class="price-old">@product.FormatedRegularPrice</div>
+            </div>
 
-                            </div>
-                        </div>
-                    }
-                }
+            </div>
+            </div>
+            }
+            }
             </div> *@
         </div>
     </section>
@@ -237,16 +234,16 @@
     <section class="home-product disable-max-577">
         <div class="container">
             <div class="home-product__banner disable-max-767">
-                <img loading="lazy" src="/images/banners/home-banner-cham-soc-da-pc.webp" title="sản phẩm"
+                <img loading="lazy" src="/images/home/banner-product-pc.webp" title="sản phẩm"
                      alt="san-pham" />
             </div>
             <div class="home-product__banner enable-max-767">
-                <img loading="lazy" src="/images/banners/home-banner-cham-soc-da-mb.webp" title="sản phẩm"
+                <img loading="lazy" src="/images/home/banner-product-mb.webp" title="sản phẩm"
                      alt="sản phẩm" />
             </div>
             <a href="">
                 <h2 class="h3 section-heading text--center">
-                    <span class="section-heading_icon icon-da"></span>Sản phẩm của chúng tôi
+                    Sản phẩm của chúng tôi
                 </h2>
             </a>
             <div class="home-product__slide">
@@ -260,7 +257,7 @@
                                     <img class="ls-is-cached lazyload"
                                          src="@product.LinkImage" width="200"
                                          height="200" alt="@product.Name" title="@product.Name" />
-                                    @if(product.DiscountPercent != "")
+                                    @if (product.DiscountPercent != "")
                                     {
                                         <div class="product-box_item__image__tags">
                                             <div class="tag-sale">@product.DiscountPercent</div>
@@ -291,8 +288,8 @@
     <!-- ===== End Product ===== -->
     <!-- ===== About us ===== -->
 
-    <section class="home-resources">
-        <div class="container-full homeProductBg">
+    <section class="home-resources homeProductBg">
+        <div class="container-full">
             <div class="home-resources__inner">
                 <div class="home-resources__header">
                     <h2 class="mt-2">Sản phẩm Aromatide</h2>
@@ -320,7 +317,7 @@
                     <div class="home-resources__item">
                         <div class="resources-grid resources-grid--brown">
                             <div class="thumbnail">
-                                <img loading="lazy" src="~/media/August2021/12395_58_m.webp" alt="Lá Bạc Hà">
+                                <img loading="lazy" src="~/images/home/gao.webp" alt="Hương gạo">
                             </div>
                             <div class="content">
                                 <h3 class="title">
@@ -336,7 +333,7 @@
                     <div class="home-resources__item">
                         <div class="resources-grid resources-grid--green resources-grid--bottom">
                             <div class="thumbnail">
-                                <img loading="lazy" src="~/media/June2021/dau-dua_89_m.webp" alt="Dầu Dừa">
+                                <img loading="lazy" src="~/images/home/tao-kiwi.webp" alt="Hương táo kiwi">
                             </div>
                             <div class="content">
                                 <h3 class="title">
@@ -350,10 +347,10 @@
                         </div>
                     </div>
                     <div class="home-resources__item">
-                        <div class="resources-grid resources-grid--pink resources-grid--bottom">
+                        <div class="resources-grid resources-grid--pink">
                             <div class="thumbnail">
-                                <img loading="lazy" src="~/media/August2021/cam_m_m.webp"
-                                     alt="Tinh dầu Cam Ngọt">
+                                <img loading="lazy" src="~/images/home/sen.webp"
+                                     alt="Hương sen">
                             </div>
                             <div class="content">
                                 <h3 class="title">
@@ -367,10 +364,10 @@
                         </div>
                     </div>
                     <div class="home-resources__item">
-                        <div class="resources-grid resources-grid--orange">
+                        <div class="resources-grid resources-grid--orange resources-grid--bottom">
                             <div class="thumbnail">
-                                <img loading="lazy" src="~/media/August2021/dau-qua-bo_m.webp"
-                                     alt="Dầu Quả Bơ">
+                                <img loading="lazy" src="~/images/home/cam-que.webp"
+                                     alt="Hương cam quế">
                             </div>
                             <div class="content">
                                 <h3 class="title">
@@ -384,9 +381,9 @@
                         </div>
                     </div>
                     <div class="home-resources__item">
-                        <div class="resources-grid resources-grid--green resources-grid--bottom">
+                        <div class="resources-grid resources-grid--green">
                             <div class="thumbnail">
-                                <img loading="lazy" src="~/media/June2021/dau-dua_89_m.webp" alt="Dầu Dừa">
+                                <img loading="lazy" src="~/images/home/sa-chanh.webp" alt="Hương sả chanh">
                             </div>
                             <div class="content">
                                 <h3 class="title">
@@ -402,7 +399,7 @@
                     <div class="home-resources__item">
                         <div class="resources-grid resources-grid--purple resources-grid--bottom">
                             <div class="thumbnail">
-                                <img loading="lazy" src="~/media/June2021/dau-dua_89_m.webp" alt="Dầu Dừa">
+                                <img loading="lazy" src="~/images/home/lavender.webp" alt="Hương lavender">
                             </div>
                             <div class="content">
                                 <h3 class="title">
@@ -416,9 +413,9 @@
                         </div>
                     </div>
                     <div class="home-resources__item">
-                        <div class="resources-grid resources-grid--green resources-grid--bottom">
+                        <div class="resources-grid resources-grid--pink">
                             <div class="thumbnail">
-                                <img loading="lazy" src="~/media/June2021/dau-dua_89_m.webp" alt="Dầu Dừa">
+                                <img loading="lazy" src="~/images/home/hoa-ha.webp" alt="Hương hoa hạ">
                             </div>
                             <div class="content">
                                 <h3 class="title">
@@ -434,7 +431,7 @@
                     <div class="home-resources__item">
                         <div class="resources-grid resources-grid--yellow resources-grid--bottom">
                             <div class="thumbnail">
-                                <img loading="lazy" src="~/media/June2021/dau-dua_89_m.webp" alt="Dầu Dừa">
+                                <img loading="lazy" src="~/images/home/ylang.webp" alt="Hương ylang">
                             </div>
                             <div class="content">
                                 <h3 class="title">
@@ -457,37 +454,29 @@
             <div class="homeAboutBox">
                 <div class="homeAboutBox_img">
                     <img loading="lazy"
-                         src="~/media/August2021/z2699761275612_b75a85a2b9ea3d3749d83be7f2fb72df_28.webp"
-                         alt="Chuyện của &lt;san&gt;Cỏ&lt;/span&gt;">
+                         src="~/images/home/logo.png"
+                         alt="aromatide">
                 </div>
                 <div class="homeAboutBox_content">
                     <div class="homeAboutBox_content_title">
                         <h2 class="section-heading">
-                            Chuyện của <san>Cỏ</span>
+                            Aromatide
                         </h2>
                     </div>
                     <div class="homeAboutBox_content_text">
                         <div class="home-abouts__description">
                             <p>
                                 <strong>
-                                    T&ocirc;i bắt đầu Ước mơ Xanh của m&igrave;nh, nghi&ecirc;n cứu những sản
-                                    phẩm thuần tu&yacute;, tối giản, chỉ tập trung v&agrave;o mục đ&iacute;nh sử
-                                    dụng của ch&iacute;nh n&oacute;.
+                                    
                                 </strong>
                             </p>
                             <p>
-                                Nghĩa l&agrave; nước giặt th&igrave; chỉ cần giặt sạch, chứ kh&ocirc;ng cần phải
-                                nhiều bọt. Nghĩa l&agrave; dưỡng da dưỡng t&oacute;c th&igrave; để da t&oacute;c
-                                khoẻ từ gốc chứ kh&ocirc;ng cần cảm gi&aacute;c giả mướt tay từ silicon.
-                                T&ocirc;i từ chối mọi sản phẩm chứa hạt vi nhựa, chỉ d&ugrave;ng cafe xay mịn
-                                v&agrave; muối biển để tẩy tế b&agrave;o chết. T&ocirc;i kh&ocirc;ng d&ugrave;ng
-                                những ho&aacute; chất tẩy rửa m&agrave; thay bằng x&agrave; b&ocirc;ng dầu dừa
-                                v&agrave; quả bồ h&ograve;n xưa cũ...
+                                
                             </p>
                         </div>
                     </div>
                     <div class="homeAboutBox_content_btn">
-                        <a href="/ve-co-mem" class="btn btn--secondary">
+                        <a asp-controller="Home" asp-action="AboutUs" class="btn btn--secondary">
                             XEM THÊM
                         </a>
                     </div>
@@ -497,16 +486,15 @@
                                 <div class="grid__column">
                                     <div class="about-slide">
                                         <div class="thumbnail">
-                                            <a href="https://aromatide.com.vn/ve-nha-may?itm_source=homepage&amp;itm_medium=story&amp;itm_campaign=ve_nha_may">
-                                                <img loading="lazy" src="~/media/March2022/nhamay2.webp"
+                                            <a href="">
+                                                <img loading="lazy" src="~/images/home/logo.png"
                                                      alt="Giới thiệu Aromatide">
                                             </a>
                                         </div>
                                         <div class="content">
                                             <h3 class="title maxLine_3">
-                                                <a href="https://aromatide.com.vn/ve-nha-may?itm_source=homepage&amp;itm_medium=story&amp;itm_campaign=ve_nha_may">
-                                                    Nhà máy sản xuất Aromatide sản xuất mỹ phẩm theo tiêu chuẩn
-                                                    cGMP
+                                                <a href="">
+                                                    Nhà máy sản xuất Aromatide sản xuất 
                                                 </a>
                                             </h3>
                                         </div>
@@ -515,16 +503,15 @@
                                 <div class="grid__column">
                                     <div class="about-slide">
                                         <div class="thumbnail">
-                                            <a href="https://aromatide.com.vn/giai-thuong-thuong-hieu-truyen-cam-hung-chau-a-apea-2021-goi-ten-co-mem?itm_source=homepage&amp;itm_medium=story&amp;itm_campaign=thuong_hieu_truyen_cam_hung">
-                                                <img loading="lazy" src="~/media/March2022/thuong_hieu.webp"
+                                            <a href="">
+                                                <img loading="lazy" src="~/images/home/logo.png"
                                                      alt="Giới thiệu Aromatide">
                                             </a>
                                         </div>
                                         <div class="content">
                                             <h3 class="title maxLine_3">
-                                                <a href="https://aromatide.com.vn/giai-thuong-thuong-hieu-truyen-cam-hung-chau-a-apea-2021-goi-ten-co-mem?itm_source=homepage&amp;itm_medium=story&amp;itm_campaign=thuong_hieu_truyen_cam_hung">
-                                                    Giải Thưởng “THƯƠNG HIỆU TRUYỀN CẢM HỨNG” CHÂU Á APEA 2021
-                                                    Gọi Tên Aromatide
+                                                <a href="">
+                                                    Thông tin Aroamtide
                                                 </a>
                                             </h3>
                                         </div>

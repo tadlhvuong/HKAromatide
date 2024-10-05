@@ -20,6 +20,7 @@ namespace HKMain.ViewComponents
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
+        
         {
             var megaMenu = (from p in _dbContext.Products
                             select new MegaMenuModel()

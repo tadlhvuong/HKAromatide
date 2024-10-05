@@ -1,0 +1,91 @@
+﻿@using Newtonsoft.Json
+@using HKShared.Helpers
+@using Microsoft.AspNetCore.Html
+@model PagedList<HKShared.Data.MediaFile>
+@{
+    Layout = null;
+    string noteField = Context.Request.Query["note"];
+    string inputField = Context.Request.Query["input"];
+    string imageField = Context.Request.Query["image"];
+    string[] previewData = Model.Content.Select(x => x.FileLink).ToArray();
+    object[] previewConfig = Model.Content.Select(x => new { key = x.Id, caption = x.FileName, size = x.FileSize, showDrag = false, width = "120px" }).ToArray();
+    var x1 = new HtmlString(JsonConvert.SerializeObject(previewData));
+    var x2 = new HtmlString(JsonConvert.SerializeObject(previewConfig));
+}
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title"><i class="fa fa-windows"></i> Thư viện Hình ảnh</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-4">
+        </div>
+        @*<div id="modalPager" class="col-sm-8 text-right">
+        <pagination model="@Model" query-string="@Context.Request.QueryString" css-style="pagination pagination-sm"></pagination>
+        <script>
+        $("#modalPager a").addClass("modal-links");
+        </script>
+        </div>*@
+    </div>
+    <input id="files" name="files" type="file" multiple class="file-loading">
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" data-dismiss="modal"><i class="fa fa-undo"></i> Đóng</button>
+</div>
+
+<script>
+    function bindSelect() {
+
+        $(document).off("click", ".kv-file-select");
+        $(document).on("click", ".kv-file-select", function (e) {
+            var imgKey = $(this).data('key');
+            if (!imgKey) {
+                alert("Hãy UPLOAD hình lên server trước khi chọn!");
+                return;
+            }
+
+            var imgLink = $(this).data('href');
+    @if (!string.IsNullOrEmpty(noteField))
+    {
+        <text>$("#@noteField").summernote('editor.insertImage', imgLink); </text>
+    }
+    @if (!string.IsNullOrEmpty(inputField))
+    {
+        <text>$("#@inputField").val(imgLink); </text>
+    }
+    @if (!string.IsNullOrEmpty(imageField))
+    {
+        <text>$("#@imageField").attr("src", imgLink); </text>
+    }
+                $("#modalContainer").modal("hide");
+        });
+    }
+
+    var idAlbum = $("#Filter option:selected").val();
+    $("#Filter").change(() => {
+        idAlbum = $("#Filter option:selected").val();
+    })
+    var selectBtn = '<button type="button" class="kv-file-select btn btn-xs btn-default" title="Chèn link file này vào văn bản" {dataKey} data-href="{data}"><i class="fas fa-paste"></i> Select</button>';
+    $("#files").fileinput({
+        uploadUrl: "/Admin/Media/FileUpload",
+        deleteUrl: "/Admin/Media/FileRemove",
+        initialPreview: @x1,
+        initialPreviewConfig: @x2,
+        initialPreviewAsData: true,
+        overwriteInitial: false,
+        maxFileSize: 2048,
+        resizeImage: true,
+        maxImageWidth: 2048,
+        maxImageHeight: 2048,
+        otherActionButtons: selectBtn,
+        allowedFileTypes: ['image', 'html', 'text', 'video', 'audio', 'flash'],
+        allowedPreviewTypes: ['image', 'html', 'text', 'video', 'audio', 'flash']
+    }).on('filebeforedelete', function () {
+        var aborted = !window.confirm('Bạn xác nhận muốn xóa file này?');
+        if (!aborted)
+            toastr.success('Xóa thành công!');
+        return aborted;
+    });
+
+    bindSelect();
+</script>

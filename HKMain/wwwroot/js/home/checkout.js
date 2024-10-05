@@ -37,21 +37,6 @@ function confirmChangeVariant(el) {
     checkoutLoading(true);
     $(el).parents("form").submit();
 }
-
-//function checkout() {
-//    var model = {
-//        id: $("#Id").val(),
-//        name: $("#Name").val(),
-//        email: $("#Email").val(),
-//        phoneNumber: $("#PhoneNumber").val(),
-//        address: $("#Address").val(),
-//        note: $("#Note").val(),
-//        payment: $("#Payment").val(),
-//        isAgressPrivacy: $("#isAgressPrivacy").val(),
-//        items: $("#Items").val()
-//    }
-//    console.log(model);
-//}
 jQuery(document).ready(function (e) {
     loadCartPayment();
     updateCountCart();

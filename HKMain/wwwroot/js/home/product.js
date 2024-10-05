@@ -115,7 +115,6 @@ function changeQuantity() {
 function infomationLoadMore() {
     const infomation = $('.infomations__descriptions');
     const contentHeight = infomation.height();
-    // console.log(contentHeight,`12312`);
 
     if (contentHeight < 10) {
         infomation.addClass('is-active');
@@ -125,7 +124,6 @@ function infomationLoadMore() {
 
     $(document).on('click', '.infomations-loadmore', function (e) {
         e.preventDefault();
-        // $(this).siblings('.infomations__descriptions').addClass('is-active');
         infomation.addClass('is-active');
         $(this).hide();
 
@@ -182,7 +180,6 @@ function addToCart() {
         };
         var carts = [];
         (sessionStorage.getItem("Cart") == null) ? carts = [] : carts = JSON.parse(sessionStorage.getItem("Cart"));
-        console.log(carts);
         if (carts.length > 0 || carts != "[]") {
             var isSame = false;
             carts.forEach(e => {
@@ -204,8 +201,7 @@ function addToCart() {
                 count += e.product_quantity;
             })
         }
-        $("#headerMiniCart .header-cart__count")[0].innerText = count; //pc
-        $("#headerMiniCart .header-cart__count")[1].innerText = count; //mobile
+        updateCountCart();
         //// ===== START:: Notify Custom
         var data = '<div class="notifyCustom"><div class="notifyCustom_bg" onClick="javascript:closeNotifyCustom();"></div><div class="notifyCustom_box"><div class="notifyCustom_box_close" onClick="javascript:closeNotifyCustom();"><i class="fas fa-times"></i></div><div class="notifyCustom_box_header">Đã thêm <span>' + cart.product_quantity + '</span> sản phẩm vào giỏ hàng!</div><div class="notifyCustom_box_img"><img src="' + cart.product_image + '" alt="img-cart" title="img-cart"></div><div class="notifyCustom_box_content"><h3 class="maxLine_2">' + cart.product_name + '</h3><div class="notifyCustom_box_content__options">' + cart.nameParent + ': ' + cart.nameChild + '</div><div class="notifyCustom_box_content__price">' + formatCurrency(cart.product_pricecurrent) + '</div> </div><div class="notifyCustom_box_btn"><a href="/san-pham/thanh-toan">Thanh toán</a> </div></div></div>'
         
@@ -213,7 +209,6 @@ function addToCart() {
             let widthS = $(window).width();
             let heightS = $(window).height();
             if (widthS < 567) {
-                console.log('a');
                 $('#notifyCustom').html(data).css({
                     'opacity': '1',
                     'z-index': '200',
@@ -225,7 +220,6 @@ function addToCart() {
                     'left': 'calc(50% - ' + parseInt($('.notifyCustom_box').outerWidth() / 2) + 'px)'
                 });
             } else {
-                console.log('b');
                 $('#notifyCustom').html(data).css({
                     'width': '400px',
                     'opacity': '1',
@@ -237,90 +231,6 @@ function addToCart() {
         setTimeout(() => {
             closeNotifyCustom();
         }, 4000);
-
-
-        //let quantityP = parseInt(quantity);
-        //$.ajax({
-        //    url: '/notifyCart',
-        //    dataType: 'html',
-        //    type: 'get',
-        //    data: { title: titleP, image: imgP, price: priceP, quantity: quantityP, options: xhtmlOptions }
-        //}).done(function (data) {
-            
-        //});
-        // ===== END:: Notify Custom
-    })
-}
-
-function __addToCart() {
-    $(".click-buy").click(function (e) {
-        e.preventDefault();
-        let html = $(this).html();
-        let url = '',
-            button_loading = '<span class="loading-data loading-data--white"></span>';
-
-        if ($(this).hasClass('btn-addtocart--cart')) {
-            url = '/cart';
-            button_loading = '<span class="loading-data"></span>';
-        }
-
-        const id = $(this).data('variant_id');
-        const product_id = $(this).data('product_id');
-        const quantity = 1;
-
-        if (!id) return;
-
-        //const settings = {
-        //    variant_id: id,
-        //    product_id: product_id,
-        //    quantity: parseInt(quantity),
-        //    replace: url,
-        //    button_loading: button_loading,
-        //    button_text: html,
-        //    button_element: $(this)
-        //};
-        //console.log(settings);
-        //theme.AddItem("Cart", settings);
-
-        // ===== START:: Notify Custom
-        //let titleP = $(this).parent().prev().prev().prev().find('a').text();
-        //let imgP = $(this).parent().parent().prev().find('img').attr('src');
-        //let priceP = $(this).parent().prev().prev().find('.price-now').html();
-        //let quantityP = parseInt(quantity);
-        //$.ajax({
-        //    url: '/notifyCart',
-        //    dataType: 'html',
-        //    type: 'get',
-        //    data: { title: titleP, image: imgP, price: priceP, quantity: quantityP, options: '' }
-        //}).done(function (data) {
-        //    console.log(data);
-        //    setTimeout(() => {
-        //        let widthS = $(window).width();
-        //        let heightS = $(window).height();
-        //        if (widthS < 567) {
-        //            $('#notifyCustom').html(data).css({
-        //                'opacity': '1',
-        //                'z-index': '200',
-        //                'display': 'block'
-        //            });
-        //            $('.notifyCustom_box').css({
-        //                'width': 'calc(100% - 20px)',
-        //                'top': 'calc(50% - ' + parseInt($('.notifyCustom_box').outerHeight() / 2) + 'px)',
-        //                'left': 'calc(50% - ' + parseInt($('.notifyCustom_box').outerWidth() / 2) + 'px)'
-        //            });
-        //        } else {
-        //            $('#notifyCustom').html(data).css({
-        //                'width': '400px',
-        //                'opacity': '1',
-        //                'z-index': '200',
-        //                'display': 'block'
-        //            });
-        //        }
-        //    }, 1);
-        //    setTimeout(() => {
-        //        closeNotifyCustom();
-        //    }, 4000);
-        //});
         // ===== END:: Notify Custom
     })
 }

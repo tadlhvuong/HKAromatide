@@ -27,7 +27,6 @@ $(document).ready(function () {
 
 
     function formEdit(href) {
-        console.log('a')
         modalContent = $('#modalContent');
         modalContent.removeClass('bg-danger');
 

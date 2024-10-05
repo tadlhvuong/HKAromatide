@@ -47,7 +47,6 @@ function initDataTable() {
     if (getData != null) {
         initData = JSON.parse(getData.data);
     }
-    console.log(initData);
     dt_orders = $('#table_orders').DataTable({
         data: initData,
         rowId: "Id",
@@ -94,7 +93,7 @@ function initDataTable() {
                         $email = full['EmailUser'],
                         $image = full['AvatarUser'];
                     var $output =
-                        '<img src="/images/admin/1.jpg" alt="Avatar" class="img-circle elevation-2 table-avatar">';
+                        '<img src="/images/logo.webp" alt="Avatar" class="img-circle elevation-2 table-avatar">';
                     // Creates full output for row
                     var $row_output =
                         '<div class="d-flex justify-content-start align-items-center user-name">' +
@@ -161,8 +160,6 @@ function initDataTable() {
                 orderable: false,
                 responsivePriority: 3,
                 render: function (data, type, full, meta) {
-                    console.log(full["Id"]);
-
                     return ('<div class="d-flex align-items-center">' +
                         '<a type="button" class="btn btn-warning btn-sm mr-2" onclick="location.href = (\''+ editAction +
                         + full["Id"] + '\'); " title="Sửa"><i class="fa fa-pencil-alt"></i></a>' +

@@ -40,7 +40,6 @@
         }
     });
     var arrVariant = JSON.parse(variant);
-    console.log(arrVariant);
     if (arrVariant.length == 0) {
         $('.repeater-default').hide();
         $('#variant-empty').show();
@@ -52,7 +51,6 @@
         initEmpty: true,
         show: function () {
             var formControl = $(this).find('.form-control');
-            console.log(formControl);
             arrVariant.forEach((element) => {
                 $(formControl[0]).append('<option value="' + element['Id'] + '">' + element['Text'] + '</option>');
             });

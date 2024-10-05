@@ -46,7 +46,6 @@ function initDataTable() {
     if (getData != null) {
         initData = JSON.parse(getData.data);
     }
-    console.log(initData);
     dt_products = $('#table_products').DataTable({
         data: initData,
         rowId: "Id",
@@ -92,7 +91,7 @@ function initDataTable() {
                     if ($image != '')
                         $output= '<img src="/media/' + $image + '" alt="Avatar" class="img-circle elevation-2 table-avatar">';
                     else
-                        $output = '<img src="/images/image-default.png" alt="Avatar" class="img-circle elevation-2 table-avatar">';
+                        $output = '<img src="/images/logo.webp" alt="Avatar" class="img-circle elevation-2 table-avatar">';
                     // Creates full output for row
                     var $row_output =
                         '<div class="d-flex justify-content-start align-items-center user-name">' +

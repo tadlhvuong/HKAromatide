@@ -27,7 +27,7 @@
         <div class="lockscreen-name">@Model.UserName</div>
         <div class="lockscreen-item">
             <div class="lockscreen-image">
-                <img src="~/images/admin/1.jpg" alt="User Image">
+                <img src="~/images/logo.webp" alt="User Image">
             </div>
             <form asp-area="Admin" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="lockscreen-credentials">
                  @Html.AntiForgeryToken()

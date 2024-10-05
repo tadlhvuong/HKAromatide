@@ -47,7 +47,6 @@ function initDataTable() {
     if (getData != null) {
         initData = JSON.parse(getData.data);
     }
-    console.log(initData);
     dt_users = $('#table_users').DataTable({
         data: initData,
         rowId: "Id",
@@ -76,7 +75,7 @@ function initDataTable() {
                 render: function (data, type, full, meta) {
                     var $name = full['UserName'],
                         $email = full['Email'],
-                        $image = (full['AvatarImg'] != null) ? full['AvatarImg'] : "/images/admin/1.jpg",
+                        $image = (full['AvatarImg'] != null) ? full['AvatarImg'] : "/images/logo.webp",
                         $isConfirmEmail = (full['EmailConfirmed']) ? isConfirm[0] : isConfirm[1];
                     var $output =
                         '<img src="' + $image +'" alt="Avatar" class="img-circle elevation-2 table-avatar">';
@@ -107,7 +106,6 @@ function initDataTable() {
                 targets: 2,
                 render: function (data, type, full, meta) {
                     var $RoleName = (full['Roles'] == null) ? "" : full['Roles'];
-                    console.log($RoleName.length);
                     var htmlRole = "";
                     for (var i = 0; i < $RoleName.length; i++) {
                         var temp = 0;
@@ -394,7 +392,6 @@ function initDataTable() {
     return dt_users;
 };
 function formSuspend(href) {
-    console.log('1:' + href);
     modalContent = $('#modalContent');
     modalContent.addClass('bg-danger');
     modalContent.find('.modal-title').text('Suspend');
@@ -409,7 +406,6 @@ function formSuspend(href) {
     });
 }
 function formUnSuspend(href) {
-    console.log('2:' + href);
     modalContent = $('#modalContent');
     modalContent.addClass('bg-success');
     modalContent.find('.modal-title').text('UnSuspend');
@@ -498,7 +494,6 @@ $(document).ready(function () {
         var idItem = $(this).find("input").val();
         $(this).find("button[type='submit']").hide();
         $("#progress").show();
-        console.log('3');
         $.ajax({
             url: this.action,
             type: this.method,

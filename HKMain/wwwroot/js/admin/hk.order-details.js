@@ -43,7 +43,6 @@ var statusObj = {
     };
 var initData = null, getData = null;
 function initDataTable() {
-    console.log('order item');
     $.ajax({
         type: "GET",
         url: loadAction,
@@ -67,7 +66,6 @@ function initDataTable() {
     if (getData != null) {
         initData = JSON.parse(getData.data);
     }
-    console.log(initData);
     dt_orderItems = $('#table_orderItems').DataTable({
         data: initData,
         rowId: "Id",
@@ -108,7 +106,7 @@ function initDataTable() {
                         $material = 'Material: Wooden',
                         $image = full['AvatarItem'];
                     var $output =
-                        '<img src="/images/admin/1.jpg" alt="Avatar" class="img-circle elevation-2 table-avatar">';
+                        '<img src="/images/logo.webp" alt="Avatar" class="img-circle elevation-2 table-avatar">';
                     // Creates full output for row
                     var $row_output =
                         '<div class="d-flex justify-content-start align-items-center user-name">' +

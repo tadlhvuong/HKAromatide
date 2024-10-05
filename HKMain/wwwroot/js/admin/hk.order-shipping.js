@@ -46,8 +46,6 @@ function initDataTable_Shipping() {
             }
         }
     });
-    console.log('as');
-    console.log(initData);
     if (initData != null) {
         initData = JSON.parse(initData.data);
     }
@@ -225,7 +223,6 @@ function initDataTable_Shipping() {
     return dt_unit;
 };
 function formEdit(href) {
-    console.log('a');
     modalContent = $('#modalContent');
     modalContent.removeClass('bg-primary');
 
@@ -239,7 +236,6 @@ function formEdit(href) {
     });
 }
 function formView(href) {
-    console.log('b');
     modalContent = $('#modalContent');
     modalContent.removeClass('bg-primary');
 
@@ -341,9 +337,6 @@ $(document).on("submit", ".modalForm", function (e) {
     $(this).find("button[type='submit']").hide();
     $("#progress").show();
     var idItem = $(this).find("input#Id").val();
-    console.log(this.action)
-    console.log(this.method)
-    console.log(new FormData(this));
     $.ajax({
         url: this.action,
         type: this.method,
@@ -356,9 +349,6 @@ $(document).on("submit", ".modalForm", function (e) {
                 $("#modalContainer").modal("hide");
                 $("#progress").hide();
                 toastr.success(result.message);
-                console.log(JSON.parse(result.data));
-                console.log("idiTem");
-                console.log(idItem);
                 if (idItem == 0) {
                     dt_shipping.row.add(JSON.parse(result.data)).draw();
                 } else {
