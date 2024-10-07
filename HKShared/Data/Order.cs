@@ -44,7 +44,10 @@ namespace HKShared.Data
         public int Id { get; set; }
 
         public string? UserId { get; set; }
-            
+        public string? GuestName { get; set; }
+        public string? GuestEmail { get; set; }
+        public string? GuestPhone { get; set; }
+
         [Display(Name = "Giao hàng")]
         public string Address { get; set; }
 

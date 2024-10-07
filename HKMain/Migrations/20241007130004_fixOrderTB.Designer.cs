@@ -3,6 +3,7 @@ using System;
 using HKShared.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HKMain.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241007130004_fixOrderTB")]
+    partial class fixOrderTB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -273,15 +275,6 @@ namespace HKMain.Migrations
 
                     b.Property<double>("GrandTotalPrice")
                         .HasColumnType("double");
-
-                    b.Property<string>("GuestEmail")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("GuestName")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("GuestPhone")
-                        .HasColumnType("longtext");
 
                     b.Property<bool>("IsAgree")
                         .HasColumnType("tinyint(1)");

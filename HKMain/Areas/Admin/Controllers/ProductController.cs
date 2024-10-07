@@ -272,136 +272,133 @@ namespace HKMain.Areas.Admin.Controllers
 
                 //category...
                 var oldCate = _dbContext.ProductTaxos.FirstOrDefault(x => x.ItemId == model.Id && x.ItemType == TaxoType.Category);
-                if (oldCate != null)
+                var ProductNew = _dbContext.Products.OrderByDescending(x => x.Id).FirstOrDefault();
+                var idProductNew = (ProductNew != null) ? ProductNew.Id : 0;
+                if(idProductNew != 0)
                 {
-                    if (oldCate.TaxoId != model.ItemCategory)
+                    if (oldCate != null)
                     {
-                        var newCate = new ProductTaxo()
+                        if (oldCate.TaxoId != model.ItemCategory)
                         {
-                            Id = oldCate.Id,
-                            ItemId = model.Id,
-                            TaxoId = model.ItemCategory,
-                            ItemType = TaxoType.Category
-                        };
-                        _dbContext.Entry(oldCate).CurrentValues.SetValues(newCate);
-                        _dbContext.SaveChanges();
-                    }
-                }
-                else
-                {
-                    if(model.ItemCategory != 0)
-                    {
-                        var newCate = new ProductTaxo()
-                        {
-                            ItemId = model.Id,
-                            TaxoId = model.ItemCategory,
-                            ItemType = TaxoType.Category
-                        };
-                        _dbContext.ProductTaxos.Add(newCate);
-                        _dbContext.SaveChanges();
-                    }
-                }
-
-                var oldCollec = _dbContext.ProductTaxos.FirstOrDefault(x => x.ItemId == model.Id && x.ItemType == TaxoType.Collection);
-                if (oldCollec != null)
-                {
-                    if (oldCollec.TaxoId != model.ItemCollection)
-                    {
-                        var newCollec = new ProductTaxo()
-                        {
-                            Id = oldCollec.Id,
-                            ItemId = model.Id,
-                            TaxoId = model.ItemCollection,
-                            ItemType = TaxoType.Collection
-                        };
-                        _dbContext.Entry(oldCollec).CurrentValues.SetValues(newCollec);
-                        _dbContext.SaveChanges();
-                    }
-                }
-                else
-                {
-                    if (model.ItemCollection != 0)
-                    {
-                        var newCollec = new ProductTaxo()
-                        {
-                            ItemId = model.Id,
-                            TaxoId = model.ItemCollection,
-                            ItemType = TaxoType.Collection
-                        };
-                        _dbContext.ProductTaxos.Add(newCollec);
-                        _dbContext.SaveChanges();
-                    }
-                }
-
-                var oldVendor = _dbContext.ProductTaxos.FirstOrDefault(x => x.ItemId == model.Id && x.ItemType == TaxoType.Vendor);
-                if (oldVendor != null)
-                {
-                    if (oldVendor.TaxoId != model.ItemVendor)
-                    {
-                        var newVendor = new ProductTaxo()
-                        {
-                            Id = oldVendor.Id,
-                            ItemId = model.Id,
-                            TaxoId = model.ItemVendor,
-                            ItemType = TaxoType.Vendor
-                        };
-                        _dbContext.Entry(oldVendor).CurrentValues.SetValues(newVendor);
-                        _dbContext.SaveChanges();
-                    }
-                }
-                else
-                {
-                    if (model.ItemVendor != 0)
-                    {
-                        var newVendor = new ProductTaxo()
-                        {
-                            ItemId = model.Id,
-                            TaxoId = model.ItemVendor,
-                            ItemType = TaxoType.Vendor
-                        };
-                        _dbContext.ProductTaxos.Add(newVendor);
-                        _dbContext.SaveChanges();
-                    }
-                }
-                // Attrubutes
-                if (model.Attrubutes != null)
-                {
-                    var attrs = JArray.Parse(model.Attrubutes);
-                   
-                    foreach (var item in attrs)
-                    {
-                        var oldAttrs = _dbContext.ProductAttribs.Where(x => x.ItemId == model.Id).ToList();
-                        if (oldAttrs.Count > 0)
-                        {
-                            foreach (var attr in oldAttrs)
+                            var newCate = new ProductTaxo()
                             {
-                                if(attr.AttrId == item.First.Value<int>())
-                                    _dbContext.ProductAttribs.Remove(attr);
-                            }
-                            _dbContext.SaveChanges();
+                                Id = oldCate.Id,
+                                ItemId = idProductNew,
+                                TaxoId = model.ItemCategory,
+                                ItemType = TaxoType.Category
+                            };
+                            _dbContext.Entry(oldCate).CurrentValues.SetValues(newCate);
                         }
-                        var newAttr = new ProductAttr()
-                        {
-                            AttrId = item.First.Value<int>(),
-                            AttrChildId = item.Last.Value<int>(),
-                            ItemId = model.Id,
-                            Values = ""
-                        };
-                        _dbContext.ProductAttribs.Add(newAttr);
                     }
-                    _dbContext.SaveChanges();
-                }
-                else
-                {
-                    var oldAttrs = _dbContext.ProductAttribs.Where(x => x.ItemId == model.Id).ToList();
-                    if (oldAttrs.Count > 0)
-                        _dbContext.ProductAttribs.RemoveRange(oldAttrs);
+                    else
+                    {
+                        if (model.ItemCategory != 0)
+                        {
+                            var newCate = new ProductTaxo()
+                            {
+                                ItemId = idProductNew,
+                                TaxoId = model.ItemCategory,
+                                ItemType = TaxoType.Category
+                            };
+                            _dbContext.ProductTaxos.Add(newCate);
+                        }
+                    }
+
+                    var oldCollec = _dbContext.ProductTaxos.FirstOrDefault(x => x.ItemId == model.Id && x.ItemType == TaxoType.Collection);
+                    if (oldCollec != null)
+                    {
+                        if (oldCollec.TaxoId != model.ItemCollection)
+                        {
+                            var newCollec = new ProductTaxo()
+                            {
+                                Id = oldCollec.Id,
+                                ItemId = idProductNew,
+                                TaxoId = model.ItemCollection,
+                                ItemType = TaxoType.Collection
+                            };
+                            _dbContext.Entry(oldCollec).CurrentValues.SetValues(newCollec);
+                        }
+                    }
+                    else
+                    {
+                        if (model.ItemCollection != 0)
+                        {
+                            var newCollec = new ProductTaxo()
+                            {
+                                ItemId = idProductNew,
+                                TaxoId = model.ItemCollection,
+                                ItemType = TaxoType.Collection
+                            };
+                            _dbContext.ProductTaxos.Add(newCollec);
+                        }
+                    }
+
+                    var oldVendor = _dbContext.ProductTaxos.FirstOrDefault(x => x.ItemId == model.Id && x.ItemType == TaxoType.Vendor);
+                    if (oldVendor != null)
+                    {
+                        if (oldVendor.TaxoId != model.ItemVendor)
+                        {
+                            var newVendor = new ProductTaxo()
+                            {
+                                Id = oldVendor.Id,
+                                ItemId = idProductNew,
+                                TaxoId = model.ItemVendor,
+                                ItemType = TaxoType.Vendor
+                            };
+                            _dbContext.Entry(oldVendor).CurrentValues.SetValues(newVendor);
+                        }
+                    }
+                    else
+                    {
+                        if (model.ItemVendor != 0)
+                        {
+                            var newVendor = new ProductTaxo()
+                            {
+                                ItemId = idProductNew,
+                                TaxoId = model.ItemVendor,
+                                ItemType = TaxoType.Vendor
+                            };
+                            _dbContext.ProductTaxos.Add(newVendor);
+                        }
+                    }
+                    // Attrubutes
+                    if (model.Attrubutes != null)
+                    {
+                        var attrs = JArray.Parse(model.Attrubutes);
+
+                        foreach (var item in attrs)
+                        {
+                            var oldAttrs = _dbContext.ProductAttribs.Where(x => x.ItemId == idProductNew).ToList();
+                            if (oldAttrs.Count > 0)
+                            {
+                                foreach (var attr in oldAttrs)
+                                {
+                                    if (attr.AttrId == item.First.Value<int>())
+                                        _dbContext.ProductAttribs.Remove(attr);
+                                }
+                            }
+                            var newAttr = new ProductAttr()
+                            {
+                                AttrId = item.First.Value<int>(),
+                                AttrChildId = item.Last.Value<int>(),
+                                ItemId = idProductNew,
+                                Values = ""
+                            };
+                            _dbContext.ProductAttribs.Add(newAttr);
+                        }
+                    }
+                    else
+                    {
+                        var oldAttrs = _dbContext.ProductAttribs.Where(x => x.ItemId == idProductNew).ToList();
+                        if (oldAttrs.Count > 0)
+                            _dbContext.ProductAttribs.RemoveRange(oldAttrs);
+                    }
                     _dbContext.SaveChanges();
                 }
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
                 return BadRequest();
             }

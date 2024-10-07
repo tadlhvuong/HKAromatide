@@ -149,11 +149,6 @@ function addToCart() {
         let url = '',
             button_loading = '<span class="loading-data loading-data--white"></span>';
 
-        //if ($(this).hasClass('btn-addtocart--cart')) {
-        //    url = '/Product/AddToCart';
-        //    button_loading = '<span class="loading-data"></span>';
-        //}
-
         const id = $("input[name='id']").val();
         const name = $(".product-single__main .heading").text();
         const currentprice = $(".product-single__main .product-single__prices")[0].dataset.currentprice;

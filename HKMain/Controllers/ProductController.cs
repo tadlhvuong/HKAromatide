@@ -160,6 +160,9 @@ namespace HKMain.Controllers
                 order.AdjustPrice = 10000;
                 order.ShippingFee = 100000;
                 order.GrandTotalPrice = order.AdjustPrice + order.ShippingFee;
+                order.GuestName = model.Name;
+                order.GuestPhone = model.PhoneNumber;
+                order.GuestEmail = model.Email;
                 order.Address = model.Address;
                 order.Note = model.Note;
                 order.PaymentInfo = "COD";
@@ -188,7 +191,7 @@ namespace HKMain.Controllers
                         }
                     }
                 }
-                _dbContext.SaveChangesAsync();
+                _dbContext.SaveChanges();
                 return View(new Checkout());
             }
             catch (Exception e)

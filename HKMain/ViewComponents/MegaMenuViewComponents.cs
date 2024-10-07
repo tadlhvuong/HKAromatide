@@ -22,21 +22,31 @@ namespace HKMain.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         
         {
-            var megaMenu = (from p in _dbContext.Products
-                            select new MegaMenuModel()
-                            {
-                                Id = p.Id,
-                                Image = Path.Combine(mediaUrl + p.Image),
-                                Name = p.Name,
-                                Price = p.FormatedCurrentPrice,
-                                SalePrice = p.FormatedRegularPrice,
-                                RedirectUrl = "san-pham/chi-tiet-san-pham?id=" + p.Id,
-                                Taxo = (from pt in _dbContext.ProductTaxos
-                                        join t in _dbContext.Taxonomies on pt.TaxoId equals t.Id
-                                        where pt.ItemId == p.Id && pt.ItemType == TaxoType.Category && t.ParentId == null
-                                        select t.Name).ToArray()
-                            });
-            return View("Index", megaMenu.ToList());
+            try
+            {
+                var megaMenu = (from p in _dbContext.Products
+                                select new MegaMenuModel()
+                                {
+                                    Id = p.Id,
+                                    Image = Path.Combine(mediaUrl + p.Image),
+                                    Name = p.Name,
+                                    Price = p.FormatedCurrentPrice,
+                                    SalePrice = p.FormatedRegularPrice,
+                                    RedirectUrl = "san-pham/chi-tiet-san-pham?id=" + p.Id,
+                                    Taxo = (from pt in _dbContext.ProductTaxos
+                                            join t in _dbContext.Taxonomies on pt.TaxoId equals t.Id
+                                            where pt.ItemId == p.Id && pt.ItemType == TaxoType.Category && t.ParentId == null
+                                            select t.Name).ToArray()
+                                });
+                return View("Index", megaMenu.ToList());
+            }
+            catch (Exception ex)
+            {
+
+                return View("Index", new MegaMenuModel());
+            }
+
+
         }
     }
 }
