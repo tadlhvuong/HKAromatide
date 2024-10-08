@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12  col-lg-8">
+                    <div class="col-12  col-lg-6">
                         <div class="card">
                             <div class="card-header card-datatable table-responsive">
                                 <table id="table_orders" class="datatables-order table table-bordered table-striped dataTable dtr-inline projects">
@@ -64,40 +64,46 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-4">
+                    <div class="col-12 col-lg-6">
                         <div class="card mb-4">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Thông tin đơn hàng</h5>
-                                <div class="card-tools">
+                                <h5 class="card-title mb-0 float-right ">Thời gian đặt: @Model.Date</h5>
+                               @*  <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                         <i class="fas fa-minus"></i>
                                     </button>
-                                </div>
+                                </div> *@
                             </div>
                             <div class="card-body">
-                                <div class="mb-3">
-                                    <label asp-for="NameUser" class="form-label"></label>
-                                    <input asp-for="NameUser" type="text" class="form-control" placeholder="Tiêu đề" aria-label="Tiêu đề">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label asp-for="NameUser" class="form-label"></label>
+                                        <input asp-for="NameUser" type="text" class="form-control" placeholder="" aria-label="">
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="EmailUser" class="form-label"></label>
+                                        <input asp-for="EmailUser" type="text" class="form-control" placeholder="" aria-label="">
+                                    </div>
                                 </div>
-                                <div class="col mb-3">
-                                    <label asp-for="EmailUser" class="form-label">Base Price</label>
-                                    <input asp-for="EmailUser" type="text" class="form-control" placeholder="Tiêu đề" aria-label="Tiêu đề">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label asp-for="PhoneUser"></label>
+                                        <input asp-for="PhoneUser" type="text" class="form-control" placeholder="" aria-label="">
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="ShippingAddress"></label>
+                                        <input asp-for="ShippingAddress" type="text" class="form-control" placeholder="" aria-label="">
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label asp-for="PhoneUser"></label>
-                                    <textarea asp-for="PhoneUser" class="form-control" rows="4" placeholder="Ghi chú"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="ShippingAddress"></label>
-                                    <textarea asp-for="ShippingAddress" class="form-control" rows="4" placeholder="Ghi chú"></textarea>
-                                </div>
+                               
                                 <div class="form-group">
                                     <label asp-for="PaymentStatus"></label>
-                                    <input asp-for="PaymentStatus" type="text" class="form-control" placeholder="Tiêu đề" aria-label="Tiêu đề">
+                                    <select asp-for="PaymentStatus" asp-items="@Html.GetEnumSelectList(Model.PaymentStatus.GetType())" class="form-control"></select>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Status"></label>
-                                    <input asp-for="Status" type="text" class="form-control" placeholder="Tiêu đề" aria-label="Tiêu đề">
+                                    <select asp-for="Status" asp-items="@Html.GetEnumSelectList(Model.Status.GetType())" class="form-control"></select>
                                 </div>
                             </div>
                         </div>

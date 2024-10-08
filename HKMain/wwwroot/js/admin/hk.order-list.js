@@ -4,7 +4,7 @@ var loadAction = "/Admin/Order/LoadOrderList"
 createAction = "/Admin/don-hang/tao-hoa-don",
     detailsAction = "/Admin/don-hang/chi-tiet/",
     editAction = "/Admin/don-hang/chinh-sua/",
-    deleteAction = "/Admin/don-hang/chinh-sua/";
+    deleteAction = "/Admin/don-hang/xoa/";
 var detailsMember = "/Admin/thanh-vien/chi-tiet/";
 
 var statusObj = {

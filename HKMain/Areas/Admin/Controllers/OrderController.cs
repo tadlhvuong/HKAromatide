@@ -67,11 +67,37 @@ namespace HKMain.Areas.Admin.Controllers
 
         // GET: Product/Details/5
         [Route("Admin/don-hang/chinh-sua/{id?}")]
+        [HttpGet]
         public ActionResult Edit(int id)
         {
-            return View(new OrderEditViewModel());
+            if(id == 0) return View(new OrderEditViewModel());
+            else
+            {
+                var model = new OrderEditViewModel();
+                try
+                {
+                    var order = _dbContext.Orders.FirstOrDefault(x => x.Id == id);
+                    model.NameUser = order.GuestName;
+                    model.EmailUser = order.GuestEmail;
+                    model.PhoneUser =  order.GuestPhone;
+                    model.Date = order.CreateTime;
+                    model.Note = order.Note;
+                    model.Price = order.AdjustPrice;
+                    model.Fee = order.ShippingFee;
+                    model.ShippingAddress = order.Address;
+                    model.Total = order.GrandTotalPrice;
+                    model.PaymentStatus = order.PaymentStatus;
+                    model.Status = order.OrderStatus;
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+                return View(model);
+            }
         }
-        [Route("Admin/Order/Delete/{id?}")]
+        [Route("Admin/don-hang/xoa/{id?}")]
         public ActionResult Delete(int id)
         {
             _logger.LogInformation("Delete product:" + id);
@@ -84,7 +110,7 @@ namespace HKMain.Areas.Admin.Controllers
         }
 
         // POST: Product/Delete/5
-        [Route("Admin/Order/Delete/{id?}")]
+        [Route("Admin/don-hang/xoa/{id?}")]
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {

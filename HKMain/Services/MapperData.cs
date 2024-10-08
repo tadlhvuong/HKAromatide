@@ -10,6 +10,7 @@ namespace HKMain.Services
         {
             CreateMap<CategoryViewModel, Taxonomy>();
             CreateMap<Taxonomy, Taxonomy>();
+            CreateMap<OrderItem, Order>();
         }
     }
 }
