@@ -134,7 +134,7 @@
                                 </a>
                                 <div class="product-box_item__content">
                                     <h3>
-                                        <a asp-controller="Product" asp-action="Details"
+                                        <a asp-controller="Product" asp-action="Details" asp-route-id="@sale.Id"
                                            class="product-box_item__content__title maxLine_2">
                                             @sale.Name
                                         </a>
@@ -174,20 +174,26 @@
                                          alt="@product.Preview"
                                          title="@product.Name"
                                          width=200 height=200 />
-                                    <div class="product-box_item__image__tags">
-                                        <div class="tag-sale">@product.DiscountPercent</div>
-                                    </div>
+                                    @if(product.DiscountPercent != "")
+                                    {
+                                        <div class="product-box_item__image__tags">
+                                            <div class="tag-sale">@product.DiscountPercent</div>
+                                        </div>
+                                    }
                                 </a>
                                 <div class="product-box_item__content">
                                     <h3>
-                                        <a asp-controller="Product" asp-action="Details"
+                                        <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id"
                                            class="product-box_item__content__title maxLine_2">
                                             @product.Name
                                         </a>
                                     </h3>
                                     <div class="product-box_item__content__price">
                                         <div class="price-now">@product.FormatedCurrentPrice</div>
-                                        <div class="price-old">@product.FormatedRegularPrice</div>
+                                        @if (product.CurrentPrice != product.Price)
+                                        {
+                                            <div class="price-old">@product.FormatedRegularPrice</div>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -195,38 +201,6 @@
                     }
                 </div>
             </div>
-            @* <div class="product-boxSpecial wrap homeProductBg_main">
-            @if (Model != null)
-            {
-            foreach (var product in Model)
-            {
-            <div class="product-boxSpecial_item two-cols">
-            <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id" class="product-boxSpecial_item__image">
-            <img class="ls-is-cached lazyload"
-            src="@product.LinkImage" width="155"
-            height="155" alt="@product.Name" title="@product.Name" />
-            <div class="product-boxSpecial_item__image__tags">
-            <div class="tag-sale">@product.DiscountPercent</div>
-            <div style="background:#3e6807;">Giá ưu đãi</div>
-            </div>
-            </a>
-            <div class="product-boxSpecial_item__content">
-            <h3>
-            <a asp-controller="Product" asp-action="Details"
-            class="product-boxSpecial_item__content__title maxLine_2">
-            @product.Name
-            </a>
-            </h3>
-            <div class="product-boxSpecial_item__content__price">
-            <div class="price-now">@product.FormatedCurrentPrice</div>
-            <div class="price-old">@product.FormatedRegularPrice</div>
-            </div>
-
-            </div>
-            </div>
-            }
-            }
-            </div> *@
         </div>
     </section>
     <!-- ===== End Product (MOBILE) ===== -->
@@ -267,14 +241,17 @@
                                 </a>
                                 <div class="product-box_item__content">
                                     <h3>
-                                        <a asp-controller="Product" asp-action="Details"
+                                        <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id"
                                            class="product-box_item__content__title maxLine_2">
                                             @product.Name
                                         </a>
                                     </h3>
                                     <div class="product-box_item__content__price">
                                         <div class="price-now">@product.FormatedCurrentPrice</div>
-                                        <div class="price-old">@product.FormatedRegularPrice</div>
+                                        @if (product.CurrentPrice != product.Price)
+                                        {
+                                            <div class="price-old">@product.FormatedRegularPrice</div>
+                                        }
                                     </div>
                                 </div>
                             </div>

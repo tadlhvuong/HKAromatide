@@ -192,7 +192,7 @@ namespace HKMain.Controllers
                     }
                 }
                 _dbContext.SaveChanges();
-                return View(new Checkout());
+                return View(new Checkout() );
             }
             catch (Exception e)
             {

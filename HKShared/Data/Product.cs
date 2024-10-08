@@ -135,7 +135,7 @@ namespace HKShared.Data
         {
             get
             {
-                if (this.SalePrice != this.Price)
+                if (this.SalePrice != this.Price && this.SalePrice > 0)
                 {
                     double number = (this.Price - this.SalePrice) / this.Price;
                     return Convert.ToDecimal(number).ToString("#.#%");

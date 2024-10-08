@@ -4701,7 +4701,7 @@ body.open-popup:after {
 .site-footer .footer-social_item {
     background: url(/images/ico-fb.webp);
     background-repeat: no-repeat;
-    background-size: 560px;
+    background-size: cover;
     height: 42px;
     width: 42px;
 }
@@ -4710,9 +4710,10 @@ body.open-popup:after {
     margin-left: 15px;
 }
 
-.site-footer .footer-social_item.icon-facebook {
-    background-position: -255px -238px;
-}
+    .site-footer .footer-social_item.icon-facebook {
+        background: url(/images/ico-fb.webp);
+        background-size: cover;
+    }
 
 .site-footer .footer-social_item.icon-instagram {
     background-position: -340px -238px;

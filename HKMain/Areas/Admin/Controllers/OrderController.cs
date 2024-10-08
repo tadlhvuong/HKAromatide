@@ -35,8 +35,8 @@ namespace HKMain.Areas.Admin.Controllers
                 Id = x.Id,
                 UserId = x.UserId,
                 Date = x.ShippingTime,
-                NameUser = x.AppUser.UserName,
-                EmailUser = x.AppUser.Email,
+                NameUser = (x.AppUser.UserName != null) ? x.AppUser.UserName : x.GuestName,
+                EmailUser = (x.AppUser.Email != null) ? x.AppUser.Email : x.GuestEmail,
                 PaymentStatus = x.PaymentStatus,
                 Status  = x.OrderStatus,
                 Method = x.PaymentInfo
