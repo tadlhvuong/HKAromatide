@@ -316,7 +316,6 @@ function updateCountCart() {
         $(".header-custom_item__icon").removeClass("icon-cart")
     }
     $("#headerMiniCart .header-cart__count")[0].innerText = count; //pc
-    $("#headerMiniCart .header-cart__count")[1].innerText = count; //mobile
     
     return count;
 }
@@ -346,6 +345,7 @@ function loadCartPayment() {
     else {
         $("#payment").css("display", "flex");
         $("#buynow").css("display", "none");
+        $("#Items").val(cart);
         var arrItem = JSON.parse(cart);
         var footer = "\n<div class=\"cart-list__remove\">\n <a onclick='removeAllCart();'>\n <svg width=\"12\" height=\"12\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\">\n                <path d=\"M10.666 3.083v7.584A1.166 1.166 0 019.5 11.833h-7a1.167 1.167 0 01-1.167-1.166V3.083H.167V1.917h11.666v1.166h-1.167zm-8.166 0v7.584h7V3.083h-7zM5.417 4.25h1.166v1.167H5.416V4.25zm0 1.75h1.166v1.167H5.416V6zm0 1.75h1.166v1.167H5.416V7.75zM3.083.167h5.833v1.166H3.083V.167z\" fill=\"currentColor\" \/>\n<\/svg>\nXóa tất cả\n <\/a>\n<\/div>",
             body = "";

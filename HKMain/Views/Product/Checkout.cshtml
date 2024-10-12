@@ -64,7 +64,7 @@
 
         <div id="payment" class="checkout-content">
             <div class="checkout-content__form seven-twelfths mobile--one-whole">
-                <form class="form form--simple checkout-form" asp-controller="Product" asp-action="Checkout" method="post">
+                <form class="form form--simple checkout-form" method="post">
                     @Html.AntiForgeryToken()
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <input asp-for="Id" type="hidden" />
@@ -118,8 +118,8 @@
                     </div>
                     <div class="checkout__policy form__field">
                         <div class="form-check-default box-checkbox">
-                            <input class="form-checkbox-input" type="checkbox" asp-for="isAgressPrivacy" checked="" required="">
-                            <label class="form-checkbox-label-2" for="default-check2">Bằng việc nhấn vào nút thanh toán tức bạn là bạn đã đồng ý với các <a href="/chinh-sach-mua-hang-va-thanh-toan" target="_blank">chính sách mua hàng, thanh toán</a> và <a href="/chinh-sach-bao-mat-thong-tin" target="_blank">chính sách bảo mật thông tin</a></label>
+                            <input class="form-checkbox-input" type="checkbox" asp-for="isAgressPrivacy" >
+                            <label class="form-checkbox-label-2" asp-for="isAgressPrivacy">Bằng việc nhấn vào nút thanh toán tức bạn là bạn đã đồng ý với các <a href="/chinh-sach-mua-hang-va-thanh-toan" target="_blank">chính sách mua hàng, thanh toán</a> và <a href="/chinh-sach-bao-mat-thong-tin" target="_blank">chính sách bảo mật thông tin</a></label>
                         </div>
                         <span class="help-text"></span>
                     </div>
@@ -182,6 +182,7 @@
 
 @section Scripts {
     <script src="~/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/js/home/vendors/toastr.min.js" asp-append-version="true"></script>
     <script src="~/js/home/checkout.js" asp-append-version="true"></script>
     <script src="~/js/home/main.js" asp-append-version="true"></script>
 }

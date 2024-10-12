@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HKMain.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240927135106_DBOrderIsAgree")]
-    partial class DBOrderIsAgree
+    [Migration("20241009123730_InitDB")]
+    partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -275,6 +275,15 @@ namespace HKMain.Migrations
 
                     b.Property<double>("GrandTotalPrice")
                         .HasColumnType("double");
+
+                    b.Property<string>("GuestEmail")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("GuestName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("GuestPhone")
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("IsAgree")
                         .HasColumnType("tinyint(1)");

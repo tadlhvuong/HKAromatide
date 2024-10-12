@@ -6,6 +6,7 @@ using HKShared.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Diagnostics;
 
@@ -26,7 +27,7 @@ namespace HKMain.Controllers
             _logger = logger;
             _userManager = userManager;
 
-            mediaUrl = AppSettings.Strings["MediaUrl"] ?? "/media";
+            mediaUrl = AppSettings.Strings["MediaUrl"] ?? "./media";
             mediaPath = AppSettings.Strings["MediaPath"] ?? "./wwwroot/media";
         }
 
@@ -34,11 +35,11 @@ namespace HKMain.Controllers
         [Route("trang-chu")]
         public IActionResult Index()
         {
+            var model = _dbContext.Products.Include(x => x.MediaAlbum).Include(x => x.MediaAlbum.MediaFiles).ToList();
 
-            var taxo = _dbContext.ProductTaxos.ToList();
-            var model = _dbContext.Products.ToList();
             foreach (var product in model)
             {
+                product.Image = (product.MediaAlbum.MediaFiles.FirstOrDefault() != null) ? product.MediaAlbum.MediaFiles.FirstOrDefault().FullPath : "~/images/image-default.png";
                 var FullPath = Path.Combine(mediaUrl, product.Image);
                 product.LinkImage = FullPath;
             }

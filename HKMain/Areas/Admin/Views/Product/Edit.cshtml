@@ -3,6 +3,7 @@
 @using Newtonsoft.Json
 @model ProductFormModel
 @{
+    ViewData["Title"] = "Chỉnh sửa sản phẩm";
     var catList = (List<SelectItemModel>)ViewBag.ItemCats;
     var collecList = (List<SelectItemModel>)ViewBag.ItemCollecs;
     var venList = (List<SelectItemModel>)ViewBag.ItemVens;
@@ -74,7 +75,7 @@
                         <!-- Product Information -->
                         <div class="card mb-4">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Product information</h5>
+                                <h5 class="card-title mb-0">Thông tin chung</h5>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                         <i class="fas fa-minus"></i>
@@ -348,14 +349,53 @@
     <script src="~/js/admin/tagify.js"></script>
     <script src="~/js/admin/hk.product-edit.js"></script>
     <script>
-        // $(function () {
-        //     $("#Price").on("keypress keyup blur", function (event) {
-        //         $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
-        //         if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
-        //             event.preventDefault();
-        //         }
-        //     });
-        // });
+        $(function () {
+            console.log('b');
+
+
+            var idFile = $("#IdFile").val();
+            if (idFile != null) {
+                $formControl = $("button.kv-file-select");
+                
+                $.each($formControl, function (key, value) {
+                    if ($formControl[key].dataset.key == idFile)
+                        $formControl[key].disabled = true;
+                });
+            }
+
+            $('.kv-file-select').on('click', function () {
+                var $formControl = $(".kv-file-select");
+                $formControl.prop("disabled", false);
+                var idFile = $("#IdFile").val();
+
+                var $btn = $(this), key = $btn.data('key');
+                $('#IdFile').val(key);
+
+                $btn.prop("disabled", true);
+            });
+            // $(".fileinput-upload-button").on('click', function () {
+            //     console.log('a')
+            //     var idFile = $("#IdFile").val();
+            //     if (idFile != null) {
+            //         $formControl = $("button.kv-file-select");
+            //         $.each($formControl, function (key, value) {
+            //             if ($formControl[key].dataset.key == idFile)
+            //                 $formControl[key].disabled = true;
+            //         });
+            //     }
+
+            //     $('.kv-file-select').on('click', function () {
+            //         var $formControl = $(".kv-file-select");
+            //         $formControl.prop("disabled", false);
+            //         var idFile = $("#IdFile").val();
+
+            //         var $btn = $(this), key = $btn.data('key');
+            //         $('#IdFile').val(key);
+
+            //         $btn.prop("disabled", true);
+            //     });
+            // });
+        });
         var selectBtn = '<button type="button" class="kv-file-select btn btn-xs btn-default" title="Chèn link file này vào văn bản" {dataKey} data-href="{data}"><i class="fas fa-paste"></i> Select</button>';
         $("#files").fileinput({
             uploadUrl: "/Admin/Media/FileUpload/" + $("#IdAlbum").val(),
@@ -368,7 +408,7 @@
             resizeImage: true,
             maxImageWidth: 2048,
             maxImageHeight: 2048,
-            fileActionSettings: { showZoom: false },
+            fileActionSettings: { showZoom: false },//showUpload
             otherActionButtons: selectBtn,
             allowedFileTypes: ['image', 'html', 'text', 'video', 'audio', 'flash'],
             allowedPreviewTypes: ['image', 'html', 'text', 'video', 'audio', 'flash']
@@ -379,24 +419,48 @@
             return aborted;
         });
 
-        var idFile = $("#IdFile").val();
-        if (idFile != null) {
-            $formControl = $("button.kv-file-select");
-            $.each($formControl, function (key, value) {
-                if ($formControl[key].dataset.key == idFile)
-                    $formControl[key].disabled = true;
-            });
-        }
+        // var idFile = $("#IdFile").val();
+        // if (idFile != null) {
+        //     $formControl = $("button.kv-file-select");
+        //     $.each($formControl, function (key, value) {
+        //         if ($formControl[key].dataset.key == idFile)
+        //             $formControl[key].disabled = true;
+        //     });
+        // }
 
-        $('.kv-file-select').on('click', function () {
-            var $formControl = $(".kv-file-select");
-            $formControl.prop("disabled", false);
+        // $('.kv-file-select').on('click', function () {
+        //     var $formControl = $(".kv-file-select");
+        //     $formControl.prop("disabled", false);
+        //     var idFile = $("#IdFile").val();
+
+        //     var $btn = $(this), key = $btn.data('key');
+        //     $('#IdFile').val(key);
+
+        //     $btn.prop("disabled", true);
+        // });
+        $(document).on("click", "button.kv-file-upload", function (e) {
             var idFile = $("#IdFile").val();
 
-            var $btn = $(this), key = $btn.data('key');
-            $('#IdFile').val(key);
+            console.log($("button.kv-file-select"));
+            if (idFile != null) {
+                $formControl = $("button.kv-file-select");
+                $.each($formControl, function (key, value) {
+                    if ($formControl[key].dataset.key == idFile)
+                        $formControl[key].disabled = true;
+                });
+            }
 
-            $btn.prop("disabled", true);
+            $('button.kv-file-select').on('click', function () {
+                var $formControl = $(".kv-file-select");
+                $formControl.prop("disabled", false);
+                var idFile = $("#IdFile").val();
+
+                var $btn = $(this), key = $btn.data('key');
+                $('#IdFile').val(key);
+
+                $btn.prop("disabled", true);
+            });
+        
         });
     </script>
 }

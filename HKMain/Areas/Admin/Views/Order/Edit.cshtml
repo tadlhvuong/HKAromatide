@@ -2,7 +2,7 @@
 @model OrderEditViewModel
 @{
     var formTitle = (Model.Id == 0) ? "Thêm mới" : "Chỉnh sửa";
-    var formDes = (Model.Id == 0) ? "Thêm mới đơn hàng" : "Chỉnh sửa đơn hàng " + Model.Id;
+    var formDes = (Model.Id == 0) ? "Thêm đơn hàng" : "Chỉnh sửa đơn hàng " + Model.Id;
 }
 @section Styles {
     <link rel="stylesheet" href="~/plugins/summernote/summernote-bs4.min.css">

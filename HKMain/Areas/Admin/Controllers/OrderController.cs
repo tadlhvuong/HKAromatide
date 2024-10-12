@@ -97,6 +97,38 @@ namespace HKMain.Areas.Admin.Controllers
                 return View(model);
             }
         }
+
+        [Route("Admin/don-hang/chinh-sua/{id?}")]
+        [HttpPost]
+        public ActionResult Edit(OrderEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    //var order = _dbContext.Orders.FirstOrDefault(x => x.Id == id);
+                    //model.NameUser = order.GuestName;
+                    //model.EmailUser = order.GuestEmail;
+                    //model.PhoneUser = order.GuestPhone;
+                    //model.Date = order.CreateTime;
+                    //model.Note = order.Note;
+                    //model.Price = order.AdjustPrice;
+                    //model.Fee = order.ShippingFee;
+                    //model.ShippingAddress = order.Address;
+                    //model.Total = order.GrandTotalPrice;
+                    //model.PaymentStatus = order.PaymentStatus;
+                    //model.Status = order.OrderStatus;
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+            }
+
+            //model.modelResult = new ModalFormResult() { Code = 0, Message = "Cập nhật không thành công" };
+            return View(model);
+        }
         [Route("Admin/don-hang/xoa/{id?}")]
         public ActionResult Delete(int id)
         {

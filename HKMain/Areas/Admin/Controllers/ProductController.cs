@@ -677,6 +677,7 @@ namespace HKMain.Areas.Admin.Controllers
                     _dbContext.MediaAlbums.Add(album);
                     _dbContext.SaveChanges();
                     _logger.LogDebug("Create default album success");
+                    album = _dbContext.MediaAlbums.FirstOrDefault(x => x.ShortName.Equals(newAlbum));
                     return album;
                 }
                 else

@@ -1,4 +1,5 @@
-﻿using HKMain.Areas.Admin.Models;
+﻿using DocumentFormat.OpenXml.InkML;
+using HKMain.Areas.Admin.Models;
 using HKMain.Models;
 using HKShared.Data;
 using HKShared.Helpers;
@@ -30,18 +31,13 @@ namespace HKMain.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-        //[Route("san-pham/sale/")]
-        //public IActionResult Sale(int id)
-        //{
-        //    return View();
-        //}
 
         [Route("san-pham/chi-tiet-san-pham/")]
         public IActionResult Details(int id)
         {
-            var model = _dbContext.Products.Find(id);
+            var model = _dbContext.Products.Include(x => x.MediaAlbum).Include(x => x.MediaAlbum.MediaFiles).Single(x=> x.Id == id);
             if (model == null) { return NotFound(); }
-
+            model.Image = (model.MediaAlbum.MediaFiles.FirstOrDefault() != null) ? model.MediaAlbum.MediaFiles.FirstOrDefault().FullPath : "~/images/image-default.png";
             var FullPath = Path.Combine(mediaUrl, model.Image);
             model.LinkImage = FullPath;
             var variants = _dbContext.ProductAttribs.Where(x => x.ItemId == id).ToList();
@@ -69,15 +65,6 @@ namespace HKMain.Controllers
                 variantsResult.Add(v);
             }
             ViewBag.Variants = variantsResult;
-            //if (itemVariants != null)
-            //{
-            //    foreach (var item in itemVariants)
-            //    {
-            //        var listChild = _dbContext.Taxonomies.Where(x => x.Type == TaxoType.Variants && x.ParentId == item.Id).Select(x => new SelectItemModel() { Id = x.Id, Text = x.Name }).ToList();
-            //        item.ItemsChild = listChild;
-            //    }
-            //}
-            //ViewBag.ItemVariants = itemVariants;
 
             return View(model);
         }
@@ -150,7 +137,7 @@ namespace HKMain.Controllers
         }
         [Route("san-pham/thanh-toan")]
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Checkout(Checkout model)
+        public async Task<JsonResult> Checkout(Checkout model)
         {
             try
             {
@@ -171,7 +158,8 @@ namespace HKMain.Controllers
                 order.IsAgree = model.isAgressPrivacy;
                 order.CreateTime = DateTime.Now;
                 _dbContext.Orders.Add(order);
-                if(model.Items != null)
+                var success = await _dbContext.SaveChangesAsync() > 0;
+                if (model.Items != null && success)
                 {
                     var orderItem = JsonConvert.DeserializeObject<ICollection<CheckoutItem>>(model.Items);
                     var total = 0.0;
@@ -192,12 +180,13 @@ namespace HKMain.Controllers
                     }
                 }
                 _dbContext.SaveChanges();
-                return View(new Checkout() );
+
+                return Json(new ModalFormResult() { Code = 1, Message = "Checkout successed" });
             }
             catch (Exception e)
             {
                 BadRequest(e.Message);
-                throw;
+                return Json(new ModalFormResult() { Code = 0, Message = e.Message });
             }
         }
     }

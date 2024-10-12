@@ -41,7 +41,7 @@ namespace HKShared.Data
 
         [StringLength(512)]
         [Display(Name = "Hình đại diện")]
-        public string Image { get; set; } = "/images/image-default.png";
+        public string Image { get; set; } = "~/images/image-default.png";
 
         [Required, StringLength(128)]
         [Display(Name = "Name")]
@@ -175,6 +175,5 @@ namespace HKShared.Data
                 return Convert.ToDecimal(this.Price).ToString("#,#đ");
             }
         }
-
     }
 }

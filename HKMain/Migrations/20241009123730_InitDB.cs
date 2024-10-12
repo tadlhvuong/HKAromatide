@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HKMain.Migrations
 {
-    public partial class DBInit : Migration
+    public partial class InitDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -305,7 +305,14 @@ namespace HKMain.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ShippingId = table.Column<int>(type: "int", nullable: true),
+                    GuestName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    GuestEmail = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    GuestPhone = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Address = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     AdjustPrice = table.Column<double>(type: "double", nullable: false),
                     ShippingFee = table.Column<double>(type: "double", nullable: false),
                     GrandTotalPrice = table.Column<double>(type: "double", nullable: false),
@@ -316,7 +323,8 @@ namespace HKMain.Migrations
                     Note = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     OrderStatus = table.Column<int>(type: "int", nullable: false),
-                    PaymentStatus = table.Column<int>(type: "int", nullable: false)
+                    PaymentStatus = table.Column<int>(type: "int", nullable: false),
+                    IsAgree = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -380,7 +388,7 @@ namespace HKMain.Migrations
                     Quantity = table.Column<long>(type: "bigint", nullable: false),
                     Stock = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Tax = table.Column<float>(type: "float", nullable: false),
-                    Tags = table.Column<string>(type: "longtext", nullable: false)
+                    Tags = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Status = table.Column<int>(type: "int", maxLength: 256, nullable: false),
                     CreateTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
