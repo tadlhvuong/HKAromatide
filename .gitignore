@@ -361,3 +361,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /HKMain/wwwroot/media/Default
+/HKMain/wwwroot/media/Product_September2024
