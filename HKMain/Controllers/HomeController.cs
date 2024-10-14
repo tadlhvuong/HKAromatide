@@ -35,15 +35,15 @@ namespace HKMain.Controllers
         [Route("trang-chu")]
         public IActionResult Index()
         {
-            var model = _dbContext.Products.Include(x => x.MediaAlbum).Include(x => x.MediaAlbum.MediaFiles).ToList();
+            var model = _dbContext.Products.Include(x => x.MediaAlbum).Include(x => x.MediaAlbum.MediaFiles).Where(x => x.Status == ProductStatus.Published).ToList();
 
             foreach (var product in model)
             {
-                product.Image = (product.MediaAlbum.MediaFiles.FirstOrDefault() != null) ? product.MediaAlbum.MediaFiles.FirstOrDefault().FullPath : "~/images/image-default.png";
+                product.Image = (product.MediaAlbum.MediaFiles.FirstOrDefault() != null) ? product.MediaAlbum.MediaFiles.FirstOrDefault().FullPath : "/images/logo.webp";
                 var FullPath = Path.Combine(mediaUrl, product.Image);
                 product.LinkImage = FullPath;
             }
-            var sale = model.Where(x => x.SalePrice > 0).ToList();
+            var sale = model.Where(x => x.SalePrice > 0 || x.Status == ProductStatus.Published || x.Stock == true).ToList();
             ViewBag.SaleProducts = sale;
             return View(model);
             //Admin

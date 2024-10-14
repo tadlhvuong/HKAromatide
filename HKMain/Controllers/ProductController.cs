@@ -173,7 +173,7 @@ namespace HKMain.Controllers
                                 OrderId = order.Id,
                                 ItemId = item.Product_Id,
                                 Quantity = item.Product_Quantity,
-                                ItemAttrib = item.NameParent,
+                                ItemAttrib = item.NameParent + ": " + item.NameChild,
                             };
                             _dbContext.OrderItems.Add(temp);
                         }

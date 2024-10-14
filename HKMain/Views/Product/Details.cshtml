@@ -200,16 +200,25 @@
                             </div>
                         }
                     }
-                    <div class="product-single__actions ">
-                        <input type="hidden" name="id" value="@Model.Id">
-                        <div class="product-single__quantity">
-                            <div class="quantity product-quantity-change">
-                                <a href="#" class="minus">-</a>
-                                <input type="number" name="quantity" min="1" value="1">
-                                <a href="#" class="plus">+</a>
+                    <div class="product-single__actions">
+                        @if (Model.Stock)
+                        {
+                            <input type="hidden" name="id" value="@Model.Id">
+                            <div class="product-single__quantity">
+                                <div class="quantity product-quantity-change">
+                                    <a href="#" class="minus">-</a>
+                                    <input type="number" name="quantity" min="1" value="1">
+                                    <a href="#" class="plus">+</a>
+                                </div>
+                                <button class="label btn-addtocart">Thêm vào giỏ hàng</button>
                             </div>
-                            <button class="label btn-addtocart">Thêm vào giỏ hàng</button>
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="product-single__maptags">
+                                <a class="st-tag" style="background-color: #3e6807;" href="tel:0931424207">Liên hệ đặt hàng: 0931.424.207</a>
+                            </div>
+                        }
                     </div>
 
 

@@ -130,6 +130,7 @@
                                     <div class="product-box_item__image__tags">
                                         <div class="tag-sale">@sale.DiscountPercent</div>
                                         @* <div style="background:#3e6807;">Best Seller</div> *@
+
                                     </div>
                                 </a>
                                 <div class="product-box_item__content">
@@ -174,12 +175,15 @@
                                          alt="@product.Preview"
                                          title="@product.Name"
                                          width=200 height=200 />
-                                    @if(product.DiscountPercent != "")
-                                    {
-                                        <div class="product-box_item__image__tags">
+                                    <div class="product-box_item__image__tags">
+                                        @if (product.DiscountPercent != "")
+                                        {
                                             <div class="tag-sale">@product.DiscountPercent</div>
-                                        </div>
-                                    }
+                                        }
+                                        @if(product.Stock == false) {
+                                        <div class="tag-outofstock">Hết hàng</div>
+                                        }
+                                    </div>
                                 </a>
                                 <div class="product-box_item__content">
                                     <h3>
@@ -231,13 +235,16 @@
                                     <img class="ls-is-cached lazyload"
                                          src="@product.LinkImage" width="200"
                                          height="200" alt="@product.Name" title="@product.Name" />
-                                    @if (product.DiscountPercent != "")
-                                    {
-                                        <div class="product-box_item__image__tags">
+                                    <div class="product-box_item__image__tags">
+                                        @if(product.DiscountPercent != "")
+                                        {
                                             <div class="tag-sale">@product.DiscountPercent</div>
-                                            @* <div style="background:#3e6807;">Giá ưu đãi</div> *@
-                                        </div>
-                                    }
+                                        }
+                                        @if (product.Stock == false)
+                                        {
+                                            <div class="tag-outofstock">Hết hàng</div>
+                                        }
+                                    </div>
                                 </a>
                                 <div class="product-box_item__content">
                                     <h3>
@@ -444,11 +451,11 @@
                         <div class="home-abouts__description">
                             <p>
                                 <strong>
-                                    
+
                                 </strong>
                             </p>
                             <p>
-                                
+
                             </p>
                         </div>
                     </div>
@@ -471,7 +478,7 @@
                                         <div class="content">
                                             <h3 class="title maxLine_3">
                                                 <a href="">
-                                                    Nhà máy sản xuất Aromatide sản xuất 
+                                                    Nhà máy sản xuất Aromatide sản xuất
                                                 </a>
                                             </h3>
                                         </div>

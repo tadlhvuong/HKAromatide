@@ -172,7 +172,7 @@ namespace HKMain.Areas.Admin.Controllers
                 Id=x.Id,
                 ImageItem = x.Product.Image,
                 NameItem = x.Product.Name,
-                Material = x.Product.Tags,
+                Material = x.ItemAttrib,
                 Price = x.Product.Price,
                 Quantity = x.Quantity,
                 Total = x.Product.Price*x.Quantity,

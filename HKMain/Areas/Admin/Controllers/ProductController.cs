@@ -162,13 +162,20 @@ namespace HKMain.Areas.Admin.Controllers
 
             var model = new ProductFormModel();
             var mediaFiles = new List<MediaFile>();
-
             try
             {
                 if (id != 0)
                 {
-                    var product = _dbContext.Products.Find(id);
-                    if(product.Image != "") model.IdFile = _dbContext.MediaFiles.FirstOrDefault(x => x.FullPath.Equals(product.Image)).Id; 
+                    var product = _dbContext.Products.Include(x => x.MediaAlbum.MediaFiles).FirstOrDefault(x => x.Id == id);
+                    if (product.Image != "")
+                    {
+                        if (product.AlbumId != 0)
+                            if (product.MediaAlbum.MediaFiles.Count > 0)
+                            {
+                                var mf = product.MediaAlbum.MediaFiles.SingleOrDefault(x => x.FullPath.Equals(product.Image));
+                                model.IdFile = (mf != null) ? mf.Id : 0;
+                            }
+                    }
                     model.Name = product.Name;
                     model.SKU = product.SKU;
                     model.IdAlbum = product.AlbumId;

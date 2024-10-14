@@ -89,9 +89,11 @@ function initDataTable() {
             {
                 targets: 3,
                 render: function (data, type, full, meta) {
+                    console.log(full["UserId"]);
                     var $name = full['NameUser'],
                         $email = full['EmailUser'],
-                        $image = full['AvatarUser'];
+                        $image = full['AvatarUser'],
+                        $detaisLink = (full["UserId"] != null) ? detailsMember + full["UserId"] : "javascript:;";
                     var $output =
                         '<img src="/images/logo.webp" alt="Avatar" class="img-circle elevation-2 table-avatar">';
                     // Creates full output for row
@@ -104,8 +106,7 @@ function initDataTable() {
                         '</div>' +
                         '<div class="d-flex flex-column">' +
                         '<a href="' +
-                        detailsMember +
-                        full["UserId"] +
+                        $detaisLink +
                         '" class="text-body text-truncate"><span class="fw-medium">' +
                         $name +
                         '</span></a>' +

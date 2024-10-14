@@ -152,6 +152,7 @@ namespace HKShared.Data
         {
             get
             {
+                if (this.CurrentPrice == 0) return "0đ";
                 return Convert.ToDecimal(this.CurrentPrice).ToString("#,#đ");
             }
         }

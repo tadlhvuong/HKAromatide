@@ -1,12 +1,9 @@
 ﻿@using HKMain.Areas.Admin.Models
 @model OrderEditViewModel
 @{
+    ViewData["Title"] = "Chỉnh sửa đơn hàng";
     var formTitle = (Model.Id == 0) ? "Thêm mới" : "Chỉnh sửa";
     var formDes = (Model.Id == 0) ? "Thêm đơn hàng" : "Chỉnh sửa đơn hàng " + Model.Id;
-}
-@section Styles {
-    <link rel="stylesheet" href="~/plugins/summernote/summernote-bs4.min.css">
-    <link rel="stylesheet" href="~/css/admin/tagify.css">
 }
 <div class="content-wrapper">
     <section class="content-header">
@@ -47,17 +44,16 @@
                     <div class="col-12  col-lg-6">
                         <div class="card">
                             <div class="card-header card-datatable table-responsive">
-                                <table id="table_orders" class="datatables-order table table-bordered table-striped dataTable dtr-inline projects">
+                                <table id="table_orderItems" class="datatables-orderItem table table-bordered table-striped dataTable dtr-inline projects">
                                     <thead class="border-top">
                                         <tr>
                                             <th></th>
-                                            <th>#</th>
-                                            <th>Date</th>
-                                            <th>Customers</th>
-                                            <th>Payment</th>
-                                            <th>Status</th>
-                                            <th>Method</th>
-                                            <th>Action</th>
+                                            <th>sản phẩm</th>
+                                            <th>Loại</th>
+                                            <th>Số lượng</th>
+                                            <th>Đơn giá</th>
+                                            <th>Thành tiền</th>
+                                            <th>Tác vụ</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -116,7 +112,5 @@
 </div>
 
 @section Scripts {
-    <script src="~/plugins/select2/js/select2.full.min.js"></script>
-    <script src="~/plugins/summernote/summernote-bs4.min.js"></script>
-    <script src="~/js/admin/hk.order-edit.js"></script>
+    <script src="~/js/admin/hk.order-edit.js" asp-append-version="true"></script>
 }
