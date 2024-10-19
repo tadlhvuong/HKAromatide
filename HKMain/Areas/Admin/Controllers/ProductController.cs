@@ -213,7 +213,7 @@ namespace HKMain.Areas.Admin.Controllers
                 }
                 else
                 {
-                    var newAlbum = CreateProductAlbum();
+                //    var newAlbum = CreateProductAlbum();
                     model.IdAlbum = newAlbum.Id;
                 }
 
