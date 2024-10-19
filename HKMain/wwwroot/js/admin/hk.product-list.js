@@ -48,7 +48,7 @@ function initDataTable() {
     }
     dt_products = $('#table_products').DataTable({
         data: initData,
-        rowId: "Id",
+        rowId: "IdProduct",
         columns: [
             // columns according to JSON
             { data: '' },
@@ -147,16 +147,17 @@ function initDataTable() {
                 targets: 6,
                 render: function (data, type, full, meta) {
                     var $stock = full['Stock'];
+                    console.log($stock);
                     var stockSwitchObj = {
                         false:
                             '<div class="custom-control custom-switch">' +
-                            ' <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="false" style="left:9px; z-index: 99; width: 2rem;">' +
-                            ' <label class= "custom-control-label" for= "customSwitch1" ></label> ' +
+                            ' <input disabled type="checkbox" class="custom-control-input" id="stock" style="left:9px; z-index: 99; width: 2rem;">' +
+                            ' <label class= "custom-control-label" for= "stock" ></label> ' +
                             ' </div>',
                         true:
                             '<div class="custom-control custom-switch">' +
-                            ' <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="true" style="left:9px; z-index: 99; width: 2rem;">' +
-                            ' <label class= "custom-control-label" for= "customSwitch2" ></label> ' +
+                            ' <input disabled type="checkbox" class="custom-control-input" id="stock" checked style="left:9px; z-index: 99; width: 2rem;">' +
+                            ' <label class= "custom-control-label" for= "stock" ></label> ' +
                             ' </div>'
                     };
                     return (
@@ -383,7 +384,7 @@ function initDataTable() {
                 display: $.fn.dataTable.Responsive.display.modal({
                     header: function (row) {
                         var data = row.data();
-                        return 'Details of ' + data[columnsDT[2].data];
+                        return 'Details of ' + data['Name'];
                     }
                 }),
                 type: 'column',
@@ -405,8 +406,8 @@ function initDataTable() {
                             '</tr>'
                             : '';
                     }).join('');
-
-                    return data ? $('<table class="table"/><tbody />').append(data) : false;
+                    console.log($('.modal-content>table-avatar img'));
+                    return data ? $('<table class="table projects"/><tbody />').append(data) : false;
                 }
             },
 
@@ -560,6 +561,7 @@ $(document).ready(function () {
     $(document).on("submit", ".modalFormDelete", function (e) {
         e.preventDefault();
         var idItem = $(this).find("input").val();
+        console.log(idItem);
         $(this).find("button[type='submit']").hide();
         $("#progress").show();
         $.ajax({
@@ -584,4 +586,5 @@ $(document).ready(function () {
             }
         });
     });
+
 });

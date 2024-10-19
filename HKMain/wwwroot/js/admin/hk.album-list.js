@@ -282,7 +282,7 @@ function initDataTable() {
                 display: $.fn.dataTable.Responsive.display.modal({
                     header: function (row) {
                         var data = row.data();
-                        return 'Details of ' + data[columnsDT[2].data];
+                        return 'Details of ' + data["ShortName"];
                     }
                 }),
                 type: 'column',

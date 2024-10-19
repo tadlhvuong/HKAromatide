@@ -11,7 +11,7 @@ namespace HKMain.Areas.Admin.Models
         [DisplayName("Tên sản phẩm")]
         public string Name { get; set; }
         public int? IdAlbum { get; set; }
-        public int? IdFile { get; set; }
+        public string? IdFiles { get; set; }
         [Required(ErrorMessage = "{0} không được để trống")]
         public string SKU { get; set; }
         [Required(ErrorMessage = "{0} không được để trống")]

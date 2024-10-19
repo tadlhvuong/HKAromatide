@@ -42,34 +42,18 @@
             <div class="product-single__content">
                 <div class="product-single__images">
                     <div class="product-single__thumbs product-single-thumbs">
-                        @for(var i=0; i<4; i++)
+                        @foreach (var mf in Model.MediaFiles)
                         {
                             <div class="image">
-                                <img src="@Model.LinkImage" alt="@Model.Image">
+                                <img src="@mf.FileLink" alt="@mf.FileName">
                             </div>
                         }
-                        @* <div class="image" data-id="6663962d">
-                            <img src="" alt="6663962d">
-                        </div>
-                        <div class="image" data-id="f3f54ad8">
-                            <img src="" alt="f3f54ad8">
-                        </div>
-                        <div class="image" data-id="2296875f">
-                            <img src="" alt="2296875f">
-                        </div>
-                        <div class="image" data-id="0c976d60">
-                            <img src="" alt="0c976d60">
-                        </div> *@
                     </div>
                     <div class="product-single__thumbnails product-single-thumbnails">
-                        @for (var i = 0; i < 4; i++)
+                        @foreach (var mf in Model.MediaFiles)
                         {
-                            <div class="image" data-id="6663962d">
-                                <img src="@Model.LinkImage"
-                                     fetchpriority="high"
-                                     loading="eager"
-                                     decoding="sync"
-                                     alt="@Model.Image">
+                            <div class="image">
+                                <img src="@mf.FileLink" alt="@mf.FileName">
                             </div>
                         }
                     </div>

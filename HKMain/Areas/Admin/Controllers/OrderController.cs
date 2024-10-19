@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Office2010.Excel;
+﻿using DocumentFormat.OpenXml.Drawing.Charts;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using HKMain.Areas.Admin.Models;
 using HKShared.Data;
 using HKShared.Helpers;
@@ -62,7 +63,7 @@ namespace HKMain.Areas.Admin.Controllers
         [Route("Admin/don-hang/tao-hoa-don/{id?}")]
         public ActionResult Create()
         {
-            return View(new Order());
+            return View();
         }
 
         // GET: Product/Details/5
@@ -84,7 +85,7 @@ namespace HKMain.Areas.Admin.Controllers
                     model.Note = order.Note;
                     model.Price = order.AdjustPrice;
                     model.Fee = order.ShippingFee;
-                    model.ShippingAddress = order.Address;
+                    model.Address = order.Address;
                     model.Total = order.GrandTotalPrice;
                     model.PaymentStatus = order.PaymentStatus;
                     model.Status = order.OrderStatus;
@@ -106,18 +107,35 @@ namespace HKMain.Areas.Admin.Controllers
             {
                 try
                 {
-                    //var order = _dbContext.Orders.FirstOrDefault(x => x.Id == id);
-                    //model.NameUser = order.GuestName;
-                    //model.EmailUser = order.GuestEmail;
-                    //model.PhoneUser = order.GuestPhone;
-                    //model.Date = order.CreateTime;
-                    //model.Note = order.Note;
-                    //model.Price = order.AdjustPrice;
-                    //model.Fee = order.ShippingFee;
-                    //model.ShippingAddress = order.Address;
-                    //model.Total = order.GrandTotalPrice;
-                    //model.PaymentStatus = order.PaymentStatus;
-                    //model.Status = order.OrderStatus;
+                    var oldOrder = _dbContext.Orders.FirstOrDefault(x => x.Id == model.Id);
+                    var newOrder = new HKShared.Data.Order()
+                    { 
+                        Id = model.Id,
+                        GuestName = model.NameUser,
+                        GuestEmail = model.EmailUser,
+                        GuestPhone = model.PhoneUser,
+                        Address = model.Address,
+                        Note = model.Note,
+                        AdjustPrice = model.Price,
+                        ShippingFee = model.Fee,
+                        GrandTotalPrice = model.Total,
+                        PaymentInfo = model.Method,
+                        PaymentStatus = model.PaymentStatus,
+                        OrderStatus = model.Status,
+                        CreateTime = model.Date,
+                    };
+                    if(newOrder.OrderStatus >= OrderStatus.Processing)
+                    {
+                        newOrder.ShippingTime = DateTime.Now;
+                    }
+                    if (oldOrder != null)
+                    {
+                        _dbContext.Entry(oldOrder).CurrentValues.SetValues(newOrder);
+                    }
+                    else
+                    {
+                        _dbContext.Orders.Add(newOrder);
+                    }
                 }
                 catch (Exception ex)
                 {

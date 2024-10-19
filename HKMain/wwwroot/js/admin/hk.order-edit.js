@@ -24,7 +24,6 @@ var statusObj = {
 
 var initData = null, getData = null;
 function initDataTable() {
-    console.log($("#Id").val());
     $.ajax({
         type: "GET",
         url: loadAction + $("#Id").val(),
@@ -48,7 +47,6 @@ function initDataTable() {
     if (getData != null) {
         initData = JSON.parse(getData.data);
     }
-    console.log(initData);
     dt_orderItems = $('#table_orderItems').DataTable({
         data: initData,
         rowId: "Id",
@@ -368,6 +366,6 @@ function initDataTable() {
 };
 
 $(function () {
-    console.log('edit order');
     dt_orderItems = initDataTable();
+
 });

@@ -39,11 +39,11 @@ namespace HKMain.Controllers
 
             foreach (var product in model)
             {
-                product.Image = (product.MediaAlbum.MediaFiles.FirstOrDefault() != null) ? product.MediaAlbum.MediaFiles.FirstOrDefault().FullPath : "/images/logo.webp";
+                //product.Image = (product.MediaAlbum.MediaFiles.FirstOrDefault() != null) ? product.MediaAlbum.MediaFiles.FirstOrDefault().FullPath : "./images/logo.webp";
                 var FullPath = Path.Combine(mediaUrl, product.Image);
                 product.LinkImage = FullPath;
             }
-            var sale = model.Where(x => x.SalePrice > 0 || x.Status == ProductStatus.Published || x.Stock == true).ToList();
+            var sale = model.Where(x => x.SalePrice > 0 && x.Status == ProductStatus.Published  && x.Stock == true).ToList();
             ViewBag.SaleProducts = sale;
             return View(model);
             //Admin

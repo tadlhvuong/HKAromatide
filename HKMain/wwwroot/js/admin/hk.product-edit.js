@@ -92,10 +92,11 @@
                     $(this).slideUp(function () {
                         deleteElement();
                         var formControl = $(this).find('.form-control');
-                        if (formControl.length > 0)
+                        try {
                             $('#Attrubutes').val(JSON.stringify(repeater.repeaterVal().Attrubutes));
-                        else
+                        } catch (e) {
                             $('#Attrubutes').val("");
+                        }
                     });
 
                 } else if (result.dismiss === "cancel") {

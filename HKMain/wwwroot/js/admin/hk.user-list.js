@@ -369,7 +369,7 @@ function initDataTable() {
                             : '';
                     }).join('');
 
-                    return data ? $('<table class="table"/><tbody />').append(data) : false;
+                    return data ? $('<table class="table projects"/><tbody />').append(data) : false;
                 }
             },
 

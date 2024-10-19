@@ -107,6 +107,8 @@
     </section>
     <!-- ===== END BANNER SUB ===== -->
     <!-- ===== Sale & COMBO ===== -->
+     @if (saleProducts.Count > 0)
+                {
     <section class="home-product">
         <div class="container">
             <a href="/cm/khuyen-mai-va-combo">
@@ -117,9 +119,7 @@
 
             <div class="home-product__slide">
                 <div class="product-box home-product--slider">
-                    @if (saleProducts != null)
-                    {
-                        foreach (var sale in saleProducts)
+                        @foreach (var sale in saleProducts)
                         {
                             <div class="product-box_item five-cols">
                                 <a asp-controller="Product" asp-action="Details" asp-route-id="@sale.Id" class="product-box_item__image">
@@ -147,11 +147,11 @@
                                 </div>
                             </div>
                         }
-                    }
                 </div>
             </div>
         </div>
     </section>
+                    }
     <!-- ===== END Sale & Combo ===== -->
     <!-- ===== Product (MOBILE) ===== -->
     <section class="home-product enable-max-767">
@@ -276,7 +276,7 @@
         <div class="container-full">
             <div class="home-resources__inner">
                 <div class="home-resources__header">
-                    <h2 class="mt-2">Sản phẩm Aromatide</h2>
+                    <h2 class="mt-2">Aromatide</h2>
                     <p>Chất lượng - An toàn - Đa dạng</p>
                     <div class="home-resources__action">
                         <!-- <a href="https://aromatide.com.vn/minh-bach-nguyen-lieu?itm_source=homepage&amp;itm_campaign=minh_bach_nguyen_lieu"
@@ -308,8 +308,6 @@
                                     Hương gạo
                                 </h3>
                                 <p class="description">
-                                    Lá Bạc hà được sử dụng trong các sản phẩm mỹ phẩm như: cao dược liệu để gội
-                                    đầu, lá tắm cho trẻ em, nước súc miệng...
                                 </p>
                             </div>
                         </div>
@@ -324,8 +322,6 @@
                                     Hương táo kiwi
                                 </h3>
                                 <p class="description">
-                                    Dầu dừa được chiết xuất từ phần cùi trắng của quả dừa, có thể được tìm thấy
-                                    trong nhiều loại mỹ phẩm và sản phẩm chăm sóc cá nhân.
                                 </p>
                             </div>
                         </div>
@@ -341,8 +337,6 @@
                                     Hương sen
                                 </h3>
                                 <p class="description">
-                                    Tinh dầu Cam ngọt được sử dụng trong mỹ phẩm như một thành phần làm thơm,
-                                    giải tỏa căng thẳng: sáp thơm, tinh dầu treo, kem dưỡng...
                                 </p>
                             </div>
                         </div>
@@ -358,8 +352,6 @@
                                     Hương cam quế
                                 </h3>
                                 <p class="description">
-                                    Được chiết từ thịt quả bơ chín ngay sau khi thu hoạch bằng phương pháp ép
-                                    lạnh, phương pháp này giữ được nguyên dinh dưỡng tốt trong dầu.
                                 </p>
                             </div>
                         </div>
@@ -374,8 +366,6 @@
                                     Hương sả chanh
                                 </h3>
                                 <p class="description">
-                                    Dầu dừa được chiết xuất từ phần cùi trắng của quả dừa, có thể được tìm thấy
-                                    trong nhiều loại mỹ phẩm và sản phẩm chăm sóc cá nhân.
                                 </p>
                             </div>
                         </div>
@@ -390,8 +380,6 @@
                                     Hương lavender
                                 </h3>
                                 <p class="description">
-                                    Dầu dừa được chiết xuất từ phần cùi trắng của quả dừa, có thể được tìm thấy
-                                    trong nhiều loại mỹ phẩm và sản phẩm chăm sóc cá nhân.
                                 </p>
                             </div>
                         </div>
@@ -406,8 +394,6 @@
                                     Hương hoa hạ
                                 </h3>
                                 <p class="description">
-                                    Dầu dừa được chiết xuất từ phần cùi trắng của quả dừa, có thể được tìm thấy
-                                    trong nhiều loại mỹ phẩm và sản phẩm chăm sóc cá nhân.
                                 </p>
                             </div>
                         </div>
@@ -422,8 +408,6 @@
                                     Hương ylang
                                 </h3>
                                 <p class="description">
-                                    Dầu dừa được chiết xuất từ phần cùi trắng của quả dừa, có thể được tìm thấy
-                                    trong nhiều loại mỹ phẩm và sản phẩm chăm sóc cá nhân.
                                 </p>
                             </div>
                         </div>

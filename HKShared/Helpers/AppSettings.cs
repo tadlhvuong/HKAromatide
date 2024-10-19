@@ -85,7 +85,7 @@ namespace HKShared.Helpers
                 var result = userManager.CreateAsync(user, "AdminP@ssW0rd123").Result;
                 if (result.Succeeded)
                 {
-                    var roles = new string[] { "Admin", "Manager", "Operator" };
+                    var roles = new string[] { "Administrator", "Manager", "Operator" };
                     userManager.AddToRolesAsync(user, roles).Wait();
                 }
             }

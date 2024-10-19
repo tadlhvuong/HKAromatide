@@ -101,7 +101,6 @@ namespace HKMain.Areas.Admin.Controllers
 
             return View(usersWithRoles);
         }
-        [Authorize(Roles = "Administrator")]
         [Route("Admin/thanh-vien/chinh-sua/{id?}")]
         public IActionResult Edit(string id)
         {

@@ -89,7 +89,6 @@ function initDataTable() {
             {
                 targets: 3,
                 render: function (data, type, full, meta) {
-                    console.log(full["UserId"]);
                     var $name = full['NameUser'],
                         $email = full['EmailUser'],
                         $image = full['AvatarUser'],

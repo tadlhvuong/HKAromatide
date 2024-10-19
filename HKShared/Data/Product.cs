@@ -32,8 +32,8 @@ namespace HKShared.Data
         [Display(Name = "AlbumId")]
         public int? AlbumId { get; set; }
 
-        [Display(Name = "CategoryId")]
-        public int? CategoryId { get; set; }
+        [Display(Name = "FilesId")]
+        public string? FilesId { get; set; }
 
         [StringLength(64)]
         [Display(Name = "SKU")]

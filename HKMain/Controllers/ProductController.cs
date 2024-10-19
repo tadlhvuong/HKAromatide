@@ -38,8 +38,20 @@ namespace HKMain.Controllers
             var model = _dbContext.Products.Include(x => x.MediaAlbum).Include(x => x.MediaAlbum.MediaFiles).Single(x=> x.Id == id);
             if (model == null) { return NotFound(); }
             model.Image = (model.MediaAlbum.MediaFiles.FirstOrDefault() != null) ? model.MediaAlbum.MediaFiles.FirstOrDefault().FullPath : "~/images/image-default.png";
-            var FullPath = Path.Combine(mediaUrl, model.Image);
-            model.LinkImage = FullPath;
+            if (model.FilesId != null)
+            {
+                model.MediaFiles = new List<MediaFile>();
+                string[] idFile = model.FilesId.Split(',');
+                foreach (var file in idFile)
+                {
+                    var mf = _dbContext.MediaFiles.Find(int.Parse(file));
+                    mf.FileLink = Path.Combine(mediaUrl, mf.FullPath);
+                    model.MediaFiles.Add(mf);
+                }
+            }
+
+            //var FullPath = Path.Combine(mediaUrl, model.Image);
+            //model.LinkImage = FullPath;
             var variants = _dbContext.ProductAttribs.Where(x => x.ItemId == id).ToList();
             var variantsKey = variants.GroupBy(
             p => p.AttrId,

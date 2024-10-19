@@ -59,7 +59,7 @@ namespace HKMain.Areas.Admin.Models
         [DisplayName("SĐT người mua")]
         public string PhoneUser { get; set; }
         [DisplayName("Địa chỉ người mua")]
-        public string ShippingAddress { get; set; }
+        public string Address { get; set; }
         [DisplayName("Ghi chú")]
         public string Note { get; set; }
         [DisplayName("Đơn giá")]

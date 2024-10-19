@@ -104,30 +104,29 @@
             if (!aborted)
                 toastr.success('Xóa thành công!');
             return aborted;
-            
-            // var aborted = new Promise((resolve, reject) => {
-            //     resolve(Swal.fire({
-            //         title: "Are you sure?",
-            //         text: "You won't be able to revert this!",
-            //         icon: "warning",
-            //         showCancelButton: true,
-            //         confirmButtonColor: "#3085d6",
-            //         cancelButtonColor: "#d33",
-            //         confirmButtonText: "Yes, delete it!"
-            //     }).then((result) => {
-            //         if (result.isConfirmed) {
-            //             Swal.fire({
-            //                 title: "Deleted!",
-            //                 text: "Your file has been deleted.",
-            //                 icon: "success"
-            //             });
-            //         }));
-            // });
-            // console.log(aborted);
-            // var result =  aborted.then((message) => {
-            //     return message;
-            // })
-            // console.log(result);
+
+        //     return new Promise(function (resolve, reject) {
+        //         $.confirm({
+        //             title: 'Confirmation!',
+        //             content: 'Bạn muốn xóa ảnh này?',
+        //             type: 'red',
+        //             buttons: {
+        //                 ok: {
+        //                     btnClass: 'btn-primary text-white',
+        //                     keys: ['enter'],
+        //                     action: function () {
+        //                         console.log(resolve())
+        //                         resolve();
+        //                     }
+        //                 },
+        //                 cancel: function () {
+        //                     toastr.info('Hủy!');
+        //                 }
+        //             }
+        //         });
+        //     });
+        // }).on('filedeleted', function () {
+        //     toastr.success('Xóa thành công!');
         });
        
     </script>

@@ -10,12 +10,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Danh sách nhân sự</h1>
+                    <h1>Danh sách Album</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home" asp-area="Admin" title="ReturnHome">Dashboard</a></li>
-                        <li class="breadcrumb-item active">AlbumListText</li>
+                        <li class="breadcrumb-item active" title="Danh sách album">Danh sách</li>
                     </ol>
                 </div>
             </div>
@@ -32,17 +32,15 @@
                                     <tr>
                                         <th></th>
                                         <th>#</th>
-                                        <th localize-content>ShortNameText</th>
-                                        <th localize-content>FullNameText</th>
-                                        <th localize-content>DescriptionText</th>
-                                        <th localize-content>ActionText</th>
+                                        <th>Tên album</th>
+                                        <th>Tên đầy đủ</th>
+                                        <th>Miêu tả</th>
+                                        <th>Tác vụ</th>
                                     </tr>
                                 </thead>
                             </table>
                         </div>
                     </div>
-                    @* <input type="hidden" id="url_CRUD" value="@ViewBag.UrlCRUD" />
-                    <input type="hidden" id="columns" value="@ViewBag.Columns" /> *@
                 </div>
             </div>
         </div>
