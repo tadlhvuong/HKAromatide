@@ -73,7 +73,7 @@ namespace HKShared.Data
         [StringLength(256)]
         [Display(Name = "Ghi chú")]
         [DataType(DataType.MultilineText)]
-        public string Note { get; set; }
+        public string? Note { get; set; }
 
         [Display(Name = "Trạng thái Đơn hàng")]
         public OrderStatus OrderStatus { get; set; }
@@ -85,7 +85,7 @@ namespace HKShared.Data
         public virtual AppUser AppUser { get; set; }
 
         [Display(Name = "Sản phẩm")]
-        public virtual ICollection<OrderItem> Items { get; set; }
+        public virtual ICollection<OrderItem>? Items { get; set; }
         public bool IsAgree { get; set; } = false;
 
         [NotMapped]

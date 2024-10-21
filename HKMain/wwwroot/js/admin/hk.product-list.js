@@ -1,7 +1,7 @@
 ﻿var dt_products, btnAdd, url_CRUD, url_R, url_C, url_U, url_D, columnsDT, rowId, Columns_Def;
 
 var loadAction = "/Admin/Product/LoadProductList"
-    editAction = "/Admin/san-pham/chinh-sua",
+    editAction = "/Admin/san-pham/chinh-sua/",
     detailsAction = "/Admin/san-pham/chi-tiet/",
     removeAction = "/Admin/san-pham/xoa-san-pham/"
 
@@ -86,7 +86,7 @@ function initDataTable() {
                 render: function (data, type, full, meta) {
                     var $name = full['Name'],
                         $image = full['Image'],
-                        $detailsAction = detailsAction + full["IdProduct"];
+                        $detailsAction = editAction + full["IdProduct"];
                     var $output = '';
                     if ($image != '')
                         $output= '<img src="/media/' + $image + '" alt="Avatar" class="img-circle elevation-2 table-avatar">';
@@ -196,7 +196,7 @@ function initDataTable() {
                 responsivePriority: 3,
                 render: function (data, type, full, meta) {
                     return ('<div class="d-flex align-items-center">' +
-                        '<a type="button" class="btn btn-warning btn-sm mr-2" onclick="location.href = (\'' + editAction + '/'
+                        '<a type="button" class="btn btn-warning btn-sm mr-2" onclick="location.href = (\'' + editAction 
                         + full["IdProduct"] + '\'); " title="Sửa"><i class="fa fa-pencil-alt"></i><span class="d-none d-md-inline">  Sửa</span></a>' +
                         '<a type="button" class="btn btn-danger btn-sm" onclick="formDelete(\'' + removeAction +
                         + full["IdProduct"] + '\'); " title="Xóa"><i class="fa fa-trash"></i> <span class="d-none d-md-inline">  Xóa</span></a>' +

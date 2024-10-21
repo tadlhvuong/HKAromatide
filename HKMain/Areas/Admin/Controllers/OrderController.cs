@@ -39,10 +39,9 @@ namespace HKMain.Areas.Admin.Controllers
                 NameUser = (x.AppUser.UserName != null) ? x.AppUser.UserName : x.GuestName,
                 EmailUser = (x.AppUser.Email != null) ? x.AppUser.Email : x.GuestEmail,
                 PaymentStatus = x.PaymentStatus,
-                Status  = x.OrderStatus,
+                Status = x.OrderStatus,
                 Method = x.PaymentInfo
             });
-
             return Json(new ModalFormResult() { Code = 1, Message = "Load data", data = JsonConvert.SerializeObject(model) });
         }
 
@@ -119,7 +118,7 @@ namespace HKMain.Areas.Admin.Controllers
                         AdjustPrice = model.Price,
                         ShippingFee = model.Fee,
                         GrandTotalPrice = model.Total,
-                        PaymentInfo = model.Method,
+                        PaymentInfo = "COD",
                         PaymentStatus = model.PaymentStatus,
                         OrderStatus = model.Status,
                         CreateTime = model.Date,
@@ -136,6 +135,7 @@ namespace HKMain.Areas.Admin.Controllers
                     {
                         _dbContext.Orders.Add(newOrder);
                     }
+                    _dbContext.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -168,6 +168,9 @@ namespace HKMain.Areas.Admin.Controllers
             {
                 var model = _dbContext.Orders.Find(id);
                 _dbContext.Orders.Remove(model);
+                _dbContext.SaveChanges();
+                var modelItems = _dbContext.OrderItems.Where(x => x.OrderId == id).ToList();
+                _dbContext.OrderItems.RemoveRange(modelItems);
                 _dbContext.SaveChanges();
 
                 return Json(new ModalFormResult() { Code = 1, Message = "remove product success!", data = JsonConvert.SerializeObject(model) });

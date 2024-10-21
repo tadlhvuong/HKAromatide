@@ -47,6 +47,7 @@ function initDataTable() {
     if (getData != null) {
         initData = JSON.parse(getData.data);
     }
+    console.log(getData.data);
     dt_orders = $('#table_orders').DataTable({
         data: initData,
         rowId: "Id",
@@ -83,7 +84,9 @@ function initDataTable() {
                 targets: 2,
                 responsivePriority: 2,
                 render: function (data, type, full, meta) {
-                    return '<span class="fw-medium">' + full['Date'] + '</span>';
+                    var date = full['Date'];
+                    console.log(date);
+                    return '<span class="fw-medium">' + date + '</span>';
                 }
             },
             {

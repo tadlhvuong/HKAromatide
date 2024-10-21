@@ -49,9 +49,9 @@ namespace HKMain.Areas.Admin.Models
     public class OrderEditViewModel
     {
         public int Id { get; set; }
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
         public DateTime? Date { get; set; }
-        public string AvatarUser { get; set; }
+        public string? AvatarUser { get; set; }
         [DisplayName("Tên người mua")]
         public string NameUser { get; set; }
         [DisplayName("Email người mua")]
@@ -61,7 +61,7 @@ namespace HKMain.Areas.Admin.Models
         [DisplayName("Địa chỉ người mua")]
         public string Address { get; set; }
         [DisplayName("Ghi chú")]
-        public string Note { get; set; }
+        public string? Note { get; set; }
         [DisplayName("Đơn giá")]
         public double Price { get; set; }
         [DisplayName("Phí vận chuyển")]
@@ -73,7 +73,7 @@ namespace HKMain.Areas.Admin.Models
         [DisplayName("Trạng thái đơn hàng")]
         public OrderStatus Status { get; set; }
         [DisplayName("Hình thức đơn hàng")]
-        public string Method { get; set; }
-        public virtual ICollection<OrderItemViewModel> Items { get; set; }
+        public string? Method { get; set; }
+        public virtual ICollection<OrderItemViewModel>? Items { get; set; }
     }
 }

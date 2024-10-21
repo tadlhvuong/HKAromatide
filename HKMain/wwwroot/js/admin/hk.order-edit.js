@@ -108,21 +108,14 @@ function initDataTable() {
                 }
             },
             {
+                targets: 3,
+                render: function (data, type, full, meta) {
+                    return '<span class="fw-medium">' + full['Price'] + '</span>';
+                }
+            },
+            {
+                // User Status
                 targets: 4,
-                render: function (data, type, full, meta) {
-                    return '<span class="fw-medium">' + full['Price'] + '</span>';
-                }
-            },
-            {
-                // User Status
-                targets: 5,
-                render: function (data, type, full, meta) {
-                    return '<span class="fw-medium">' + full['Price'] + '</span>';
-                }
-            },
-            {
-                // User Status
-                targets: 6,
                 render: function (data, type, full, meta) {
                     return '<span class="fw-medium">' + full['Total'] + '</span>';
                 }
@@ -134,12 +127,13 @@ function initDataTable() {
                 orderable: false,
                 responsivePriority: 3,
                 render: function (data, type, full, meta) {
+                    return "";
                     return ('<div class="d-flex align-items-center">' +
                         '<a type="button" class="btn btn-warning btn-sm mr-2" onclick="location.href = (\'' + editAction +
                         + full["Id"] + '\'); " title="Sửa"><i class="fa fa-pencil-alt"></i></a>' +
                         '<a type="button" class="btn btn-danger btn-sm" onclick="formDelete(\'' + deleteAction +
                         + full["Id"] + '\'); " title="Xóa"><i class="fa fa-trash"></i></a>' +
-                        '</div>')
+                        '</div>');
                 }
             }
         ],
