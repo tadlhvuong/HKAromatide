@@ -61,12 +61,10 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Thông tin đơn hàng</h5>
-                                <p class="text-muted mb-0 float-right ">Thời gian đặt: @Model.Date</p>
-                               @*  <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                </div> *@
+                                @if(Model.Id != 0)
+                                {
+                                    <p class="text-muted mb-0 float-right ">Thời gian đặt: @Model.Date.ToString("dd/MM/yyyy HH:mm:ss")</p>
+                                }
                             </div>
                             <div class="card-body">
                                 <div class="row mb-3">
@@ -89,7 +87,10 @@
                                         <input asp-for="Address" type="text" class="form-control" placeholder="" aria-label="">
                                     </div>
                                 </div>
-                               
+                                <div class="form-group">
+                                    <label asp-for="Note"></label>
+                                    <textarea asp-for="Note" class="form-control" rows="4"></textarea>
+                                </div>
                                 <div class="form-group">
                                     <label asp-for="PaymentStatus"></label>
                                     <select asp-for="PaymentStatus" asp-items="@Html.GetEnumSelectList(Model.PaymentStatus.GetType())" class="form-control"></select>

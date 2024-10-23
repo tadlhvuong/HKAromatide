@@ -1,14 +1,14 @@
 ﻿@model OrderItem
 @{
     Layout = null;
-    //string formTitle = (Model.Id == 0) ? "Thêm mới" : "Chỉnh sửa";
+    string formTitle = (Model.Id == 0) ? "Thêm mới" : "Chỉnh sửa";
 }
+
 <style>
     .select2-container--open {
         z-index: 99;
     }
 </style>
-
 @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "modalForm", @autocomplete = "off" }))
 {
     <div class="modal-header">
@@ -20,8 +20,8 @@
     <div class="modal-body">
         @Html.AntiForgeryToken()
         <div asp-validation-summary="All" class="text-danger"></div>
-        @* <input asp-for="Id" type="hidden" />
-        <input asp-for="Type" type="hidden" class="form-control">
+        <input asp-for="Id" type="hidden" />
+        @* <input asp-for="Type" type="hidden" class="form-control">
         <div class="form-group row">
             @Html.LabelFor(m => m.Name, new { @class = "col-sm-3 control-label" })
             <div class="col-sm-9">
@@ -33,15 +33,15 @@
             <div class="col-sm-9">
                 <input asp-for="Type" type="text" class="form-control" disabled>
             </div>
-        </div>
+        </div> *@
         <div class="form-group row">
-            <label class="col-sm-3 control-label">ParentName</label>
+            <label class="col-sm-3 control-label">Sản phẩm</label>
             <div class="col-sm-9">
-                <select class="form-control select2" asp-for="ParentId" asp-items="@ViewBag.ListParent">
+                <select class="form-control select2" id="productselect" >
                     <option>--Selection--</option>
                 </select>
             </div>
-        </div> *@
+        </div> 
     </div>
     <div class="modal-footer justify-content-between">
         <span id="progress" class="text-center" style="display: none;"><img style="width: 15%;" src="~/images/wait.gif" alt="waiting..." />Saving...</span>
@@ -50,7 +50,9 @@
     </div>
 }
 
-<script>
+@* <script src="/plugins/select2/js/select2.min.js"></script> *@
+<script src="~/js/admin/hk.orderItem-edit.js"></script>
+@* <script>
     $('.select2').select2();
 
     //Initialize Select2 Elements
@@ -58,5 +60,4 @@
         width: '100%',
         theme: 'bootstrap4',
     });
-
-</script>        
+</script>      *@

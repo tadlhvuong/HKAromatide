@@ -246,7 +246,7 @@ function initDataTable() {
                         text: '<i class="fas fa-print">Print',
                         className: 'dropdown-item',
                         exportOptions: {
-                            columns: [1, 2, 3, 4, 5],
+                            columns: [1, 2, 3, 4, 5,6,7,8],
                             // prevent avatar to be print
                             format: {
                                 body: function (inner, coldex, rowdex) {
@@ -254,7 +254,7 @@ function initDataTable() {
                                     var el = $.parseHTML(inner);
                                     var result = '';
                                     $.each(el, function (index, item) {
-                                        if (item.classList !== undefined && item.classList.contains('user-name')) {
+                                        if (item.classList !== undefined && item.classList.contains('Name')) {
                                             result = result + item.lastChild.firstChild.textContent;
                                         } else if (item.innerText === undefined) {
                                             result = result + item.textContent;
@@ -283,7 +283,7 @@ function initDataTable() {
                         text: '<i class="fas fa-file"> Csv',
                         className: 'dropdown-item',
                         exportOptions: {
-                            columns: [1, 2, 3, 4],
+                            columns: [1, 2, 3, 4,5, 6, 7, 8],
                             // prevent avatar to be display
                             format: {
                                 body: function (inner, coldex, rowdex) {
@@ -291,7 +291,7 @@ function initDataTable() {
                                     var el = $.parseHTML(inner);
                                     var result = '';
                                     $.each(el, function (index, item) {
-                                        if (item.classList !== undefined && item.classList.contains('user-name')) {
+                                        if (item.classList !== undefined && item.classList.contains('Name')) {
                                             result = result + item.lastChild.firstChild.textContent;
                                         } else if (item.innerText === undefined) {
                                             result = result + item.textContent;
@@ -307,7 +307,7 @@ function initDataTable() {
                         text: '<i class="fas fa-file-excel"> Excel',
                         className: 'dropdown-item',
                         exportOptions: {
-                            columns: [1, 2, 3, 4, 5],
+                            columns: [1, 2, 3, 4, 5, 6, 7, 8],
                             // prevent avatar to be display
                             format: {
                                 body: function (inner, coldex, rowdex) {
@@ -315,7 +315,7 @@ function initDataTable() {
                                     var el = $.parseHTML(inner);
                                     var result = '';
                                     $.each(el, function (index, item) {
-                                        if (item.classList !== undefined && item.classList.contains('user-name')) {
+                                        if (item.classList !== undefined && item.classList.contains('Name')) {
                                             result = result + item.lastChild.firstChild.textContent;
                                         } else if (item.innerText === undefined) {
                                             result = result + item.textContent;
@@ -331,7 +331,7 @@ function initDataTable() {
                         text: '<i class="fas fa-file-pdf"> Pdf',
                         className: 'dropdown-item',
                         exportOptions: {
-                            columns: [1, 2, 3, 4],
+                            columns: [1, 2, 3, 4, 5, 6, 7, 8],
                             // prevent avatar to be display
                             format: {
                                 body: function (inner, coldex, rowdex) {
@@ -339,7 +339,7 @@ function initDataTable() {
                                     var el = $.parseHTML(inner);
                                     var result = '';
                                     $.each(el, function (index, item) {
-                                        if (item.classList !== undefined && item.classList.contains('user-name')) {
+                                        if (item.classList !== undefined && item.classList.contains('Name')) {
                                             result = result + item.lastChild.firstChild.textContent;
                                         } else if (item.innerText === undefined) {
                                             result = result + item.textContent;
@@ -355,7 +355,7 @@ function initDataTable() {
                         text: '<i class="fas fa-copy"> Copy',
                         className: 'dropdown-item',
                         exportOptions: {
-                            columns: [1, 2, 3, 4],
+                            columns: [1, 2, 3, 4, 5, 6, 7, 8],
                             // prevent avatar to be display
                             format: {
                                 body: function (inner, coldex, rowdex) {
@@ -363,7 +363,7 @@ function initDataTable() {
                                     var el = $.parseHTML(inner);
                                     var result = '';
                                     $.each(el, function (index, item) {
-                                        if (item.classList !== undefined && item.classList.contains('user-name')) {
+                                        if (item.classList !== undefined && item.classList.contains('Name')) {
                                             result = result + item.lastChild.firstChild.textContent;
                                         } else if (item.innerText === undefined) {
                                             result = result + item.textContent;
@@ -384,7 +384,7 @@ function initDataTable() {
                 display: $.fn.dataTable.Responsive.display.modal({
                     header: function (row) {
                         var data = row.data();
-                        return 'Details of ' + data['Name'];
+                        return 'Chi tiết ' + data['Name'];
                     }
                 }),
                 type: 'column',

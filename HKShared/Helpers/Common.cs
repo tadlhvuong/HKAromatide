@@ -4,6 +4,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Security.Claims;
+using Newtonsoft.Json;
 
 namespace HKShared.Helpers
 {
@@ -122,6 +123,16 @@ namespace HKShared.Helpers
         public static long GetUnixLocalTime()
         {
             return (long)((DateTime.Now - utcStart).TotalSeconds);
+        }
+
+        public static JsonSerializerSettings FormatSettingsJsonConvert()
+        {
+
+            JsonSerializerSettings formatSettings = new JsonSerializerSettings
+            {
+                DateFormatString = "dd/MM/yyyy HH:mm:ss"
+            };
+            return formatSettings;
         }
 
         public static string HashMD5(string input)

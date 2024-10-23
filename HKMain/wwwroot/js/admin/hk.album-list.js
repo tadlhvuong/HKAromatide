@@ -144,7 +144,7 @@ function initDataTable() {
                         text: '<i class="fas fa-print">Print',
                         className: 'dropdown-item',
                         exportOptions: {
-                            columns: [1, 2, 3, 4, 5],
+                            columns: [1, 2, 3, 4],
                             // prevent avatar to be print
                             format: {
                                 body: function (inner, coldex, rowdex) {
@@ -152,7 +152,8 @@ function initDataTable() {
                                     var el = $.parseHTML(inner);
                                     var result = '';
                                     $.each(el, function (index, item) {
-                                        if (item.classList !== undefined && item.classList.contains('user-name')) {
+                                        console.log(item.classList);
+                                        if (item.classList !== undefined && item.classList.contains('ShortName')) {
                                             result = result + item.lastChild.firstChild.textContent;
                                         } else if (item.innerText === undefined) {
                                             result = result + item.textContent;
@@ -189,7 +190,7 @@ function initDataTable() {
                                     var el = $.parseHTML(inner);
                                     var result = '';
                                     $.each(el, function (index, item) {
-                                        if (item.classList !== undefined && item.classList.contains('user-name')) {
+                                        if (item.classList !== undefined && item.classList.contains('ShortName')) {
                                             result = result + item.lastChild.firstChild.textContent;
                                         } else if (item.innerText === undefined) {
                                             result = result + item.textContent;
@@ -205,7 +206,7 @@ function initDataTable() {
                         text: '<i class="fas fa-file-excel"> Excel',
                         className: 'dropdown-item',
                         exportOptions: {
-                            columns: [1, 2, 3, 4, 5],
+                            columns: [1, 2, 3, 4],
                             // prevent avatar to be display
                             format: {
                                 body: function (inner, coldex, rowdex) {
@@ -213,12 +214,13 @@ function initDataTable() {
                                     var el = $.parseHTML(inner);
                                     var result = '';
                                     $.each(el, function (index, item) {
-                                        if (item.classList !== undefined && item.classList.contains('user-name')) {
+                                        if (item.classList !== undefined && item.classList.contains('ShortName')) {
                                             result = result + item.lastChild.firstChild.textContent;
                                         } else if (item.innerText === undefined) {
                                             result = result + item.textContent;
                                         } else result = result + item.innerText;
                                     });
+                                    console.log(result);
                                     return result;
                                 }
                             }
@@ -237,7 +239,7 @@ function initDataTable() {
                                     var el = $.parseHTML(inner);
                                     var result = '';
                                     $.each(el, function (index, item) {
-                                        if (item.classList !== undefined && item.classList.contains('user-name')) {
+                                        if (item.classList !== undefined && item.classList.contains('ShortName')) {
                                             result = result + item.lastChild.firstChild.textContent;
                                         } else if (item.innerText === undefined) {
                                             result = result + item.textContent;
@@ -261,7 +263,7 @@ function initDataTable() {
                                     var el = $.parseHTML(inner);
                                     var result = '';
                                     $.each(el, function (index, item) {
-                                        if (item.classList !== undefined && item.classList.contains('user-name')) {
+                                        if (item.classList !== undefined && item.classList.contains('ShortName')) {
                                             result = result + item.lastChild.firstChild.textContent;
                                         } else if (item.innerText === undefined) {
                                             result = result + item.textContent;

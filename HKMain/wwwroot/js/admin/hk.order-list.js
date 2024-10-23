@@ -23,6 +23,21 @@ var statusObj = {
     };
 
 var initData = null, getData = null;
+
+function formatDate(date) {
+    let datePart = [
+        date.getDate(),
+        date.getMonth() + 1,
+        date.getFullYear()
+    ].map((n, i) => n.toString().padStart(i === 2 ? 4 : 2, "0")).join("/");
+    let timePart = [
+        date.getHours(),
+        date.getMinutes(),
+        date.getSeconds()
+    ].map((n, i) => n.toString().padStart(2, "0")).join(":");
+    return datePart + " " + timePart;
+}
+
 function initDataTable() {
     $.ajax({
         type: "GET",
@@ -37,6 +52,7 @@ function initDataTable() {
             if (result.code == 1) {
                 if (result.message != null) {
                     getData = result;
+                    console.log(getDate);
                 }
             } else {
                 toastr.error(result.message);
@@ -47,7 +63,6 @@ function initDataTable() {
     if (getData != null) {
         initData = JSON.parse(getData.data);
     }
-    console.log(getData.data);
     dt_orders = $('#table_orders').DataTable({
         data: initData,
         rowId: "Id",
@@ -82,15 +97,24 @@ function initDataTable() {
             },
             {
                 targets: 2,
-                responsivePriority: 2,
+                responsivePriority: 4,
                 render: function (data, type, full, meta) {
                     var date = full['Date'];
-                    console.log(date);
+                    //var dateJS = new Date(Date.now()).toISOString().replace('T', ' ');
+
+
+                    let dateJS = new Date();
+                    console.log("%o => %s", dateJS, formatDate(dateJS));
+                    console.log("Date c#");
+                    console.log(date);  
+                    //console.log("Date js");
+                    //console.log(dateJS);
                     return '<span class="fw-medium">' + date + '</span>';
                 }
             },
             {
                 targets: 3,
+                responsivePriority: 2,
                 render: function (data, type, full, meta) {
                     var $name = full['NameUser'],
                         $email = full['EmailUser'],
@@ -161,7 +185,7 @@ function initDataTable() {
                 targets: -1,
                 searchable: false,
                 orderable: false,
-                responsivePriority: 3,
+                responsivePriority: 2,
                 render: function (data, type, full, meta) {
                     return ('<div class="d-flex align-items-center">' +
                         '<a type="button" class="btn btn-warning btn-sm mr-2" onclick="location.href = (\''+ editAction +
@@ -214,7 +238,7 @@ function initDataTable() {
                         text: '<i class="fas fa-print">Print',
                         className: 'dropdown-item',
                         exportOptions: {
-                            columns: [1, 2, 3, 4, 5],
+                            columns: [1, 2, 3, 4, 5,6],
                             // prevent avatar to be print
                             format: {
                                 body: function (inner, coldex, rowdex) {
@@ -222,7 +246,7 @@ function initDataTable() {
                                     var el = $.parseHTML(inner);
                                     var result = '';
                                     $.each(el, function (index, item) {
-                                        if (item.classList !== undefined && item.classList.contains('user-name')) {
+                                        if (item.classList !== undefined && item.classList.contains('NameUser')) {
                                             result = result + item.lastChild.firstChild.textContent;
                                         } else if (item.innerText === undefined) {
                                             result = result + item.textContent;
@@ -251,7 +275,7 @@ function initDataTable() {
                         text: '<i class="fas fa-file"> Csv',
                         className: 'dropdown-item',
                         exportOptions: {
-                            columns: [1, 2, 3, 4],
+                            columns: [1, 2, 3, 4,5,6],
                             // prevent avatar to be display
                             format: {
                                 body: function (inner, coldex, rowdex) {
@@ -259,7 +283,7 @@ function initDataTable() {
                                     var el = $.parseHTML(inner);
                                     var result = '';
                                     $.each(el, function (index, item) {
-                                        if (item.classList !== undefined && item.classList.contains('user-name')) {
+                                        if (item.classList !== undefined && item.classList.contains('v')) {
                                             result = result + item.lastChild.firstChild.textContent;
                                         } else if (item.innerText === undefined) {
                                             result = result + item.textContent;
@@ -275,7 +299,7 @@ function initDataTable() {
                         text: '<i class="fas fa-file-excel"> Excel',
                         className: 'dropdown-item',
                         exportOptions: {
-                            columns: [1, 2, 3, 4, 5],
+                            columns: [1, 2, 3, 4, 5,6],
                             // prevent avatar to be display
                             format: {
                                 body: function (inner, coldex, rowdex) {
@@ -283,7 +307,7 @@ function initDataTable() {
                                     var el = $.parseHTML(inner);
                                     var result = '';
                                     $.each(el, function (index, item) {
-                                        if (item.classList !== undefined && item.classList.contains('user-name')) {
+                                        if (item.classList !== undefined && item.classList.contains('NameUser')) {
                                             result = result + item.lastChild.firstChild.textContent;
                                         } else if (item.innerText === undefined) {
                                             result = result + item.textContent;
@@ -299,7 +323,7 @@ function initDataTable() {
                         text: '<i class="fas fa-file-pdf"> Pdf',
                         className: 'dropdown-item',
                         exportOptions: {
-                            columns: [1, 2, 3, 4],
+                            columns: [1, 2, 3, 4,5,6],
                             // prevent avatar to be display
                             format: {
                                 body: function (inner, coldex, rowdex) {
@@ -307,7 +331,7 @@ function initDataTable() {
                                     var el = $.parseHTML(inner);
                                     var result = '';
                                     $.each(el, function (index, item) {
-                                        if (item.classList !== undefined && item.classList.contains('user-name')) {
+                                        if (item.classList !== undefined && item.classList.contains('NameUser')) {
                                             result = result + item.lastChild.firstChild.textContent;
                                         } else if (item.innerText === undefined) {
                                             result = result + item.textContent;
@@ -323,7 +347,7 @@ function initDataTable() {
                         text: '<i class="fas fa-copy"> Copy',
                         className: 'dropdown-item',
                         exportOptions: {
-                            columns: [1, 2, 3, 4],
+                            columns: [1, 2, 3, 4,5,6],
                             // prevent avatar to be display
                             format: {
                                 body: function (inner, coldex, rowdex) {
@@ -331,7 +355,7 @@ function initDataTable() {
                                     var el = $.parseHTML(inner);
                                     var result = '';
                                     $.each(el, function (index, item) {
-                                        if (item.classList !== undefined && item.classList.contains('user-name')) {
+                                        if (item.classList !== undefined && item.classList.contains('NameUser')) {
                                             result = result + item.lastChild.firstChild.textContent;
                                         } else if (item.innerText === undefined) {
                                             result = result + item.textContent;
@@ -352,7 +376,7 @@ function initDataTable() {
                 display: $.fn.dataTable.Responsive.display.modal({
                     header: function (row) {
                         var data = row.data();
-                        return 'Details of ' + data[columnsDT[2].data];
+                        return 'Chi tiết ' + data["NameUser"];
                     }
                 }),
                 type: 'column',
@@ -375,7 +399,7 @@ function initDataTable() {
                             : '';
                     }).join('');
 
-                    return data ? $('<table class="table"/><tbody />').append(data) : false;
+                    return data ? $('<table class="table projects"/><tbody />').append(data) : false;
                 }
             },
 

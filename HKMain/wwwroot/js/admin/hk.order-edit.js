@@ -1,9 +1,9 @@
 ﻿var dt_orderItems, columnsDT, rowId, Columns_Def;
 
 var loadAction = "/Admin/Order/LoadOrderItemList/"
-createAction = "/Admin/don-hang/tao-hoa-don",
+createAction = "/Admin/Order/OrderItemEdit",
     detailsAction = "/Admin/don-hang/chi-tiet/",
-    editAction = "/Admin/don-hang/chinh-sua/",
+    editAction = "/Admin/Order/OrderItemEdit/",
     deleteAction = "/Admin/don-hang/xoa/";
 var detailsMember = "/Admin/thanh-vien/chi-tiet/";
 
@@ -166,7 +166,7 @@ function initDataTable() {
                 text: '<i class="fas fa-plus"></i> <span> Thêm mới</span>',
                 className: 'add-new btn btn-primary',
                 attr: {
-                    "onclick": "location.href = ('" + editAction + "')"
+                    "onclick": "formEdit('" + editAction + "')"
                 }
             },
             {
@@ -359,7 +359,107 @@ function initDataTable() {
     return dt_orderItems;
 };
 
-$(function () {
-    dt_orderItems = initDataTable();
+function formReset(form) {
+    $('#submitWait').hide();
+    $(form).find("button[type='submit']").show();
 
+    $('#captcha').val('');
+    $('.input-captcha').removeClass('state-success');
+    $('#captchaImg').removeAttr('src').attr('src', '/Home/Captcha');
+}
+function formEdit(href) {
+    modalContent = $('#modalContent');
+    modalContent.removeClass('bg-danger');
+
+    modalContent.load(href, function () {
+        $('#modalContainer').modal({
+            keyboard: true
+        });
+        $("form").removeData("validator");
+        $("form").removeData("unobtrusiveValidation");
+        $.validator.unobtrusive.parse("form");
+    });
+}
+function formDelete(href) {
+    modalContent = $('#modalContent');
+    modalContent.addClass('bg-danger');
+    modalContent.find('.modal-title').text('Xóa product item');
+
+    modalContent.load(href, function () {
+        $('#modalContainer').modal({
+            keyboard: true,
+        });
+        $("form").removeData("validator");
+        $("form").removeData("unobtrusiveValidation");
+        $.validator.unobtrusive.parse("form");
+    });
+}
+function initModalForms() {
+    $.ajaxSetup({ cache: false });
+    $(document).on('click', '.modal-opener', function (e) {
+        e.preventDefault();
+        formEdit(this.href);
+    });
+    $(document).on('click', '.modal-closer', function (e) {
+        e.preventDefault();
+        $('#modalContainer').modal('hide');
+    });
+    $(document).on('click', '.modal-refresh', function (e) {
+        e.preventDefault();
+        location.reload();
+    });
+    $('#modalContainer').on('hidden.bs.modal', function (e) {
+        $('#modalContent').html('');
+    })
+    $(document).on('click', '#CaptchaImg', function (e) {
+        e.preventDefault();
+        $('#CaptchaImg').removeAttr('src').attr('src', '/Home/Captcha');
+    });
+}
+function initAnimation() {
+    if (($("[data-animation-effect]").length > 0) && !Modernizr.touch) {
+        $("[data-animation-effect]").each(function () {
+            var item = $(this),
+                animationEffect = item.attr("data-animation-effect");
+
+            if (Modernizr.mq('only all and (min-width: 768px)') && Modernizr.csstransitions) {
+                item.appear(function () {
+                    setTimeout(function () {
+                        item.addClass('animated object-visible ' + animationEffect);
+                    }, item.attr("data-effect-delay"));
+                }, { accX: 0, accY: -130 });
+            } else {
+                item.addClass('object-visible');
+            }
+        });
+    };
+}
+$(function () {
+    initModalForms();
+    initAnimation();
+
+    //Scroll totop
+    //-----------------------------------------------
+    $(window).scroll(function () {
+        if ($(this).scrollTop() != 0) {
+            $(".scrollToTop").fadeIn();
+        } else {
+            $(".scrollToTop").fadeOut();
+        }
+    });
+
+    $(".scrollToTop").click(function () {
+        $("body,html").animate({ scrollTop: 0 }, 800);
+    });
+
+    //Modal
+    //-----------------------------------------------
+    if ($(".modal").length > 0) {
+        $(".modal").each(function () {
+            $(".modal").prependTo("body");
+            $(".modal").css("z-index", "1500");
+        });
+    }
+
+    dt_orderItems = initDataTable();
 });

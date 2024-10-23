@@ -65,9 +65,11 @@ namespace HKShared.Data
         public string PaymentInfo { get; set; }
 
         [Display(Name = "Ngày tạo")]
-        public DateTime? CreateTime { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}")]
+        public DateTime CreateTime { get; set; } = DateTime.Now;
 
         [Display(Name = "Ngày giao")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}")]
         public DateTime ShippingTime  { get; set; } = DateTime.Now;
 
         [StringLength(256)]

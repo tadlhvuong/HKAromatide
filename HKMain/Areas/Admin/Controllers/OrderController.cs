@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Drawing.Charts;
 using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Wordprocessing;
 using HKMain.Areas.Admin.Models;
 using HKShared.Data;
 using HKShared.Helpers;
@@ -35,14 +36,14 @@ namespace HKMain.Areas.Admin.Controllers
             {
                 Id = x.Id,
                 UserId = x.UserId,
-                Date = x.ShippingTime,
+                Date = x.CreateTime,
                 NameUser = (x.AppUser.UserName != null) ? x.AppUser.UserName : x.GuestName,
                 EmailUser = (x.AppUser.Email != null) ? x.AppUser.Email : x.GuestEmail,
                 PaymentStatus = x.PaymentStatus,
                 Status = x.OrderStatus,
                 Method = x.PaymentInfo
             });
-            return Json(new ModalFormResult() { Code = 1, Message = "Load data", data = JsonConvert.SerializeObject(model) });
+            return Json(new ModalFormResult() { Code = 1, Message = "Load data", data = JsonConvert.SerializeObject(model, Common.FormatSettingsJsonConvert()) });
         }
 
         // GET: Product
@@ -77,6 +78,7 @@ namespace HKMain.Areas.Admin.Controllers
                 try
                 {
                     var order = _dbContext.Orders.FirstOrDefault(x => x.Id == id);
+                    model.Id = id;
                     model.NameUser = order.GuestName;
                     model.EmailUser = order.GuestEmail;
                     model.PhoneUser =  order.GuestPhone;
@@ -102,11 +104,11 @@ namespace HKMain.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(OrderEditViewModel model)
         {
+            var oldOrder = _dbContext.Orders.FirstOrDefault(x => x.Id == model.Id);
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var oldOrder = _dbContext.Orders.FirstOrDefault(x => x.Id == model.Id);
                     var newOrder = new HKShared.Data.Order()
                     { 
                         Id = model.Id,
@@ -121,7 +123,7 @@ namespace HKMain.Areas.Admin.Controllers
                         PaymentInfo = "COD",
                         PaymentStatus = model.PaymentStatus,
                         OrderStatus = model.Status,
-                        CreateTime = model.Date,
+                        CreateTime = oldOrder.CreateTime
                     };
                     if(newOrder.OrderStatus >= OrderStatus.Processing)
                     {
@@ -136,15 +138,27 @@ namespace HKMain.Areas.Admin.Controllers
                         _dbContext.Orders.Add(newOrder);
                     }
                     _dbContext.SaveChanges();
+                    var newModel = new OrderEditViewModel();
+                    newModel.Id = newOrder.Id;
+                    newModel.NameUser = newOrder.GuestName;
+                    newModel.EmailUser = newOrder.GuestEmail;
+                    newModel.PhoneUser = newOrder.GuestPhone;
+                    newModel.Date = newOrder.CreateTime;
+                    newModel.Note = newOrder.Note;
+                    newModel.Price = newOrder.AdjustPrice;
+                    newModel.Fee = newOrder.ShippingFee;
+                    newModel.Address = newOrder.Address;
+                    newModel.Total = newOrder.GrandTotalPrice;
+                    newModel.PaymentStatus = newOrder.PaymentStatus;
+                    newModel.Status = newOrder.OrderStatus;
+                    return View(newModel);
                 }
                 catch (Exception ex)
                 {
-
                     throw;
                 }
             }
 
-            //model.modelResult = new ModalFormResult() { Code = 0, Message = "Cập nhật không thành công" };
             return View(model);
         }
         [Route("Admin/don-hang/xoa/{id?}")]
@@ -194,23 +208,39 @@ namespace HKMain.Areas.Admin.Controllers
                 ImageItem = x.Product.Image,
                 NameItem = x.Product.Name,
                 Material = x.ItemAttrib,
-                Price = x.Product.Price,
+                Price = x.Product.FormatedCurrentPrice,
                 Quantity = x.Quantity,
-                Total = x.Product.Price*x.Quantity,
+                Total = (x.Product.CurrentPrice * x.Quantity).ToString("#,#đ"),
             }).ToList();
 
             return Json(new ModalFormResult() { Code = 1, Message = "Load data", data = JsonConvert.SerializeObject(model) });
+        }
+        public JsonResult LoadProductSelect(int id)
+        {
+            _logger.LogInformation("Load list order item");
+            var product = _dbContext.Products.Where(x => x.Status == ProductStatus.Published).Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name, Selected = false }).ToList();
+            return Json(new ModalFormResult() { Code = 1, Message = "Load data", data = JsonConvert.SerializeObject(product) });
+        }
+        public JsonResult LoadVariantSelect(int id)
+        {
+            _logger.LogInformation("Load list order item");
+            var product = _dbContext.ProductAttribs.Where(x => x.AttrId == id);
+            return Json(new ModalFormResult() { Code = 1, Message = "Load data", data = JsonConvert.SerializeObject(product) });
         }
         [Route("Admin/Order/OrderItemEdit/{id?}")]
         public ActionResult OrderItemEdit(int id)
         {
             try
             {
-                //if (id == null || id == 0)
-                //{
-                //    ViewBag.ListUser = _dbContext.Users.Where(x => x.Status == EntityStatus.Enabled).Select(x => new SelectListItem() { Value = x.Id, Text = x.UserName, Selected = false }).ToList();
-                //    return PartialView("OrderItemEdit", new ShippingEditModel());
-                //}
+                if (id == 0)
+                {
+                    ViewBag.ListProduct = _dbContext.Products.Where(x => x.Status == ProductStatus.Published).Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name, Selected = false }).ToList();
+                    return PartialView("OrderItemEdit", new OrderItem());
+                }
+                else
+                {
+
+                }
                 //var shipping = _dbContext.Shippings.Find(id);
                 //var model = new ShippingEditModel()
                 //{

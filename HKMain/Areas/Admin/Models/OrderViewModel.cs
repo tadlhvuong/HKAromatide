@@ -42,15 +42,16 @@ namespace HKMain.Areas.Admin.Models
         public string ImageItem { get; set; }
         public string NameItem { get; set; }
         public string Material { get; set; }
-        public double Price { get; set; }
+        public string Price { get; set; }
         public int Quantity { get;set; }
-        public double Total { get; set; }
+        public string Total { get; set; }
     }
     public class OrderEditViewModel
     {
         public int Id { get; set; }
         public string? UserId { get; set; }
-        public DateTime? Date { get; set; }
+        [DisplayFormat(DataFormatString = "dd/MM/yyyy hh:mm:ss")]
+        public DateTime Date { get; set; }
         public string? AvatarUser { get; set; }
         [DisplayName("Tên người mua")]
         public string NameUser { get; set; }

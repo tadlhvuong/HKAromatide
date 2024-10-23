@@ -38,7 +38,7 @@ namespace HKShared.Data
         public virtual AppUser? AppUser { get; set; }
 
         [Display(Name = "Ngày tạo")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}")]
         public DateTime? CreateTime { get; set; }
 
         [NotMapped]

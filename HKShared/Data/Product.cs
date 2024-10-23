@@ -83,11 +83,11 @@ namespace HKShared.Data
         public ProductStatus Status { get; set; }
 
         [Display(Name = "CreateTime")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}")]
         public DateTime? CreateTime { get; set; }
 
         [Display(Name = "CreateTime")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}")]
         public DateTime? LastTime { get; set; }
 
         [Display(Name = "Phân loại")]
