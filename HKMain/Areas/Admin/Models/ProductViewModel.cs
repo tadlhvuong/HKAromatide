@@ -42,7 +42,7 @@ namespace HKMain.Areas.Admin.Models
         public int ItemVendor { get; set; }
         [DisplayName("Trạng thái")]
         public ProductStatus Status { get; set; }
-        public string Attrubutes { get; set; }
+        public string Attributes { get; set; }
     }
 
     public class ProductViewModel
@@ -64,6 +64,7 @@ namespace HKMain.Areas.Admin.Models
     {
         public int Parent { get; set; }
         public int Child { get; set; }
+        public int Price { get; set; }
     }
 
     public class CategoryViewModel

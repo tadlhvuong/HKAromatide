@@ -8,7 +8,20 @@
     })
 
     // Summernote
-    $('#summernote').summernote()
+    $('#summernote').summernote({
+        placeholder: 'Nhập nội dung cho sản phẩm',
+        height: 260
+    })
+
+    $("input[data-type='currency']").on({
+        keyup: function () {
+            $(this).val($(this).val().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, "."))
+        },
+        blur: function () {
+            $(this).val($(this).val().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, "."))
+        }
+    });
+
 
     // Basic Tags
     const tagifyBasicEl = document.querySelector('#Tags');
@@ -47,113 +60,122 @@
         $('.repeater-default').show();
         $('#variant-empty').hide();
     }
-    var repeater = $('.repeater-default').repeater({
-        initEmpty: true,
-        show: function () {
-            var formControl = $(this).find('.form-control');
-            arrVariant.forEach((element) => {
-                $(formControl[0]).append('<option value="' + element['Id'] + '">' + element['Text'] + '</option>');
-            });
-            $(formControl[0]).on('change', function (e) {
-                var idParentChange = $(formControl[0]).val();
-                var arrVariantChild = null;
-                arrVariant.forEach((element) => {
-                    if (element['Id'] == idParentChange)
-                        arrVariantChild = element['ItemsChild'];
+
+    var formRepeater = $('.form-repeater');
+    // Form Repeater
+    // ! Using jQuery each loop to add dynamic id and class for inputs. You may need to improve it based on form fields.
+    // -----------------------------------------------------------------------------------------------------------------
+
+    if (formRepeater.length) {
+        formRepeater.repeater({
+            initEmpty: true,
+            defaultValues: {
+                'Parent': '0',
+                'Child': '0',
+                'Price': '0',
+            },
+            show: function () {
+                var formControl = $(this).find('.form-control');
+                $(formControl[0]).on('change', function (e) {
+                    var idParentChange = $(formControl[0]).val()
+                    var arrVariantChild = null;
+                    arrVariant.forEach((element) => {
+                        if (element['Id'] == idParentChange)
+                            arrVariantChild = element['ItemsChild'];
+                    });
+                    var length = formControl[1].options.length;
+                    for (i = length - 1; i > 0; i--) {
+                        formControl[1].options[i] = null;
+                    }
+                    if (arrVariantChild != null) {
+                        arrVariantChild.forEach((element) => {
+                            $(formControl[1]).append('<option value="' + element['Id'] + '">' + element["Text"] + '</option>');
+                        });
+                    }
+                })
+                $(this).slideDown();
+                $(formControl).on('change', function (e) {
+                    saveFormJSON();
                 });
-                var length = formControl[1].options.length;
-                for (i = length - 1; i > 0; i--) {
-                    formControl[1].options[i] = null;
-                }
-                if (arrVariantChild != null) {
-                    arrVariantChild.forEach((element) => {
-                        $(formControl[1]).append('<option value="' + element['Id'] + '">' + element["Text"] + '</option>');
-                    });
-                }
-            })
-            $(this).slideDown();
-            $(formControl).on('change', function (e) {
-                $('#Attrubutes').val(JSON.stringify(repeater.repeaterVal().Attrubutes));
-            });
-        },
-        hide: function (deleteElement) {
-            //$(this).slideUp(deleteElement);
-            Swal.fire({
-                title: "Bạn muốn xóa biến thể này?",
-                text: "",
-                icon: "question",
-                showCancelButton: true,
-                confirmButtonText: "Đồng ý xóa",
-                cancelButtonText: "Hủy bỏ",
-                reverseButtons: true,
-            }).then(function (result) {
-                if (result.value) {
+                $(this).slideDown();
+            },
+            hide: function (deleteElement) {
+                Swal.fire({
+                    title: "Bạn muốn xóa biến thể này?",
+                    text: "",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonText: "Đồng ý xóa",
+                    cancelButtonText: "Hủy bỏ",
+                    reverseButtons: true,
+                }).then(function (result) {
+                    if (result.value) {
 
-                    $(this).slideUp(function () {
-                        deleteElement();
-                        var formControl = $(this).find('.form-control');
-                        try {
-                            $('#Attrubutes').val(JSON.stringify(repeater.repeaterVal().Attrubutes));
-                        } catch (e) {
-                            $('#Attrubutes').val("");
-                        }
-                    });
+                        $(this).slideUp(function () {
+                            deleteElement();
+                            try {
+                                saveFormJSON();
+                            } catch (e) {
+                                $('#Attributes').val("");
+                            }
+                        });
 
-                } else if (result.dismiss === "cancel") {
+                    } else if (result.dismiss === "cancel") {
 
-                }
-            });
-        },
-        ready: function (setIndexes) {
-        },
-    });
-
-    //jQuery(".drag").sortable({
-    //    axis: "y",
-    //    cursor: 'pointer',
-    //    opacity: 0.5,
-    //    placeholder: "row-dragging",
-    //    delay: 150,
-    //    update: function (event, ui) {
-    //    }
-
-    //}).disableSelection();
-
-    ////get arr variant
-    //load update function
+                    }
+                });
+            }
+        });
+    }
     if (idProduct != 0) {
-        //create select init
-        var objectAttr = {};
-        objectAttr.Attrubutes = JSON.parse(attr);
-        if (objectAttr.Attrubutes.length > 0) {
-            repeater.setList(objectAttr["Attrubutes"]);
-            var formControl = $('.repeater-default').find('.form-control');
-            var k = 0;
-            var currentVal = null;
-            for (var i = 0; i < formControl.length; i += 2) {
-                for (var j = 1; j < formControl[i].options.length; j++) {
-                    var val = formControl[i].options[j].value;
-                    if (objectAttr.Attrubutes[k]['Parent'] == val) {
-                        formControl[i].options.selectedIndex = j;
-                        currentVal = val;
+        var objectAttr = JSON.parse(attr);
+        if (objectAttr.length > 0) {
+            formRepeater.setList(objectAttr);
+            var formSelect = $(this).find('.form-select');
+            for (var i = 0; i < formSelect.length; i += 2) {
+                //get id selected
+                var selected = null;
+                for (var j = 1; j < formSelect[i].options.length; j++) {
+                    selected = formSelect[i].options[formSelect[i].selectedIndex].value;
+                    if (selected != null) break;
+                }
+                //get ids sub follow selected
+                var arrSubVariant = [];
+                arrVariant.forEach(element => {
+                    if (element.Id == selected) {
+                        element['ItemsChild'].forEach(sub => {
+                            arrSubVariant.push(sub["Id"]);
+                        })
+                    };
+                })
+                for (var m = 1; m < formSelect[i + 1].options.length; m++) {
+                    var exits = formSelect[i + 1].options[m].value;
+                    if (arrSubVariant.includes(parseInt(exits))) {
+                    } else {
+                        formSelect[i + 1].options[m].remove();
+                        m--;
                     }
                 }
-                var arrSubVariant = null;
-                arrVariant.forEach(element => {
-                    if (element.Id == currentVal)
-                        arrSubVariant = element;
-                })
-                if (arrSubVariant != undefined) {
-                    arrSubVariant.ItemsChild.forEach((ele) => {
-                        if (ele.Id == objectAttr.Attrubutes[k]['Child'])
-                            $(formControl[i + 1]).append('<option value="' + ele['Id'] + '" selected>' + ele["Text"] + '</option>');
-                        else
-                            $(formControl[i + 1]).append('<option value="' + ele['Id'] + '">' + ele["Text"] + '</option>');
-                    });
-                }
-                k++;
+
             }
-            $('#Attrubutes').val(JSON.stringify(repeater.repeaterVal().Attrubutes));
+            saveFormJSON();
         }
     }
 });
+function saveFormJSON() {
+    var objVal = $(".form-repeater").repeaterVal();
+    var jsonVal = null;
+    if (objVal != null) jsonVal = JSON.stringify(objVal["FormAttributes"])
+    $('#Attributes').val(jsonVal);
+    // you can now post/get your myFormJson to your back-end for CRUD operation
+}
+
+function setFormJSON() {
+    // you would first grab and set your myJson string from the database
+    // I've included a sample myJson string for demonstration purposes
+
+    var myJson = '{"Attributes":["Parent":"25","Child":"27", "Price":"23000"},{"Parent":"28","Child":"30", "Price":"23000"}]}';
+    // myJson = '{"Attributes":[{"Image":["src","/media/Product_October2024/zeqzkw.webp"]}]}';
+    var myObj = JSON.parse(myJson);
+    return myObj;
+}

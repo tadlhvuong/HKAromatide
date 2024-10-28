@@ -39,18 +39,36 @@
             <div class="product-single__content">
                 <div class="product-single__images">
                     <div class="product-single__thumbs product-single-thumbs">
-                        @foreach (var mf in Model.MediaFiles)
+                        @if(Model.MediaFiles != null)
+                        {
+                            foreach (var mf in Model.MediaFiles)
+                            {
+                                <div class="image">
+                                    <img src="@mf.FileLink" alt="@mf.FileName">
+                                </div>
+                            }
+                        }
+                        else
                         {
                             <div class="image">
-                                <img src="@mf.FileLink" alt="@mf.FileName">
+                                <img src="/images/logo.webp" alt="logo.webp">
                             </div>
                         }
                     </div>
                     <div class="product-single__thumbnails product-single-thumbnails">
-                        @foreach (var mf in Model.MediaFiles)
+                        @if (Model.MediaFiles != null)
+                        {
+                            foreach (var mf in Model.MediaFiles)
+                            {
+                                <div class="image">
+                                    <img src="@mf.FileLink" alt="@mf.FileName">
+                                </div>
+                            }
+                        }
+                        else
                         {
                             <div class="image">
-                                <img src="@mf.FileLink" alt="@mf.FileName">
+                                <img src="/images/logo.webp" alt="logo.webp">
                             </div>
                         }
                     </div>
@@ -101,7 +119,7 @@
                     @if (Model.NewProduct)
                     {
                         <div class="product-single__maptags">
-                            <span class="st-tag" style="background-color: #3e6807;">NEW</span>
+                            <span class="st-tag" style="background-color: #3e6807;">Mới</span>
                         </div>
                     }
 

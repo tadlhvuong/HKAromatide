@@ -50,7 +50,7 @@ namespace HKMain.Areas.Admin.Models
     {
         public int Id { get; set; }
         public string? UserId { get; set; }
-        [DisplayFormat(DataFormatString = "dd/MM/yyyy hh:mm:ss")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "dd/MM/yyyy HH:mm:ss")]
         public DateTime Date { get; set; }
         public string? AvatarUser { get; set; }
         [DisplayName("Tên người mua")]

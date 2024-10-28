@@ -111,7 +111,7 @@ namespace HKMain.Areas.Admin.Controllers
                 }
             }
 
-            var attrs = _dbContext.ProductAttribs.Where(x => x.ItemId == id).Select(x => new ProductAttrModel { Parent = x.AttrId, Child = x.AttrChildId });
+            var attrs = _dbContext.ProductAttribs.Where(x => x.ItemId == id).Select(x => new ProductAttrModel { Parent = x.AttrId, Child = x.AttrChildId, Price = int.Parse(x.Values) });
 
             foreach (var a in attrs)
             {
@@ -125,6 +125,12 @@ namespace HKMain.Areas.Admin.Controllers
                 }
             }
             return Json(new ModalFormResult() { Code = 1, Message = "Get variant success!", data = JsonConvert.SerializeObject(model), SubData = JsonConvert.SerializeObject(attrs) });
+        }
+        public JsonResult GetVariantChild(int? id)
+        {
+            var model = _dbContext.ItemVariantsChild.Where(x => x.ParentId == id).Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).ToList();
+            
+            return Json(new ModalFormResult() { Code = 1, Message = "Get variant success!", data = JsonConvert.SerializeObject(model) });
         }
 
         // GET: Product
@@ -149,7 +155,8 @@ namespace HKMain.Areas.Admin.Controllers
             var itemCategories = _dbContext.ItemCats.Select(x => new SelectItemModel() { Id = x.Id, Text = x.Name }).ToList();
             var itemVendors = _dbContext.ItemVens.Select(x => new SelectItemModel() { Id = x.Id, Text = x.Name }).ToList();
             var itemCollection = _dbContext.ItemCollecs.Select(x => new SelectItemModel() { Id = x.Id, Text = x.Name }).ToList();
-            var itemVariantsParent = _dbContext.ItemVariantsParent.Select(x => new SelectItemModel() { Id = x.Id, Text = x.Name }).ToList();
+            var itemVariantsParent = _dbContext.ItemVariantsParent.Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList();
+            var itemVariantsChild = _dbContext.ItemVariantsChild.Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList();
             if (itemVariants != null)
             {
                 foreach (var item in itemVariants)
@@ -158,6 +165,8 @@ namespace HKMain.Areas.Admin.Controllers
                     item.ItemsChild = listChild;
                 }
             }
+            ViewBag.ItemVariantsParent = itemVariantsParent;
+            ViewBag.ItemVariantsChild = itemVariantsChild;
             ViewBag.ItemVariants = itemVariants;
 
             var model = new ProductFormModel();
@@ -366,9 +375,9 @@ namespace HKMain.Areas.Admin.Controllers
                             }
                         }
                         // Attrubutes
-                        if (model.Attrubutes != null)
+                        if (model.Attributes != null)
                         {
-                            var attrs = JArray.Parse(model.Attrubutes);
+                            var attrs = JsonConvert.DeserializeObject<List<ProductAttrModel>>(model.Attributes);
 
                             foreach (var item in attrs)
                             {
@@ -377,16 +386,16 @@ namespace HKMain.Areas.Admin.Controllers
                                 {
                                     foreach (var attr in oldAttrs)
                                     {
-                                        if (attr.AttrId == item.First.Value<int>())
+                                        if (attr.AttrId == item.Parent)
                                             _dbContext.ProductAttribs.Remove(attr);
                                     }
                                 }
                                 var newAttr = new ProductAttr()
                                 {
-                                    AttrId = item.First.Value<int>(),
-                                    AttrChildId = item.Last.Value<int>(),
+                                    AttrId = item.Parent,
+                                    AttrChildId = item.Child,
                                     ItemId = newProduct.Id,
-                                    Values = ""
+                                    Values = item.Price.ToString()
                                 };
                                 _dbContext.ProductAttribs.Add(newAttr);
                             }

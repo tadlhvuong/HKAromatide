@@ -8,14 +8,14 @@ createAction = "/Admin/don-hang/tao-hoa-don",
 var detailsMember = "/Admin/thanh-vien/chi-tiet/";
 
 var statusObj = {
-    0: { title: 'Pending', class: 'bg-default' },
+    0: { title: 'Pending', class: 'bg-secondary' },
     1: { title: 'Processing', class: 'bg-warning' },
     2: { title: 'Delivering', class: 'bg-info' },
     3: { title: 'Delivered', class: 'bg-success' },
     4: { title: 'Canceled', class: 'bg-danger' }
     },
     paymentObj = {
-        0: { title: 'None', class: 'bg-default' },
+        0: { title: 'None', class: 'bg-secondary' },
         1: { title: 'Partly', class: 'bg-warning' },
         2: { title: 'Fully', class: 'bg-success' },
         3: { title: 'Failed', class: 'bg-danger' },
@@ -99,17 +99,7 @@ function initDataTable() {
                 targets: 2,
                 responsivePriority: 4,
                 render: function (data, type, full, meta) {
-                    var date = full['Date'];
-                    //var dateJS = new Date(Date.now()).toISOString().replace('T', ' ');
-
-
-                    let dateJS = new Date();
-                    console.log("%o => %s", dateJS, formatDate(dateJS));
-                    console.log("Date c#");
-                    console.log(date);  
-                    //console.log("Date js");
-                    //console.log(dateJS);
-                    return '<span class="fw-medium">' + date + '</span>';
+                    return '<span class="fw-medium">' + full['Date'] + '</span>';
                 }
             },
             {

@@ -6,7 +6,7 @@
     var catList = (List<SelectItemModel>)ViewBag.ItemCats;
     var collecList = (List<SelectItemModel>)ViewBag.ItemCollecs;
     var venList = (List<SelectItemModel>)ViewBag.ItemVens;
-    var variantList = (List<SelectItemModel>)ViewBag.ItemVariants;
+    // var variantList = (List<SelectItemModel>)ViewBag.ItemVariants;
     var formTitle = (Model.Id == 0) ? "Thêm mới" : "Chỉnh sửa";
     var formDes = (Model.Id == 0) ? "Thêm mới sản phẩm" : "Chỉnh sửa sản phẩm";
     ViewData["Title"] = formTitle;
@@ -15,6 +15,8 @@
     object[] previewConfig = Model.MediaFile.Select(x => new { key = x.Id, caption = x.FileName, size = x.FileSize, showDrag = false, width = "120px" }).ToArray();
     var x1 = new HtmlString(JsonConvert.SerializeObject(previewData));
     var x2 = new HtmlString(JsonConvert.SerializeObject(previewConfig));
+
+
 }
 @section Styles {
     <link rel="stylesheet" href="~/plugins/summernote/summernote-bs4.min.css">
@@ -53,7 +55,7 @@
                 <input asp-for="Id" type="hidden" />
                 <input asp-for="IdAlbum" type="hidden" />
                 <input asp-for="IdFiles" type="hidden" />
-                <input asp-for="Attrubutes" type="hidden" />
+                <input asp-for="Attributes" type="hidden" />
                 
                 <div class="row">
                     <!-- First column-->
@@ -90,60 +92,12 @@
                                 <div>
                                     <label asp-for="Content" class="form-label"></label>
                                     <textarea id="summernote" for="Content">
-                                        Place <em>some</em> <u>text</u> <strong>here</strong>
+                                       @*  Place <em>some</em> <u>text</u> <strong>here</strong> *@
                                     </textarea>
                                 </div>
                             </div>
                         </div>
                         <!-- /Product Information -->
-                        <!-- Variants -->
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Biến thể </h5>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="repeater-default" style="display: block;">
-                                    <div data-repeater-list="Attrubutes" class="drag">
-                                        <div data-repeater-item="">
-                                            <div class="form-group d-flex justify-content-between align-content-center">
-                                                <div class="col-sm-4">
-                                                    <select name="Attrubutes[0][0]" class="form-control">
-                                                        <option value="">-- Lựa chọn --</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <select name="Attrubutes[0][1]" class="form-control ">
-                                                        <option value="">-- Lựa chọn --</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <span data-repeater-delete="" class="btn btn-danger btn-sm">
-                                                        <span class="fas fa-remove"></span> Xóa
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-1 col-sm-11">
-                                            <span data-repeater-create="" class="btn btn-info btn-md">
-                                                <span class="fas fa-plus"></span> Thêm
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="variant-empty" style="display: none;">
-                                    <a asp-controller="Product" asp-action="Category">Khởi tạo biến thể</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /Variants -->
                         
                     </div>
                     <!-- /Second column -->
@@ -164,7 +118,7 @@
                                 <div class="col mb-2">
                                     <label asp-for="Price" class="form-label"></label>
                                     <div class="input-group">
-                                        <input asp-for="Price" type="number" min="0" class="form-control">
+                                        <input asp-for="Price" type="text" min="0" class="form-control" data-type='currency'>
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i>đ</i></span>
                                         </div>
@@ -174,7 +128,7 @@
                                 <div class="col mb-2">
                                     <label asp-for="SalePrice" class="form-label"></label>
                                     <div class="input-group">
-                                        <input asp-for="SalePrice" type="number" min="0" class="form-control">
+                                        <input asp-for="SalePrice" type="text" min="0" class="form-control" data-type='currency'>
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i>đ</i></span>
                                         </div>
@@ -291,6 +245,73 @@
                         <!-- /Organize Card -->
                     </div>
                     <!-- /Second column -->
+                    <!-- Variants -->
+                    <div class="card col-12">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Biến thể </h5>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4 mb-1">
+                                    <label class="form-label mb-1">Hình thức</label>
+                                </div>
+                                <div class="col-4 mb-1">
+                                    <label class="form-label mb-1">Số lượng</label>
+                                </div>
+                                <div class="col-3 mb-1">
+                                    <label class="form-label mb-1">Giá</label>
+                                </div>
+                                <div class="col-1 mb-1">
+                                    <label class="form-label mb-1">Tác vụ</label>
+                                </div>
+                            </div>
+                            <hr class="mt-2" />
+                            <div class="repeater-default mb-2" style="display: block;">
+                                <div class="form-repeater">
+                                    <div data-repeater-list="FormAttributes">
+                                        <div data-repeater-item>
+                                            <div class="row">
+                                                 <div class="col-4 mb-0">
+                                                    <select name="Parent" class="form-control form-select" asp-items="@ViewBag.ItemVariantsParent">
+                                                        <option value="0">-- Lựa chọn --</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-4  mb-0">
+                                                    <select name="Child" class="form-control form-select" asp-items="@ViewBag.ItemVariantsChild">
+                                                        <option value="0">-- Lựa chọn --</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-3 mb-0">
+                                                    <input name="Price" type="text" class="form-control form-input" value="0" placeholder="giá" data-type='currency' />
+                                                </div>
+                                                <div class="col-1 d-flex align-items-center mb-0">
+                                                    <span data-repeater-delete="" class="btn btn-danger btn-sm">
+                                                        <i class="fa fa-trash"></i> <span class="d-none d-md-inline"> Xóa</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="mt-2" />
+                                    <div class="mb-0">
+                                        <div class="btn btn-primary" data-repeater-create>
+                                            <i class="ti ti-plus ti-xs me-2"></i>
+                                            <span class="align-middle">Add</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="variant-empty" style="display: none;">
+                                <a asp-controller="Product" asp-action="Category">Khởi tạo biến thể</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Variants -->
                     <!-- Media -->
                     <div class="card col-12">
                         <div class="card-header">
